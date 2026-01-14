@@ -42,9 +42,12 @@ input {
   color: var(--slate-2);
 }
 
-form {
+.form {
   --row-padding: 20px;
+  row-gap: var(--row-padding);
   padding: var(--row-padding);
+  display: grid;
+  width: 100%;
 }
 
 .page-wrapper {
@@ -60,10 +63,4 @@ form {
 
 .page-content > * {
   background-color: var(--white-1);
-}
-
-.personal-details-form {
-  display: grid;
-  row-gap: var(--row-padding);
-  width: 100%;
 }

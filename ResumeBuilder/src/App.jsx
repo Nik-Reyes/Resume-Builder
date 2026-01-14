@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="page-wrapper">
       <div className="page-content">
-        <Form>
+        <Form formTitle={"Personal Details"}>
           {forms[formNumber].map((inputMetadata) => (
             <InputField
               key={inputMetadata.title}

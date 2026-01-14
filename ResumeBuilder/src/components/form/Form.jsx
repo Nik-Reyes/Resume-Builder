@@ -1,11 +1,11 @@
-function Form({ children }) {
+function Form({ formTitle, children }) {
   return (
-    <form className="personal-details-form">
+    <div className="form">
       <div className="form-title">
-        <h1>Personal Details</h1>
+        <h1>{formTitle}</h1>
       </div>
       {children}
-    </form>
+    </div>
   );
 }
 
