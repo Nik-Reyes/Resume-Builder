@@ -44,10 +44,24 @@ input {
 
 .form {
   --row-padding: 20px;
+  grid-template-columns: 1fr 1fr;
   row-gap: var(--row-padding);
+  column-gap: calc(var(--row-padding) / 2);
   padding: var(--row-padding);
   display: grid;
   width: 100%;
+}
+
+.form > div {
+  grid-column: 1/-1;
+}
+
+.form > div.start-date {
+  grid-column: 1/2;
+}
+
+.form > div.start-date + div {
+  grid-column: 2/3;
 }
 
 .page-wrapper {
