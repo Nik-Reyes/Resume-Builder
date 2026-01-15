@@ -8,4 +8,11 @@ export const forms = {
     { title: "GitHub URL", type: "url" },
     { title: "City, State", type: "text" },
   ],
+  1: [
+    { title: "Job Title", type: "text" },
+    { title: "Employer", type: "text" },
+    { title: "Start Date", type: "date" },
+    { title: "End Date", type: "date" },
+    { title: "City, State", type: "text" },
+  ],
 };

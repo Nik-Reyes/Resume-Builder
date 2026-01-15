@@ -14,6 +14,10 @@
   --slate-3: #4275ab;
 }
 
+body {
+  background-color: #eef0f5;
+}
+
 label span {
   color: var(--slate-2);
   font-size: 0.875rem;
@@ -49,7 +53,6 @@ input {
   column-gap: calc(var(--row-padding) / 2);
   padding: var(--row-padding);
   display: grid;
-  width: 100%;
 }
 
 .form > div {
@@ -64,17 +67,38 @@ input {
   grid-column: 2/3;
 }
 
+.form-title {
+  font-weight: 600;
+}
+
 .page-wrapper {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  background-color: var(--slate-1);
+  height: 100vh;
 }
 
 .page-content {
-  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  row-gap: 10px;
+  height: 100%;
+  position: relative;
 }
 
 .page-content > * {
   background-color: var(--white-1);
+}
+
+.progress-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.progress-buttons-wrapper {
+  display: flex;
+  column-gap: 10px;
 }
