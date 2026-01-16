@@ -1,10 +1,15 @@
-function Form({ formTitle, children }) {
+function Form({ title, replicable, children }) {
   return (
     <div className="form">
       <div className="form-title-wrapper">
-        <span className="form-title">{formTitle}</span>
+        <span className="form-title">{title}</span>
       </div>
-      {children}
+      <div
+        className={`form-section ${replicable ? "replicable" : "irreplicable"}`}
+      >
+        {children}
+      </div>
+      {replicable && <button>{`+ add ${title.toLowerCase()}`}</button>}
     </div>
   );
 }

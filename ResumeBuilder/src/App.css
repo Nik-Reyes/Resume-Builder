@@ -8,14 +8,14 @@
 
 :root {
   --white-1: #fefefe;
-  --slate-1: #eef0f5;
+  --slate-1: hsl(223, 26%, 91%);
   --slate-1-unfocus: hsla(223, 26%, 95%, 0.6);
   --slate-2: #36404a;
   --slate-3: #4275ab;
 }
 
 body {
-  background-color: #eef0f5;
+  background-color: var(--slate-1);
 }
 
 label span {
@@ -46,46 +46,50 @@ input {
   color: var(--slate-2);
 }
 
-.form {
-  --row-padding: 20px;
-  grid-template-columns: 1fr 1fr;
-  row-gap: var(--row-padding);
-  column-gap: calc(var(--row-padding) / 2);
-  padding: var(--row-padding);
-  display: grid;
-}
-
-.form > div {
-  grid-column: 1/-1;
-}
-
-.form > div.start-date {
-  grid-column: 1/2;
-}
-
-.form > div.start-date + div {
-  grid-column: 2/3;
-}
-
-.form-title {
-  font-weight: 600;
-}
-
 .page-wrapper {
   min-height: 100vh;
-  height: 100vh;
+  padding: 10px;
 }
 
 .page-content {
+  min-height: inherit;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: min-content auto min-content;
   row-gap: 10px;
-  height: 100%;
   position: relative;
 }
 
 .page-content > * {
   background-color: var(--white-1);
+  border-radius: 10px;
+}
+
+.form {
+  padding: 20px;
+}
+
+.form-section {
+  --row-padding: 20px;
+  grid-template-columns: 1fr 1fr;
+  row-gap: var(--row-padding);
+  column-gap: calc(var(--row-padding) / 2);
+  display: grid;
+}
+
+.form-section > div {
+  grid-column: 1/-1;
+}
+
+.form-section .start-date {
+  grid-column: 1/2;
+}
+
+.form-section .start-date + div {
+  grid-column: 2/3;
+}
+
+.form-title {
+  font-weight: 600;
 }
 
 .progress-footer {
@@ -95,6 +99,16 @@ input {
   position: sticky;
   left: 0;
   bottom: 0;
+  width: 100%;
+}
+
+.progress-footer::before {
+  position: absolute;
+  content: "";
+  top: -10px;
+  left: 0;
+  height: 10px;
+  background-color: var(--slate-1);
   width: 100%;
 }
 
