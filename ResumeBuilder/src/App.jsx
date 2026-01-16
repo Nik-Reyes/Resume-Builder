@@ -7,6 +7,7 @@ import { useState } from "react";
 
 function App() {
   const [formNumber, setFormNumber] = useState(0);
+  const currentForm = forms[formNumber];
 
   function incrementFormNumber() {
     if (formNumber >= Object.entries(forms).length - 1) return;
@@ -18,20 +19,27 @@ function App() {
     setFormNumber(formNumber - 1);
   }
 
-  function getForm(formNumber) {
-    return forms[formNumber].map((inputMetadata) => (
-      <InputField
-        key={inputMetadata.title}
-        title={inputMetadata.title}
-        inputType={inputMetadata.type}
-      />
-    ));
+  function getFormInputs() {
+    const inputs = currentForm.inputFields;
+
+    return inputs.map((input) => {
+      return (
+        <InputField
+          key={input.title}
+          title={input.title}
+          inputType={input.type}
+        />
+      );
+    });
   }
 
   return (
     <div className="page-wrapper">
       <div className="page-content">
-        <Form formTitle={"Personal Details"}>{getForm(formNumber)}</Form>
+        <ProgressFooter />
+        <Form title={currentForm.section} replicable={currentForm.replicable}>
+          {getFormInputs()}
+        </Form>
         <ProgressFooter
           progress={formNumber}
           advanceProgress={incrementFormNumber}
