@@ -1,4 +1,4 @@
-function InputField({ title, inputType }) {
+function InputField({ title, inputType, inputValue, updateFunction }) {
   function getInputClass(title) {
     switch (title) {
       case "Start Date":
@@ -13,7 +13,13 @@ function InputField({ title, inputType }) {
     <div className={getInputClass(title)}>
       <label htmlFor="form-input">
         <span className="form-input-title">{title}</span>{" "}
-        <input id="form-input" type={inputType} placeholder="" />
+        <input
+          id="form-input"
+          type={inputType}
+          placeholder=""
+          value={inputValue}
+          onChange={updateFunction}
+        />
       </label>
     </div>
   );
