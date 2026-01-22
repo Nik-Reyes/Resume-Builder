@@ -1,25 +1,25 @@
 import InputField from "../../input/Input";
 
-function FormSection({
+function InputGroup({
+  groupStateObj,
+  inputConfig,
   replicable,
-  groupedDataIdx,
-  inputGroup,
-  inputFields,
   handleInputChange,
 }) {
+  console.log(groupStateObj);
   return (
     <div
       className={`form-section ${replicable ? "replicable" : "irreplicable"}`}
     >
-      {inputFields.map((input) => {
+      {inputConfig.map((input) => {
         return (
           <InputField
             key={input.name}
             title={input.title}
             inputType={input.type}
-            inputValue={inputGroup[input.name]}
+            inputValue={groupStateObj[input.name]}
             updateFunction={(e) =>
-              handleInputChange(e, groupedDataIdx, input.name)
+              handleInputChange(e.target.value, groupStateObj.id, input.name)
             }
           />
         );
@@ -28,4 +28,4 @@ function FormSection({
   );
 }
 
-export default FormSection;
+export default InputGroup;
