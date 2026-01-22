@@ -1,15 +1,13 @@
-function Form({ title, replicable, children }) {
+function Form({ title, replicable, addSubSection, children }) {
   return (
     <div className="form">
       <div className="form-title-wrapper">
         <span className="form-title">{title}</span>
       </div>
-      <div
-        className={`form-section ${replicable ? "replicable" : "irreplicable"}`}
-      >
-        {children}
-      </div>
-      {replicable && <button>{`+ add ${title.toLowerCase()}`}</button>}
+      {children}
+      {replicable && (
+        <button onClick={addSubSection}>+ add {title.toLowerCase()}</button>
+      )}
     </div>
   );
 }

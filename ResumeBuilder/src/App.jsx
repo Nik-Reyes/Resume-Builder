@@ -1,10 +1,9 @@
 import "./App.css";
 import Form from "./components/form/Form.jsx";
-import InputField from "./components/input/Input.jsx";
+import FormSection from "./components/form/section/FormSection.jsx";
 import ProgressFooter from "./components/progress-footer/ProgressFooter.jsx";
 import { forms } from "./components/form/form-types.js";
 import { useState } from "react";
-import { Fragment } from "react";
 
 function App() {
   const [formNumber, setFormNumber] = useState(0);
@@ -43,6 +42,9 @@ function App() {
     ],
   });
   const currentForm = forms[formNumber];
+  const inputFields = currentForm.inputFields;
+  // currentFormData is the array of object(s), where the objects contain the values of the inputs
+  const currentFormData = formData[currentForm.section];
 
   function incrementFormNumber() {
     if (formNumber >= Object.entries(forms).length - 1) return;
@@ -54,38 +56,23 @@ function App() {
     setFormNumber(formNumber - 1);
   }
 
-  function handleInputChange(e, groupedDataIdx, input) {
-    // copy and update the data, then call the setter function with updated data
-    const formDataSection = [...formData[currentForm.section]];
-    formDataSection[groupedDataIdx][input.name] = e.target.value;
+  function addFormSubsection() {
+    if (!currentForm.replicable) return;
+    //loop over the current subsection, copy over the string value of the props to new obj
+    const newSection = {};
+    currentForm.inputFields.forEach((inputObj) => {
+      newSection[inputObj.name] = "";
+    });
+
+    const formDataSection = [...formData[currentForm.section], newSection];
     setFormData({ ...formData, [currentForm.section]: formDataSection });
   }
 
-  function getFormInputs() {
-    const inputFields = currentForm.inputFields;
-    // currentFormData is the array of object(s), where the objects contain the values of the inputs
-    const currentFormData = formData[currentForm.section];
-
-    // for each input group data, render the proper input group components
-    return currentFormData.map((inputGroup, groupedDataIdx) => {
-      return (
-        <Fragment key={groupedDataIdx}>
-          {inputFields.map((input) => {
-            return (
-              <InputField
-                key={input.name}
-                title={input.title}
-                inputType={input.type}
-                inputValue={inputGroup[input.name]}
-                updateFunction={(e) =>
-                  handleInputChange(e, groupedDataIdx, input)
-                }
-              />
-            );
-          })}
-        </Fragment>
-      );
-    });
+  function handleInputChange(e, groupedDataIdx, inputName) {
+    // copy and update the data, then call the setter function with updated data
+    const formDataSection = [...formData[currentForm.section]];
+    formDataSection[groupedDataIdx][inputName] = e.target.value;
+    setFormData({ ...formData, [currentForm.section]: formDataSection });
   }
 
   return (
@@ -95,8 +82,23 @@ function App() {
         <Form
           title={currentForm.displayTitle}
           replicable={currentForm.replicable}
+          addSubSection={addFormSubsection}
         >
-          {getFormInputs()}
+          {
+            // for each input group data, render the proper input group components
+            currentFormData.map((inputGroup, groupedDataIdx) => {
+              return (
+                <FormSection
+                  replicable={currentForm.replicable}
+                  groupedDataIdx={groupedDataIdx}
+                  inputGroup={inputGroup}
+                  inputFields={inputFields}
+                  handleInputChange={handleInputChange}
+                  key={groupedDataIdx}
+                />
+              );
+            })
+          }
         </Form>
         <ProgressFooter
           progress={formNumber}
