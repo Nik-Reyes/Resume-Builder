@@ -5,8 +5,8 @@ function InputGroup({
   inputConfig,
   replicable,
   handleInputChange,
+  handleDeleteGroup,
 }) {
-  console.log(groupStateObj);
   return (
     <div
       className={`form-section ${replicable ? "replicable" : "irreplicable"}`}
@@ -20,13 +20,23 @@ function InputGroup({
               inputType={input.type}
               inputValue={groupStateObj[input.name]}
               updateFunction={(e) =>
-                handleInputChange(e.target.value, groupStateObj.id, input.name)
+                handleInputChange({
+                  ...groupStateObj,
+                  [input.name]: e.target.value,
+                })
               }
             />
           );
         })}
       </>
-      {replicable && <button data-button-type="delete-group">Delete</button>}
+      {replicable && (
+        <button
+          onClick={() => handleDeleteGroup(groupStateObj.id)}
+          data-button-type="delete-group"
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
 }

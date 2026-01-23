@@ -80,11 +80,22 @@ function App() {
     setFormData({ ...formData, [currentForm.section]: formDataSection });
   }
 
-  function handleInputChange(newtInput, id, inputName) {
+  function deleteInputGroup(id) {
+    if (!currentForm.replicable) return;
+    //filter out the input group using the id
+    const filteredGroups = currentFormData.filter(
+      (inputGroup) => inputGroup.id !== id
+    );
+    setFormData({ ...formData, [currentForm.section]: filteredGroups });
+  }
+
+  function handleInputChange(updatedGroup) {
     // copy and update the data, then call the setter function with updated data
-    const formDataSection = [...formData[currentForm.section]];
-    formDataSection[id][inputName] = newtInput;
-    setFormData({ ...formData, [currentForm.section]: formDataSection });
+    const updatedFormData = [...formData[currentForm.section]].map((group) => {
+      return group.id === updatedGroup.id ? updatedGroup : group;
+    });
+
+    setFormData({ ...formData, [currentForm.section]: updatedFormData });
   }
 
   return (
@@ -98,13 +109,14 @@ function App() {
         >
           {
             // To each n input groups belongs n inputs
-            currentFormData.map((inputGroup) => {
+            currentFormData.map((inputGroup, i) => {
               return (
                 <InputGroup
                   groupStateObj={inputGroup}
                   inputConfig={inputConfig}
                   replicable={currentForm.replicable}
                   handleInputChange={handleInputChange}
+                  handleDeleteGroup={deleteInputGroup}
                   key={inputGroup.id}
                 />
               );
