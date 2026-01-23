@@ -46,6 +46,10 @@ input {
   color: var(--slate-2);
 }
 
+input:focus {
+  outline: 1px solid var(--slate-3);
+}
+
 button {
   border-radius: 10px;
   border: none;
@@ -71,13 +75,17 @@ button {
 }
 
 .form {
-  padding: 20px;
+  position: relative;
 }
 
 .form:has(.replicable) {
   display: grid;
   grid-template-rows: min-content min-content 1fr;
   row-gap: 40px;
+}
+
+.input-groups {
+  padding: 20px;
 }
 
 .form:has(.replicable) .input-groups {
@@ -87,6 +95,8 @@ button {
 
 button[data-button-type="add-inputGroup"] {
   align-self: self-end;
+  background-color: var(--slate-3);
+  color: var(--white-1);
 }
 
 button[data-button-type="delete-group"] {
@@ -125,6 +135,27 @@ button[data-button-type="delete-group"] {
 
 .form-title {
   font-weight: 600;
+}
+
+.form-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: var(--white-1);
+  padding: 1rem 0rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 20px;
+  /*
+Source - https://stackoverflow.com/a
+Posted by Steve B, modified by community. See post 'Timeline' for change history
+Retrieved 2026-01-22, License - CC BY-SA 4.0
+*/
+
+  box-shadow: 0 4px 2px -2px var(--slate-1);
 }
 
 .progress-footer {
