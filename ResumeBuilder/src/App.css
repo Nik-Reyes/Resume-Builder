@@ -46,6 +46,12 @@ input {
   color: var(--slate-2);
 }
 
+button {
+  border-radius: 10px;
+  border: none;
+  padding: 0.5em 2em;
+}
+
 .page-wrapper {
   min-height: 100vh;
   padding: 10px;
@@ -68,12 +74,41 @@ input {
   padding: 20px;
 }
 
+.form:has(.replicable) {
+  display: grid;
+  grid-template-rows: min-content min-content 1fr;
+  row-gap: 40px;
+}
+
+.form:has(.replicable) .input-groups {
+  display: grid;
+  row-gap: 30px;
+}
+
+button[data-button-type="add-inputGroup"] {
+  align-self: self-end;
+}
+
+button[data-button-type="delete-group"] {
+  grid-column: 2/3;
+  width: min-content;
+  margin-left: auto;
+}
+
 .form-section {
   --row-padding: 20px;
   grid-template-columns: 1fr 1fr;
   row-gap: var(--row-padding);
   column-gap: calc(var(--row-padding) / 2);
   display: grid;
+  box-shadow: 0 0 5px 2px var(--slate-1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.sub-section {
+  box-shadow: 0px 0px 10px 2px #dbdcdc;
+  border-radius: 10px;
 }
 
 .form-section > div {

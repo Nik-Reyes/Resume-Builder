@@ -67,7 +67,7 @@ function App() {
     setFormNumber(formNumber - 1);
   }
 
-  function addFormSubsection() {
+  function addInputGroup() {
     if (!currentForm.replicable) return;
     //loop over the current subsection, copy over the string value of the props to new obj
     const nextId = nextInputIds[currentForm.section]++;
@@ -94,7 +94,7 @@ function App() {
         <Form
           title={currentForm.displayTitle}
           replicable={currentForm.replicable}
-          addSubSection={addFormSubsection}
+          addInputGroup={addInputGroup}
         >
           {
             // To each n input groups belongs n inputs
