@@ -7,8 +7,9 @@
 }
 
 :root {
-  --white-1: #fefefe;
-  --slate-1: hsl(223, 26%, 91%);
+  --white-1: #ffffff;
+  --slate-1: hsl(223, 26%, 94%);
+  --slate-1-half: hsl(223, 26%, 88%);
   --slate-1-unfocus: hsla(223, 26%, 95%, 0.6);
   --slate-2: #36404a;
   --slate-3: #4275ab;
@@ -54,6 +55,9 @@ button {
   border-radius: 10px;
   border: none;
   padding: 0.5em 2em;
+  cursor: pointer;
+  padding: 0.75em 1em;
+  border-radius: 25px;
 }
 
 .page-wrapper {
@@ -72,6 +76,7 @@ button {
 .page-content > * {
   background-color: var(--white-1);
   border-radius: 10px;
+  box-shadow: 0 0 5px 2px var(--slate-1-half);
 }
 
 .form {
@@ -81,11 +86,20 @@ button {
 .form:has(.replicable) {
   display: grid;
   grid-template-rows: min-content min-content 1fr;
-  row-gap: 40px;
 }
 
 .input-groups {
   padding: 20px;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button[data-button-type="edit-group"] {
+  background: none;
 }
 
 .form:has(.replicable) .input-groups {
@@ -100,9 +114,45 @@ button[data-button-type="add-inputGroup"] {
 }
 
 button[data-button-type="delete-group"] {
-  grid-column: 2/3;
-  width: min-content;
-  margin-left: auto;
+  opacity: 0;
+}
+
+button[data-button-type="delete-group"].closed {
+  position: relative;
+  pointer-events: none;
+  z-index: 0;
+  animation: slide-right 300ms ease-in-out forwards;
+}
+
+button[data-button-type="edit-group"] {
+  position: relative;
+  z-index: 1;
+}
+
+[data-button-type="delete-group"].open {
+  animation: slide-left 300ms ease-in-out forwards;
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(50%);
+    opacity: 0;
+  }
 }
 
 .form-section {
@@ -111,16 +161,15 @@ button[data-button-type="delete-group"] {
   row-gap: var(--row-padding);
   column-gap: calc(var(--row-padding) / 2);
   display: grid;
-  box-shadow: 0 0 5px 2px var(--slate-1);
+  box-shadow: 0 0 1px 1px var(--slate-1-half);
   border-radius: 10px;
   padding: 20px;
 }
 
-.sub-section {
-  box-shadow: 0px 0px 10px 2px #dbdcdc;
-  border-radius: 10px;
+#form-input {
+  margin-top: 5px;
 }
-
+/* 130, 139, 162 */
 .form-section > div {
   grid-column: 1/-1;
 }
@@ -135,6 +184,11 @@ button[data-button-type="delete-group"] {
 
 .form-title {
   font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.form-input-title {
+  color: var(--slate-half);
 }
 
 .form-title-wrapper {
@@ -154,8 +208,7 @@ Source - https://stackoverflow.com/a
 Posted by Steve B, modified by community. See post 'Timeline' for change history
 Retrieved 2026-01-22, License - CC BY-SA 4.0
 */
-
-  box-shadow: 0 4px 2px -2px var(--slate-1);
+  box-shadow: 0 4px 1px -3px var(--slate-1-half);
 }
 
 .progress-footer {
