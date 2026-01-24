@@ -1,4 +1,6 @@
+import { useState } from "react";
 import InputField from "../../input/Input";
+import GroupHeading from "./GroupHeading";
 
 function InputGroup({
   groupStateObj,
@@ -11,6 +13,7 @@ function InputGroup({
     <div
       className={`form-section ${replicable ? "replicable" : "irreplicable"}`}
     >
+      {replicable && <GroupHeading deleteGroup={handleDeleteGroup} />}
       <>
         {inputConfig.map((input) => {
           return (
@@ -29,14 +32,6 @@ function InputGroup({
           );
         })}
       </>
-      {replicable && (
-        <button
-          onClick={() => handleDeleteGroup(groupStateObj.id)}
-          data-button-type="delete-group"
-        >
-          Delete
-        </button>
-      )}
     </div>
   );
 }
