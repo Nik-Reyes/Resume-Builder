@@ -49,13 +49,15 @@ function App() {
         startDate: "",
         endDate: "",
         location: "",
+        description: "",
       },
     ],
   });
-  const currentForm = forms[formNumber];
-  const inputConfig = currentForm.inputFields;
   // currentFormData is the array of object(s), where the objects contain the values of the inputs
-  const currentFormData = formData[currentForm.section];
+  const currentFormConfig = forms[formNumber];
+  const currentFormInputGroup = currentFormConfig.inputFields;
+  const currentFormSection = currentFormConfig.section;
+  const currentFormData = formData[currentFormConfig.section];
 
   function incrementFormNumber() {
     if (formNumber >= Object.entries(forms).length - 1) return;
@@ -68,34 +70,39 @@ function App() {
   }
 
   function addInputGroup() {
-    if (!currentForm.replicable) return;
+    if (!currentFormConfig.replicable) return;
     //loop over the current subsection, copy over the string value of the props to new obj
-    const nextId = nextInputIds[currentForm.section]++;
+    const nextId = nextInputIds[currentFormConfig.section]++;
     const newSection = { id: nextId };
-    currentForm.inputFields.forEach((inputObj) => {
+    currentFormConfig.inputFields.forEach((inputObj) => {
       newSection[inputObj.name] = "";
     });
 
-    const formDataSection = [...formData[currentForm.section], newSection];
-    setFormData({ ...formData, [currentForm.section]: formDataSection });
+    const formDataSection = [
+      ...formData[currentFormConfig.section],
+      newSection,
+    ];
+    setFormData({ ...formData, [currentFormConfig.section]: formDataSection });
   }
 
   const deleteInputGroup = (id) => () => {
-    if (!currentForm.replicable) return;
+    if (!currentFormConfig.replicable) return;
     //filter out the input group using the id
     const filteredGroups = currentFormData.filter(
       (inputGroup) => inputGroup.id !== id
     );
-    setFormData({ ...formData, [currentForm.section]: filteredGroups });
+    setFormData({ ...formData, [currentFormConfig.section]: filteredGroups });
   };
 
   function handleInputChange(updatedGroup) {
     // copy and update the data, then call the setter function with updated data
-    const updatedFormData = [...formData[currentForm.section]].map((group) => {
-      return group.id === updatedGroup.id ? updatedGroup : group;
-    });
+    const updatedFormData = [...formData[currentFormConfig.section]].map(
+      (group) => {
+        return group.id === updatedGroup.id ? updatedGroup : group;
+      }
+    );
 
-    setFormData({ ...formData, [currentForm.section]: updatedFormData });
+    setFormData({ ...formData, [currentFormConfig.section]: updatedFormData });
   }
 
   return (
@@ -103,8 +110,8 @@ function App() {
       <div className="page-content">
         <ProgressFooter />
         <Form
-          title={currentForm.displayTitle}
-          replicable={currentForm.replicable}
+          title={currentFormConfig.displayTitle}
+          replicable={currentFormConfig.replicable}
           addInputGroup={addInputGroup}
         >
           {
@@ -113,11 +120,12 @@ function App() {
               return (
                 <InputGroup
                   groupStateObj={inputGroup}
-                  inputConfig={inputConfig}
-                  replicable={currentForm.replicable}
+                  currentFormInputGroup={currentFormInputGroup}
+                  replicable={currentFormConfig.replicable}
                   handleInputChange={handleInputChange}
                   handleDeleteGroup={deleteInputGroup(inputGroup.id)}
-                  key={inputGroup.id}
+                  formSection={currentFormSection}
+                  key={"input-group-" + inputGroup.id}
                 />
               );
             })

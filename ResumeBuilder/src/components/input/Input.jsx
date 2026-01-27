@@ -9,17 +9,27 @@ function InputField({ title, inputType, inputValue, updateFunction }) {
         return "input-control";
     }
   }
+
   return (
     <div className={getInputClass(title)}>
       <label htmlFor="form-input">
         <span className="form-input-title">{title}</span>{" "}
-        <input
-          id="form-input"
-          type={inputType}
-          placeholder=""
-          value={inputValue}
-          onChange={updateFunction}
-        />
+        {inputType === "textarea" ? (
+          <textarea
+            id="form-input"
+            placeholder=""
+            value={inputValue}
+            onChange={updateFunction}
+          ></textarea>
+        ) : (
+          <input
+            id="form-input"
+            type={inputType}
+            placeholder=""
+            value={inputValue}
+            onChange={updateFunction}
+          />
+        )}
       </label>
     </div>
   );

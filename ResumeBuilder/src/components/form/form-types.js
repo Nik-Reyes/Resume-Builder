@@ -40,6 +40,7 @@ export const forms = {
       { name: "startDate", title: "Start Date", type: "date" },
       { name: "endDate", title: "End Date", type: "date" },
       { name: "location", title: "City, State", type: "text" },
+      { name: "description", title: "Work Duties", type: "textarea" },
     ],
   },
 };

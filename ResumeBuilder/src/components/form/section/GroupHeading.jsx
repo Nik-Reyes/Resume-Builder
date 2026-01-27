@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-function GroupHeading({ deleteGroup }) {
+// any titleData object that only has a title, will have a placeholder for that title;
+// meaning, any titleData object only with a title and its placeholder will not have
+// a subtitle. Therefore any titleData that only has a title always has the length of 2
+const MIN_TITLE_DATA_LENGTH = 2;
+
+function GroupHeading({ titleData, deleteGroup }) {
   const [menuClass, setMenuClass] = useState("");
 
   // start with no class, no styles applied
@@ -12,10 +17,20 @@ function GroupHeading({ deleteGroup }) {
 
   return (
     <div className="group-header">
-      <div className="group-title-wrapper">
-        <h4 className="group-title">Title</h4>
-        <h5 className="group-title">subtitle Here</h5>
-      </div>
+      <header className="group-title-wrapper">
+        <h1 className="group-title">
+          {titleData.title === ""
+            ? titleData.titlePlaceholder
+            : titleData.title}
+        </h1>
+        {Object.keys(titleData).length > MIN_TITLE_DATA_LENGTH && (
+          <p className="group-subtitle">
+            {titleData.title === ""
+              ? titleData.titlePlaceholder
+              : titleData.subtitle}
+          </p>
+        )}
+      </header>
       <div className="edit-group-btn-wrapper">
         <button
           onClick={deleteGroup}

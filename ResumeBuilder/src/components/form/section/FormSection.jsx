@@ -1,21 +1,44 @@
-import { useState } from "react";
 import InputField from "../../input/Input";
 import GroupHeading from "./GroupHeading";
 
 function InputGroup({
   groupStateObj,
-  inputConfig,
+  currentFormInputGroup,
   replicable,
   handleInputChange,
+  formSection,
   handleDeleteGroup,
 }) {
+  const titleDataMap = {
+    workExperience: {
+      title: groupStateObj.jobTitle,
+      subTitle: groupStateObj.employer,
+      titlePlaceholder: "Job Title",
+      subTitlePlaceholder: "Employer",
+    },
+    education: {
+      title: groupStateObj.degree,
+      subTitle: groupStateObj.university,
+      titlePlaceholder: "Degree",
+      subTitlePlaceholder: "University",
+    },
+    skills: {
+      title: groupStateObj.skill,
+      titlePlaceholder: "Skill",
+    },
+  };
   return (
     <div
       className={`form-section ${replicable ? "replicable" : "irreplicable"}`}
     >
-      {replicable && <GroupHeading deleteGroup={handleDeleteGroup} />}
+      {replicable && (
+        <GroupHeading
+          titleData={titleDataMap[formSection]}
+          deleteGroup={handleDeleteGroup}
+        />
+      )}
       <>
-        {inputConfig.map((input) => {
+        {currentFormInputGroup.map((input) => {
           return (
             <InputField
               key={input.name}
