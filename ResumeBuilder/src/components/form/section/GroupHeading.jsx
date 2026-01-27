@@ -5,7 +5,7 @@ import { useState } from "react";
 // a subtitle. Therefore any titleData that only has a title always has the length of 2
 const MIN_TITLE_DATA_LENGTH = 2;
 
-function GroupHeading({ titleData, deleteGroup }) {
+function GroupHeading({ titleData, deleteGroup, toggleAccordian, hidden }) {
   const [menuClass, setMenuClass] = useState("");
 
   // start with no class, no styles applied
@@ -26,31 +26,52 @@ function GroupHeading({ titleData, deleteGroup }) {
         {Object.keys(titleData).length > MIN_TITLE_DATA_LENGTH && (
           <p className="group-subtitle">
             {titleData.title === ""
-              ? titleData.titlePlaceholder
+              ? titleData.subTitlePlaceholder
               : titleData.subtitle}
           </p>
         )}
       </header>
       <div className="edit-group-btn-wrapper">
-        <button
-          onClick={deleteGroup}
-          data-button-type="delete-group"
-          className={menuClass}
-          disabled={menuClass ? false : true}
-        >
-          Delete
-        </button>
-        <button data-button-type="edit-group" onClick={toggleMenu}>
-          <svg
-            width="16px"
-            height="16px"
-            viewBox="0 0 16 16"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
+        <div className="header-buttons-wrapper">
+          <button
+            onClick={deleteGroup}
+            data-button-type="delete-group"
+            className={menuClass}
+            disabled={menuClass ? false : true}
           >
-            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-          </svg>
-        </button>
+            Delete
+          </button>
+          <button data-button-type="edit-group" onClick={toggleMenu}>
+            <svg
+              width="16px"
+              height="16px"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+            >
+              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+            </svg>
+          </button>
+          <button
+            data-button-type="accordian-control"
+            onClick={toggleAccordian}
+          >
+            <svg
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={hidden ? "hidden" : "visible"}
+            >
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

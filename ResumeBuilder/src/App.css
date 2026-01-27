@@ -62,14 +62,14 @@ button {
 
 .page-wrapper {
   min-height: 100vh;
-  padding: 10px;
+  padding: 20px 30px;
 }
 
 .page-content {
   min-height: inherit;
   display: grid;
   grid-template-rows: min-content auto min-content;
-  row-gap: 10px;
+  row-gap: 30px;
   position: relative;
 }
 
@@ -92,14 +92,48 @@ button {
   padding: 20px;
 }
 
+.accordian-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 500ms;
+}
+
+.accordian-content[aria-hidden="false"] {
+  grid-template-rows: 1fr;
+}
+
+.accordian-content > div {
+  overflow: hidden;
+}
+
+button[data-button-type="accordian-control"] {
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+button[data-button-type="accordian-control"] svg {
+  transition: transform 500ms;
+  transform: rotate(0);
+}
+
+button[data-button-type="accordian-control"] > svg.visible {
+  transform: rotate(180deg);
+}
+
 .group-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+.group-title {
+  font-size: 1rem;
+}
+
 button[data-button-type="edit-group"] {
   background: none;
+  padding-right: 0.5em;
 }
 
 .form:has(.replicable) .input-groups {
@@ -127,6 +161,11 @@ button[data-button-type="delete-group"].closed {
 button[data-button-type="edit-group"] {
   position: relative;
   z-index: 1;
+}
+
+.header-buttons-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 [data-button-type="delete-group"].open {
@@ -161,7 +200,7 @@ button[data-button-type="edit-group"] {
   row-gap: var(--row-padding);
   column-gap: calc(var(--row-padding) / 2);
   display: grid;
-  box-shadow: 0 0 1px 1px var(--slate-1-half);
+  box-shadow: 0 0 3px 1px var(--slate-1-half);
   border-radius: 10px;
   padding: 20px;
 }
@@ -203,12 +242,6 @@ button[data-button-type="edit-group"] {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 20px;
-  /*
-Source - https://stackoverflow.com/a
-Posted by Steve B, modified by community. See post 'Timeline' for change history
-Retrieved 2026-01-22, License - CC BY-SA 4.0
-*/
-  box-shadow: 0 4px 1px -3px var(--slate-1-half);
 }
 
 .progress-footer {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import InputField from "../../input/Input";
 import GroupHeading from "./GroupHeading";
 
@@ -27,34 +28,52 @@ function InputGroup({
       titlePlaceholder: "Skill",
     },
   };
+
+  const [hidden, setHidden] = useState(false);
+
+  function toggleAccordian() {
+    setHidden((hidden) => !hidden);
+  }
+
   return (
     <div
-      className={`form-section ${replicable ? "replicable" : "irreplicable"}`}
+      className={`${replicable ? "accordian" : ""} form-section ${
+        replicable ? "replicable" : "irreplicable"
+      }`}
     >
-      {replicable && (
-        <GroupHeading
-          titleData={titleDataMap[formSection]}
-          deleteGroup={handleDeleteGroup}
-        />
-      )}
-      <>
-        {currentFormInputGroup.map((input) => {
-          return (
-            <InputField
-              key={input.name}
-              title={input.title}
-              inputType={input.type}
-              inputValue={groupStateObj[input.name]}
-              updateFunction={(e) =>
-                handleInputChange({
-                  ...groupStateObj,
-                  [input.name]: e.target.value,
-                })
-              }
-            />
-          );
-        })}
-      </>
+      <div className="accordian-panel">
+        {replicable && (
+          <GroupHeading
+            titleData={titleDataMap[formSection]}
+            deleteGroup={handleDeleteGroup}
+            toggleAccordian={toggleAccordian}
+            hidden={hidden}
+          />
+        )}
+        <div
+          className={replicable ? "accordian-content" : ""}
+          aria-hidden={replicable ? hidden : undefined}
+        >
+          <div>
+            {currentFormInputGroup.map((input) => {
+              return (
+                <InputField
+                  key={input.name}
+                  title={input.title}
+                  inputType={input.type}
+                  inputValue={groupStateObj[input.name]}
+                  updateFunction={(e) =>
+                    handleInputChange({
+                      ...groupStateObj,
+                      [input.name]: e.target.value,
+                    })
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
