@@ -25,9 +25,9 @@ function GroupHeading({ titleData, deleteGroup, toggleAccordian, hidden }) {
         </h1>
         {Object.keys(titleData).length > MIN_TITLE_DATA_LENGTH && (
           <p className="group-subtitle">
-            {titleData.title === ""
+            {titleData.subTitle === ""
               ? titleData.subTitlePlaceholder
-              : titleData.subtitle}
+              : titleData.subTitle}
           </p>
         )}
       </header>
