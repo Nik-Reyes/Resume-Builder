@@ -7,6 +7,8 @@ function InputGroup({
   currentFormInputGroup,
   replicable,
   handleInputChange,
+  handleToggleGroup,
+  hidden,
   formSection,
   handleDeleteGroup,
 }) {
@@ -29,12 +31,6 @@ function InputGroup({
     },
   };
 
-  const [hidden, setHidden] = useState(false);
-
-  function toggleAccordian() {
-    setHidden((hidden) => !hidden);
-  }
-
   return (
     <div
       className={`${replicable ? "accordian" : ""} form-section ${
@@ -46,13 +42,15 @@ function InputGroup({
           <GroupHeading
             titleData={titleDataMap[formSection]}
             deleteGroup={handleDeleteGroup}
-            toggleAccordian={toggleAccordian}
+            toggleAccordian={() =>
+              handleToggleGroup(formSection, groupStateObj.id)
+            }
             hidden={hidden}
           />
         )}
         <div
           className={replicable ? "accordian-content" : ""}
-          aria-hidden={replicable ? hidden : undefined}
+          aria-hidden={replicable ? hidden : ""}
         >
           <div>
             {currentFormInputGroup.map((input) => {

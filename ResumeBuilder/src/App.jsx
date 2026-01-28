@@ -14,6 +14,7 @@ const nextInputIds = {
 
 function App() {
   const [formNumber, setFormNumber] = useState(0);
+  const [activeGroups, setActiveGroups] = useState({});
   const [formData, setFormData] = useState({
     personalInformation: [
       {
@@ -46,6 +47,7 @@ function App() {
       {
         id: 0,
         jobTitle: "",
+        employer: "",
         startDate: "",
         endDate: "",
         location: "",
@@ -92,9 +94,17 @@ function App() {
       (inputGroup) => inputGroup.id !== id
     );
     setFormData({ ...formData, [currentFormConfig.section]: filteredGroups });
+
+    const key = `${currentFormSection}-${id}`;
+    if (key in activeGroups) {
+      const newActiveGroups = { ...activeGroups };
+      delete newActiveGroups[key];
+      setActiveGroups(newActiveGroups);
+    }
   };
 
   function handleInputChange(updatedGroup) {
+    console.log(updatedGroup);
     // copy and update the data, then call the setter function with updated data
     const updatedFormData = [...formData[currentFormConfig.section]].map(
       (group) => {
@@ -103,6 +113,14 @@ function App() {
     );
 
     setFormData({ ...formData, [currentFormConfig.section]: updatedFormData });
+  }
+
+  function handleActiveGroupToggle(section, id) {
+    const key = `${section}-${id}`;
+    setActiveGroups((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
   }
 
   return (
@@ -124,8 +142,13 @@ function App() {
                   replicable={currentFormConfig.replicable}
                   handleInputChange={handleInputChange}
                   handleDeleteGroup={deleteInputGroup(inputGroup.id)}
+                  handleToggleGroup={handleActiveGroupToggle}
+                  hidden={
+                    activeGroups[`${currentFormSection}-${inputGroup.id}`] ||
+                    false
+                  }
                   formSection={currentFormSection}
-                  key={"input-group-" + inputGroup.id}
+                  key={`${currentFormSection}-input-group-${inputGroup.id}`}
                 />
               );
             })
