@@ -162,10 +162,12 @@ button {
 
 .replicable .start-date {
   grid-column: 1/2;
+  padding-right: 0px;
 }
 
 .replicable .start-date + div {
   grid-column: 2/3;
+  padding-left: 0px;
 }
 
 button[data-button-type="accordian-control"] {
