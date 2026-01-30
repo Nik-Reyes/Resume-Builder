@@ -1,37 +1,48 @@
 function InputField({ title, inputType, inputValue, updateFunction }) {
-  function getInputClass(title) {
-    switch (title) {
-      case "Start Date":
-        return `input-control start-date ${title.toLowerCase()}`;
-      case "End Date":
-        return `input-control end-date ${title.toLowerCase()}`;
-      default:
-        return `input-control ${title.toLowerCase()}`;
-    }
+  let inputClass = null;
+  const skill = "Skill";
+
+  switch (title) {
+    case "Start Date":
+      inputClass = "input-control start-date";
+      break;
+    case "End Date":
+      inputClass = "input-control end-date";
+      break;
+    case "Skill":
+      inputClass = "input-control skill";
+      break;
+    default:
+      inputClass = "input-control";
   }
 
+  const input =
+    inputType === "textarea" ? (
+      <textarea
+        id="form-input"
+        className="form-input"
+        placeholder=""
+        value={inputValue}
+        onChange={updateFunction}
+      ></textarea>
+    ) : (
+      <input
+        id="form-input"
+        className="form-input"
+        type={inputType}
+        placeholder=""
+        value={inputValue}
+        onChange={updateFunction}
+      />
+    );
+
   return (
-    <div className={getInputClass(title)}>
+    <div className={inputClass}>
       <label htmlFor="form-input">
-        {title !== "Skill" && <span className="form-input-title">{title}</span>}
-        {inputType === "textarea" ? (
-          <textarea
-            id="form-input"
-            className="form-input"
-            placeholder=""
-            value={inputValue}
-            onChange={updateFunction}
-          ></textarea>
-        ) : (
-          <input
-            id="form-input"
-            className="form-input"
-            type={inputType}
-            placeholder=""
-            value={inputValue}
-            onChange={updateFunction}
-          />
+        {!title.includes(skill) && (
+          <span className="form-input-title">{title}</span>
         )}
+        {input}
       </label>
     </div>
   );
