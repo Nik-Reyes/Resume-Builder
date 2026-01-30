@@ -1,4 +1,3 @@
-import { useState } from "react";
 import InputField from "../../input/Input";
 import GroupHeading from "./GroupHeading";
 
@@ -31,48 +30,39 @@ function InputGroup({
     },
   };
 
-  return (
-    <div
-      className={`${replicable ? "accordian" : ""} form-section ${
-        replicable ? "replicable" : "irreplicable"
-      }`}
-    >
+  const inputGroup = currentFormInputGroup.map((input) => (
+    <InputField
+      key={input.name}
+      title={input.title}
+      inputType={input.type}
+      inputValue={groupStateObj[input.name]}
+      updateFunction={(e) =>
+        handleInputChange({
+          ...groupStateObj,
+          [input.name]: e.target.value,
+        })
+      }
+    />
+  ));
+
+  return replicable ? (
+    <div className="replicable accordian">
       <div className="accordian-panel">
-        {replicable && (
-          <GroupHeading
-            titleData={titleDataMap[formSection]}
-            deleteGroup={handleDeleteGroup}
-            toggleAccordian={() =>
-              handleToggleGroup(formSection, groupStateObj.id)
-            }
-            hidden={hidden}
-          />
-        )}
-        <div
-          className={replicable ? "accordian-content" : ""}
-          aria-hidden={replicable ? hidden : ""}
-        >
-          <div>
-            {currentFormInputGroup.map((input) => {
-              return (
-                <InputField
-                  key={input.name}
-                  title={input.title}
-                  inputType={input.type}
-                  inputValue={groupStateObj[input.name]}
-                  updateFunction={(e) =>
-                    handleInputChange({
-                      ...groupStateObj,
-                      [input.name]: e.target.value,
-                    })
-                  }
-                />
-              );
-            })}
-          </div>
+        <GroupHeading
+          titleData={titleDataMap[formSection]}
+          deleteGroup={handleDeleteGroup}
+          toggleAccordian={() =>
+            handleToggleGroup(formSection, groupStateObj.id)
+          }
+          hidden={hidden}
+        />
+        <div className="accordian-content" aria-hidden={hidden}>
+          <div>{inputGroup}</div>
         </div>
       </div>
     </div>
+  ) : (
+    <div className="irreplicable">{inputGroup}</div>
   );
 }
 
