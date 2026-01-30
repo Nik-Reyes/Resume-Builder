@@ -1,5 +1,5 @@
-import InputField from "../../input/Input";
-import GroupHeading from "./GroupHeading";
+import InputField from "../../input/Input.jsx";
+import GroupHeading from "./GroupHeading.jsx";
 
 function InputGroup({
   groupStateObj,

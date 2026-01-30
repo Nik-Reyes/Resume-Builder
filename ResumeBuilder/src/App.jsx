@@ -1,6 +1,6 @@
 import "./App.css";
 import Form from "./components/form/Form.jsx";
-import InputGroup from "./components/form/section/FormSection.jsx";
+import InputGroup from "./components/form/section/InputGroup.jsx";
 import ProgressFooter from "./components/progress-footer/ProgressFooter.jsx";
 import { forms } from "./components/form/form-types.js";
 import { useState } from "react";
