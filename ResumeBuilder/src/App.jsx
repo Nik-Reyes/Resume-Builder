@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import { forms } from "./components/form/form-types.js";
 import Form from "./components/form/Form.jsx";
+import Resume from "./components/resume/Resume.jsx";
 import InputGroup from "./components/form/section/InputGroup.jsx";
 import ViewHeader from "./components/view-header/Viewheader.jsx";
 import ProgressFooter from "./components/progress-footer/ProgressFooter.jsx";
@@ -172,7 +173,7 @@ function App() {
       </div>
     </div>
   ) : (
-    <div>hello</div>
+    <Resume content={formData} />
   );
 }
 
