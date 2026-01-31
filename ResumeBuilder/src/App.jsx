@@ -1,9 +1,10 @@
 import "./App.css";
+import { useState } from "react";
+import { forms } from "./components/form/form-types.js";
 import Form from "./components/form/Form.jsx";
 import InputGroup from "./components/form/section/InputGroup.jsx";
+import ViewHeader from "./components/view-header/Viewheader.jsx";
 import ProgressFooter from "./components/progress-footer/ProgressFooter.jsx";
-import { forms } from "./components/form/form-types.js";
-import { useState } from "react";
 
 const nextInputIds = {
   personalInformation: 1,
@@ -15,6 +16,7 @@ const nextInputIds = {
 function App() {
   const [formNumber, setFormNumber] = useState(0);
   const [activeGroups, setActiveGroups] = useState({});
+  const [view, setView] = useState({ form: true, resume: false });
   const [formData, setFormData] = useState({
     personalInformation: [
       {
@@ -123,10 +125,17 @@ function App() {
     }));
   }
 
-  return (
+  function manageView(newView) {
+    const updateView = { ...view };
+    Object.keys(updateView).forEach((key) => (updateView[key] = false));
+    updateView[newView] = true;
+    setView(updateView);
+  }
+
+  return view.form ? (
     <div className="page-wrapper">
       <div className="page-content">
-        <ProgressFooter />
+        <ViewHeader view={view} setView={manageView} />
         <Form
           title={currentFormConfig.displayTitle}
           replicable={currentFormConfig.replicable}
@@ -162,6 +171,8 @@ function App() {
         />
       </div>
     </div>
+  ) : (
+    <div>hello</div>
   );
 }
 
