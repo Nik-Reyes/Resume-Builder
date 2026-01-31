@@ -156,6 +156,7 @@ function App() {
         </Form>
         <ProgressFooter
           progress={formNumber}
+          totalForms={Object.keys(currentFormConfig).length}
           advanceProgress={incrementFormNumber}
           regressProgress={decrementFormNumber}
         />
