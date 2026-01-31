@@ -106,6 +106,16 @@ button {
   margin-top: var(--padding-4);
 }
 
+.view-header {
+  padding: var(--padding-4);
+  display: flex;
+  column-gap: var(--padding-2);
+}
+
+.view-header > button {
+  flex: 1;
+}
+
 .form:has(.replicable) {
   display: grid;
   grid-template-rows: min-content min-content 1fr;
