@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
-import { forms } from "./components/form/form-types.js";
+import { forms } from "./data/form-config.js";
+import { formState } from "./data/form-state.js";
 import Form from "./components/form/Form.jsx";
 import Resume from "./components/resume/Resume.jsx";
 import InputGroup from "./components/form/section/InputGroup.jsx";
@@ -18,46 +19,8 @@ function App() {
   const [formNumber, setFormNumber] = useState(0);
   const [activeGroups, setActiveGroups] = useState({});
   const [view, setView] = useState({ form: true, resume: false });
-  const [formData, setFormData] = useState({
-    personalInformation: [
-      {
-        id: 0,
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        linkedin: "",
-        github: "",
-        location: "",
-      },
-    ],
-    education: [
-      {
-        id: 0,
-        degree: "",
-        university: "",
-        startDate: "",
-        endDate: "",
-      },
-    ],
-    skills: [
-      {
-        id: 0,
-        skill: "",
-      },
-    ],
-    workExperience: [
-      {
-        id: 0,
-        jobTitle: "",
-        employer: "",
-        startDate: "",
-        endDate: "",
-        location: "",
-        description: "",
-      },
-    ],
-  });
+  const [formData, setFormData] = useState(formState);
+
   // currentFormData is the array of object(s), where the objects contain the values of the inputs
   const currentFormConfig = forms[formNumber];
   const currentFormInputGroup = currentFormConfig.inputFields;
@@ -133,6 +96,8 @@ function App() {
     setView(updateView);
   }
 
+  console.log(formData);
+
   return view.form ? (
     <div className="page-wrapper">
       <div className="page-content">
@@ -173,7 +138,7 @@ function App() {
       </div>
     </div>
   ) : (
-    <Resume content={formData} />
+    <Resume />
   );
 }
 
