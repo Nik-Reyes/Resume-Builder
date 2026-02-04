@@ -1,5 +1,5 @@
 import { formState } from "../../data/form-state.js";
-import sectionDirectory from "../../helpers/component-directory.jsx";
+import { sectionDirectory } from "../../helpers/component-directory.jsx";
 
 function Resume() {
   return (
