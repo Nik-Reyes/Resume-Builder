@@ -70,7 +70,6 @@ function App() {
   };
 
   function handleInputChange(updatedGroup) {
-    console.log(updatedGroup);
     // copy and update the data, then call the setter function with updated data
     const updatedFormData = [...formData[currentFormConfig.section]].map(
       (group) => {
@@ -95,8 +94,6 @@ function App() {
     updateView[newView] = true;
     setView(updateView);
   }
-
-  console.log(formData);
 
   return view.form ? (
     <div className="page-wrapper">
@@ -138,7 +135,7 @@ function App() {
       </div>
     </div>
   ) : (
-    <Resume />
+    <Resume formData={formData} />
   );
 }
 
