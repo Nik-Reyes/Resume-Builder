@@ -9,7 +9,6 @@ function Education({ sectionName, content }) {
           <div className="content-subtitle">{group.university}</div>
         </div>
         <div className="date">
-          <div className="start">{group.startDate}</div>
           <div className="end">{group.endDate}</div>
         </div>
       </Fragment>
