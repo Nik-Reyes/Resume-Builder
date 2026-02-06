@@ -6,7 +6,9 @@ function ProgressFooter({
   advanceProgress,
   regressProgress,
 }) {
-  const prog = progress === 0 ? 0.25 : (progress + 1) / totalForms;
+  const prog =
+    progress === 0 ? 1 / (totalForms + 1) : (progress + 1) / (totalForms + 1);
+
   return (
     <div className="progress-footer">
       <div className="spacer"></div>
@@ -24,7 +26,7 @@ function ProgressFooter({
           <button
             className="progress-button"
             onClick={() => advanceProgress()}
-            disabled={progress >= 3 ? true : false}
+            disabled={progress >= totalForms ? true : false}
           >
             Next
           </button>
