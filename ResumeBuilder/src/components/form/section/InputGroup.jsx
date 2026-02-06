@@ -28,6 +28,10 @@ function InputGroup({
       title: groupStateObj.skill,
       titlePlaceholder: "Skill",
     },
+    projects: {
+      title: groupStateObj.projectTitle,
+      titlePlaceholder: "Project",
+    },
   };
 
   const inputGroup = currentFormInputGroup.map((input) => (
