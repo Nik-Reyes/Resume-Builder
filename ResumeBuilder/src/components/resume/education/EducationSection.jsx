@@ -1,9 +1,9 @@
 import { Fragment } from "react";
-function Education({ section, content }) {
-  return content[section].map((group, i) => {
-    console.log(group);
+
+function Education({ sectionName, content }) {
+  return content[sectionName].map((group, i) => {
     return (
-      <Fragment key={`${section}-${i}`}>
+      <Fragment key={`${sectionName}-${i}`}>
         <div className="content-header">
           <div className="content-title">{group.degree}</div>
           <div className="content-subtitle">{group.university}</div>
