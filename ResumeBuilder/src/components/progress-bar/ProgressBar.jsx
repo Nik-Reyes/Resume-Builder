@@ -1,5 +1,4 @@
 function ProgressBar({ progPercent }) {
-  console.log(progPercent);
   const hundredthAdjustedProg = progPercent * 100;
   return (
     <div className="progress-bar-wrapper">
@@ -7,7 +6,11 @@ function ProgressBar({ progPercent }) {
         <div className="progress-title">Progress</div>
         <div className="progress-percent">{hundredthAdjustedProg}%</div>
       </div>
-      <progress max={100} value={hundredthAdjustedProg}></progress>
+      <progress
+        max={100}
+        value={hundredthAdjustedProg}
+        className="progressbar"
+      ></progress>
     </div>
   );
 }
