@@ -339,6 +339,8 @@ input[type="date"] {
 .spacer {
   height: var(--padding-4);
   background-color: var(--slate-1);
+  position: relative;
+  z-index: 1;
 }
 
 .progress-buttons-wrapper {
@@ -364,4 +366,80 @@ input[type="date"] {
 .progress-title,
 .progress-percent {
   font-size: 0.875rem;
+}
+
+.progressbar {
+  transition: all 500ms ease-in;
+}
+
+/* resume styles */
+.resume {
+  max-width: 800px;
+}
+.resume-page {
+  box-shadow: 0 0 5px 2px var(--slate-1-half);
+  --large-text: 24pt;
+  --med-text: 14pt;
+  --small-text: 11pt;
+  --x-small-text: 10pt;
+  width: 8.5in;
+  height: 11in;
+  transform-origin: top center;
+  /* transform: scale(0.8); */
+  padding: 0.5in;
+  margin: var(--padding-4) auto;
+}
+
+/* resume section styles */
+.section-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.section-title {
+  text-transform: capitalize;
+  font-weight: 700;
+  color: rgb(150, 12, 10);
+  font-size: var(--med-text);
+}
+
+.bar {
+  height: 1px;
+  background-color: black;
+}
+
+.content-title {
+  font-weight: 600;
+  font-size: var(--small-text);
+}
+
+.content-subtitle {
+  font-size: var(--x-small-text);
+  font-style: italic;
+}
+
+.start,
+.end {
+  font-size: var(--small-text);
+}
+
+.personalInformation .section-title {
+  color: black;
+  font-size: var(--large-text);
+  text-align: center;
+}
+
+.datalayer {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.datalayer > span,
+a {
+  font-weight: 600;
+}
+
+.datalayer a {
+  font-style: italic;
+  color: black;
 }
