@@ -8,12 +8,9 @@ import InputGroup from "./components/form/section/InputGroup.jsx";
 import ViewHeader from "./components/view-header/Viewheader.jsx";
 import ProgressFooter from "./components/progress-footer/ProgressFooter.jsx";
 
-const nextInputIds = {
-  personalInformation: 1,
-  education: 1,
-  skills: 1,
-  workExperience: 1,
-};
+const nextInputIds = Object.fromEntries(
+  Object.values(forms).map(({ section }) => [section, 1])
+);
 
 function App() {
   const [formNumber, setFormNumber] = useState(0);
