@@ -43,4 +43,14 @@ export const forms = {
       { name: "description", title: "Work Duties", type: "textarea" },
     ],
   },
+  4: {
+    replicable: true,
+    section: "projects",
+    displayTitle: "Projects",
+    inputFields: [
+      { name: "projectTitle", title: "Project Name", type: "text" },
+      { name: "github", title: "GitHub URL", type: "url" },
+      { name: "description", title: "Work Duties", type: "textarea" },
+    ],
+  },
 };
