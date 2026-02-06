@@ -3,9 +3,6 @@ import { Fragment } from "react";
 function Personal({ sectionName, content }) {
   return content[sectionName].map((personal, i) => {
     const sectionTitle = personal.firstName + " " + personal.lastName;
-    const phone = personal.phone;
-    const location = personal.location;
-    const email = personal.email;
     const linkedinHyperlink = personal.linkedin;
     const githubHyperlink = personal.github;
 
@@ -13,13 +10,21 @@ function Personal({ sectionName, content }) {
       <Fragment key={`${sectionName}-${i}`}>
         <div className="section-title">{sectionTitle}</div>
         <div className="datalayer">
-          <span>{phone}</span>
-          <span>{location}</span>
-          <span>{email}</span>
-          <a href={linkedinHyperlink} referrerPolicy="no-referrer">
+          <span className="phone">{personal.phone}</span>
+          <span className="location">{personal.location}</span>
+          <span className="email">{personal.email}</span>
+          <a
+            className="linkedin-link"
+            href={linkedinHyperlink}
+            referrerPolicy="no-referrer"
+          >
             {linkedinHyperlink === "" ? "" : "LinkedIn"}
           </a>
-          <a href={githubHyperlink} referrerPolicy="no-referrer">
+          <a
+            className="github-link"
+            href={githubHyperlink}
+            referrerPolicy="no-referrer"
+          >
             {githubHyperlink === "" ? "" : "GitHub"}
           </a>
         </div>
