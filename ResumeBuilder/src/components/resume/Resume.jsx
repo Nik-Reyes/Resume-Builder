@@ -9,18 +9,28 @@ function Resume({ formData }) {
             .flatMap((obj) => Object.values(obj))
             .filter((item) => typeof item !== "number");
           const isEmptySection = sectionValues.every((val) => val === "");
-          const sectionComponent = sectionDirectory(sectionName, formData);
-          if (!sectionComponent || isEmptySection) return null;
+          const SectionComponent = sectionDirectory[sectionName];
+          if (!SectionComponent || isEmptySection) return null;
+
+          const isPersonal = sectionName === "personalInformation";
 
           return (
             <div className={`section ${sectionName}`} key={sectionName}>
-              {sectionName.includes("personal") ? (
-                sectionComponent
+              {isPersonal ? (
+                <SectionComponent
+                  sectionName={sectionName}
+                  content={formData}
+                />
               ) : (
                 <>
                   <div className="section-title">{sectionName}</div>
                   <div className="bar"></div>
-                  <div className="section-content">{sectionComponent}</div>
+                  <div className="section-content">
+                    <SectionComponent
+                      sectionName={sectionName}
+                      content={formData}
+                    />
+                  </div>
                 </>
               )}
             </div>

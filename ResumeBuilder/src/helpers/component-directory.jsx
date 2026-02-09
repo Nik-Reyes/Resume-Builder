@@ -1,16 +1,9 @@
-import Education from "../components/resume/education/EducationSection.jsx";
-import Personal from "../components/resume/personal/PersonalSection.jsx";
-import WorkHistory from "../components/resume/work-history/WorkHistorySection.jsx";
+import Education from "../components/resume/EducationSection.jsx";
+import Personal from "../components/resume/PersonalSection.jsx";
+import WorkHistory from "../components/resume/WorkHistorySection.jsx";
 
-export const sectionDirectory = (sectionName, formData) => {
-  const components = {
-    education: <Education sectionName={sectionName} content={formData} />,
-    personalInformation: (
-      <Personal sectionName={sectionName} content={formData} />
-    ),
-    workExperience: (
-      <WorkHistory sectionName={sectionName} content={formData} />
-    ),
-  };
-  return components[sectionName];
+export const sectionDirectory = {
+  education: Education,
+  personalInformation: Personal,
+  workExperience: WorkHistory,
 };
