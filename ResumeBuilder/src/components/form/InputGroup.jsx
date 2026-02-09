@@ -1,4 +1,4 @@
-import InputField from "../../input/Input.jsx";
+import InputField from "./InputField.jsx";
 import GroupHeading from "./GroupHeading.jsx";
 
 function InputGroup({

@@ -4,7 +4,7 @@ import { forms } from "./data/form-config.js";
 import { formState } from "./data/form-state.js";
 import Form from "./components/form/Form.jsx";
 import Resume from "./components/resume/Resume.jsx";
-import InputGroup from "./components/form/section/InputGroup.jsx";
+import InputGroup from "./components/form/InputGroup.jsx";
 import ViewHeader from "./components/view-header/Viewheader.jsx";
 import ProgressFooter from "./components/progress-footer/ProgressFooter.jsx";
 

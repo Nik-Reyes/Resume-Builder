@@ -2,7 +2,6 @@ import { Fragment } from "react";
 
 function WorkHistory({ sectionName, content }) {
   return content[sectionName].map((group, i) => {
-    console.log(group.description);
     return (
       <Fragment key={`${sectionName}-${i}`}>
         <div className="content-header">

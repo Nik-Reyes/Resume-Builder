@@ -1,4 +1,4 @@
-import ProgressBar from "../progress-bar/ProgressBar.jsx";
+import ProgressBar from "./ProgressBar.jsx";
 
 function ProgressFooter({
   progress,
