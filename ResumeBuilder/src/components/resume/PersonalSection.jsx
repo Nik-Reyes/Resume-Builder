@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 function Personal({ sectionName, content }) {
   return content[sectionName].map((personal, i) => {
     const sectionTitle = personal.firstName + " " + personal.lastName;
@@ -7,7 +5,7 @@ function Personal({ sectionName, content }) {
     const githubHyperlink = personal.github;
 
     return (
-      <Fragment key={`${sectionName}-${i}`}>
+      <div className={`${sectionName}-wrapper`} key={`${sectionName}-${i}`}>
         <div className="section-title">{sectionTitle}</div>
         <div className="datalayer">
           <span className="phone">{personal.phone}</span>
@@ -28,7 +26,7 @@ function Personal({ sectionName, content }) {
             {githubHyperlink === "" ? "" : "GitHub"}
           </a>
         </div>
-      </Fragment>
+      </div>
     );
   });
 }
