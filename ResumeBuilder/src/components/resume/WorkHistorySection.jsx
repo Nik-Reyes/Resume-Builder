@@ -1,3 +1,5 @@
+import BulletPoints from "./BulletPoints.jsx";
+
 function WorkHistory({ sectionName, content }) {
   return content[sectionName].map((group, i) => {
     return (
@@ -16,7 +18,9 @@ function WorkHistory({ sectionName, content }) {
           </div>
         </div>
         <div className="location">{group.location}</div>
-        <div className="bullet-wrapper">{group.description}</div>
+        <div className="bullet-wrapper">
+          <BulletPoints description={group.description} />
+        </div>
       </div>
     );
   });
