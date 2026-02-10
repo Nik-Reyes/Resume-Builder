@@ -434,12 +434,21 @@ input[type="date"] {
   column-gap: 10px;
 }
 
-.datalayer > span,
-a {
-  font-weight: 600;
-}
-
-.datalayer a {
+.section a {
   font-style: italic;
   color: black;
+}
+
+.projects-wrapper .content-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bullet-points {
+  --indent: 0.25in;
+  padding-left: calc(var(--indent) + 1em);
+}
+
+.bullet-points li {
+  display: list-item;
 }
