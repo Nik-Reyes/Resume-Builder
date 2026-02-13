@@ -83,6 +83,10 @@ button {
   border-radius: 25px;
 }
 
+button:disabled {
+  cursor: default;
+}
+
 .page-wrapper {
   min-height: 100vh;
   padding: var(--padding-4) var(--padding-6);
