@@ -22,7 +22,8 @@ function App() {
   const currentFormConfig = forms[formNumber];
   const currentFormInputGroup = currentFormConfig.inputFields;
   const currentFormSection = currentFormConfig.section;
-  const currentFormData = formData[currentFormConfig.section];
+  const currentFormData = formData[currentFormSection];
+  const formIsReplicable = currentFormConfig.replicable;
 
   function incrementFormNumber() {
     if (formNumber >= Object.entries(forms).length - 1) return;
@@ -35,28 +36,25 @@ function App() {
   }
 
   function addInputGroup() {
-    if (!currentFormConfig.replicable) return;
-    //loop over the current subsection, copy over the string value of the props to new obj
-    const nextId = nextInputIds[currentFormConfig.section]++;
-    const newSection = { id: nextId };
-    currentFormConfig.inputFields.forEach((inputObj) => {
-      newSection[inputObj.name] = "";
+    if (!formIsReplicable) return;
+
+    const nextId = nextInputIds[currentFormSection]++;
+    const newDataObj = { id: nextId };
+    currentFormInputGroup.forEach((inputObj) => {
+      newDataObj[inputObj.name] = "";
     });
 
-    const formDataSection = [
-      ...formData[currentFormConfig.section],
-      newSection,
-    ];
-    setFormData({ ...formData, [currentFormConfig.section]: formDataSection });
+    const newFormData = [...currentFormData, newDataObj];
+    setFormData({ ...formData, [currentFormSection]: newFormData });
   }
 
   const deleteInputGroup = (id) => () => {
-    if (!currentFormConfig.replicable) return;
+    if (!formIsReplicable) return;
     //filter out the input group using the id
     const filteredGroups = currentFormData.filter(
       (inputGroup) => inputGroup.id !== id
     );
-    setFormData({ ...formData, [currentFormConfig.section]: filteredGroups });
+    setFormData({ ...formData, [currentFormSection]: filteredGroups });
 
     const key = `${currentFormSection}-${id}`;
     if (key in activeGroups) {
@@ -67,14 +65,12 @@ function App() {
   };
 
   function handleInputChange(updatedGroup) {
-    // copy and update the data, then call the setter function with updated data
-    const updatedFormData = [...formData[currentFormConfig.section]].map(
-      (group) => {
-        return group.id === updatedGroup.id ? updatedGroup : group;
-      }
-    );
+    // copy and update the all state data, then call the setter function with updated data
+    const updatedFormData = [...currentFormData].map((group) => {
+      return group.id === updatedGroup.id ? updatedGroup : group;
+    });
 
-    setFormData({ ...formData, [currentFormConfig.section]: updatedFormData });
+    setFormData({ ...formData, [currentFormSection]: updatedFormData });
   }
 
   function handleActiveGroupToggle(section, id) {
@@ -98,7 +94,7 @@ function App() {
         <ViewHeader view={view} setView={manageView} />
         <Form
           title={currentFormConfig.displayTitle}
-          replicable={currentFormConfig.replicable}
+          replicable={formIsReplicable}
           addInputGroup={addInputGroup}
         >
           {
@@ -108,7 +104,7 @@ function App() {
                 <InputGroup
                   groupStateObj={inputGroup}
                   currentFormInputGroup={currentFormInputGroup}
-                  replicable={currentFormConfig.replicable}
+                  replicable={formIsReplicable}
                   handleInputChange={handleInputChange}
                   handleDeleteGroup={deleteInputGroup(inputGroup.id)}
                   handleToggleGroup={handleActiveGroupToggle}
