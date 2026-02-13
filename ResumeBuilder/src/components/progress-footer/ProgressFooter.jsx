@@ -1,13 +1,21 @@
 import ProgressBar from "./ProgressBar.jsx";
 
-function ProgressFooter({
-  progress,
-  totalForms,
-  advanceProgress,
-  regressProgress,
-}) {
+function ProgressFooter({ formNumber, totalForms, setFormNumber }) {
   const prog =
-    progress === 0 ? 1 / (totalForms + 1) : (progress + 1) / (totalForms + 1);
+    formNumber === 0
+      ? 1 / (totalForms + 1)
+      : (formNumber + 1) / (totalForms + 1);
+
+  // ProgressFooter Handlers
+  function incrementFormNumber() {
+    if (formNumber >= totalForms) return;
+    setFormNumber(formNumber + 1);
+  }
+
+  function decrementFormNumber() {
+    if (formNumber <= 0) return;
+    setFormNumber(formNumber - 1);
+  }
 
   return (
     <div className="progress-footer">
@@ -18,15 +26,15 @@ function ProgressFooter({
         <div className="progress-buttons-wrapper">
           <button
             className="progress-button"
-            onClick={() => regressProgress()}
-            disabled={progress >= 1 ? false : true}
+            onClick={() => decrementFormNumber()}
+            disabled={formNumber >= 1 ? false : true}
           >
             Previous
           </button>
           <button
             className="progress-button"
-            onClick={() => advanceProgress()}
-            disabled={progress >= totalForms ? true : false}
+            onClick={() => incrementFormNumber()}
+            disabled={formNumber >= totalForms ? true : false}
           >
             Next
           </button>

@@ -1,10 +1,17 @@
 function ViewHeader({ view, setView }) {
+  function manageView(newView) {
+    const updateView = { ...view };
+    Object.keys(updateView).forEach((key) => (updateView[key] = false));
+    updateView[newView] = true;
+    setView(updateView);
+  }
+
   return (
     <div className="view-header">
-      <button className="form-view" onClick={() => setView("form")}>
+      <button className="form-view" onClick={() => manageView("form")}>
         Edit Form
       </button>
-      <button className="resume-view" onClick={() => setView("resume")}>
+      <button className="resume-view" onClick={() => manageView("resume")}>
         Preview Resume
       </button>
     </div>
