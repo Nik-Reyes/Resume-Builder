@@ -34,12 +34,14 @@ function App() {
       <div className="page-content">
         <ViewHeader view={view} setView={manageView} />
         <FormView view={view} currentFormConfig={currentFormConfig} />
-        <ProgressFooter
-          progress={formNumber}
-          totalForms={Object.keys(currentFormConfig).length}
-          advanceProgress={incrementFormNumber}
-          regressProgress={decrementFormNumber}
-        />
+        {view.form && (
+          <ProgressFooter
+            progress={formNumber}
+            totalForms={Object.keys(currentFormConfig).length}
+            advanceProgress={incrementFormNumber}
+            regressProgress={decrementFormNumber}
+          />
+        )}
       </div>
     </div>
   );
