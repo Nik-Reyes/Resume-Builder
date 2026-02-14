@@ -1,4 +1,4 @@
-function InputField({ title, inputType, inputValue, updateFunction }) {
+function InputField({ title, inputType, inputValue, onChange }) {
   let inputClass = null;
   const skill = "Skill";
 
@@ -23,7 +23,7 @@ function InputField({ title, inputType, inputValue, updateFunction }) {
         className="form-input"
         placeholder=""
         value={inputValue}
-        onChange={updateFunction}
+        onChange={onChange}
       ></textarea>
     ) : (
       <input
@@ -32,7 +32,7 @@ function InputField({ title, inputType, inputValue, updateFunction }) {
         type={inputType}
         placeholder=""
         value={inputValue}
-        onChange={updateFunction}
+        onChange={onChange}
       />
     );
 

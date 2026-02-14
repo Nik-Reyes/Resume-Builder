@@ -30,21 +30,13 @@ function FormView({ view, currentFormConfig }) {
     setFormData({ ...formData, [currentFormSection]: newFormData });
   }
 
-  const deleteInputGroup = (id) => () => {
-    if (!formIsReplicable) return;
-    //filter out the input group using the id
-    const filteredGroups = currentFormData.filter(
-      (inputGroup) => inputGroup.id !== id
-    );
-    setFormData({ ...formData, [currentFormSection]: filteredGroups });
-
-    const key = `${currentFormSection}-${id}`;
-    if (key in activeGroups) {
-      const newActiveGroups = { ...activeGroups };
-      delete newActiveGroups[key];
-      setActiveGroups(newActiveGroups);
-    }
-  };
+  function handleActiveGroupToggle(section, id) {
+    const key = `${section}-${id}`;
+    setActiveGroups((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  }
 
   function handleInputChange(updatedGroup) {
     // copy and update the all state data, then call the setter function with updated data
@@ -55,36 +47,48 @@ function FormView({ view, currentFormConfig }) {
     setFormData({ ...formData, [currentFormSection]: updatedFormData });
   }
 
-  function handleActiveGroupToggle(section, id) {
-    const key = `${section}-${id}`;
-    setActiveGroups((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  }
+  const handleDeleteGroup = (id) => () => {
+    if (!formIsReplicable) return;
+    //filter out the input group using the id
+    const filteredGroups = currentFormData.filter(
+      (inputGroup) => inputGroup.id !== id
+    );
+    setFormData({ ...formData, [currentFormSection]: filteredGroups });
+
+    //setActiveGroups is in parent
+    // this function should only delete the inputgroup from data
+    // it should not also contain the logic for how to get rid of the active prop
+    // const key = `${currentFormSection}-${id}`;
+    // if (key in activeGroups) {
+    //   const newActiveGroups = { ...activeGroups };
+    //   delete newActiveGroups[key];
+    //   setActiveGroups(newActiveGroups);
+    // }
+  };
 
   return view.form ? (
     <Form
       title={currentFormConfig.displayTitle}
-      replicable={formIsReplicable}
+      formIsReplicable={formIsReplicable}
       addInputGroup={addInputGroup}
     >
       {
         // To each n input groups belongs n inputs
-        currentFormData.map((inputGroup) => {
+        currentFormData.map((groupStateObj) => {
           return (
             <InputGroup
-              groupStateObj={inputGroup}
+              groupStateObj={groupStateObj}
               currentFormInputGroup={currentFormInputGroup}
-              replicable={formIsReplicable}
-              handleInputChange={handleInputChange}
-              handleDeleteGroup={deleteInputGroup(inputGroup.id)}
+              formIsReplicable={formIsReplicable}
               handleToggleGroup={handleActiveGroupToggle}
+              currentFormSection={currentFormSection}
+              handleInputChange={handleInputChange}
+              handleDeleteGroup={handleDeleteGroup(groupStateObj.id)}
               hidden={
-                activeGroups[`${currentFormSection}-${inputGroup.id}`] || false
+                activeGroups[`${currentFormSection}-${groupStateObj.id}`] ||
+                false
               }
-              formSection={currentFormSection}
-              key={`${currentFormSection}-input-group-${inputGroup.id}`}
+              key={`${currentFormSection}-input-group-${groupStateObj.id}`}
             />
           );
         })

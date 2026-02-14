@@ -1,9 +1,9 @@
-function Form({ title, replicable, addInputGroup, children }) {
+function Form({ title, formIsReplicable, addInputGroup, children }) {
   return (
     <div className="form">
       <div className="form-title-wrapper">
         <span className="form-title">{title}</span>
-        {replicable && (
+        {formIsReplicable && (
           <button data-button-type="add-inputGroup" onClick={addInputGroup}>
             + add {title.toLowerCase()}
           </button>

@@ -4,12 +4,12 @@ import GroupHeading from "./GroupHeading.jsx";
 function InputGroup({
   groupStateObj,
   currentFormInputGroup,
-  replicable,
-  handleInputChange,
+  formIsReplicable,
   handleToggleGroup,
-  hidden,
-  formSection,
+  currentFormSection,
+  handleInputChange,
   handleDeleteGroup,
+  hidden,
 }) {
   const titleDataMap = {
     workExperience: {
@@ -34,34 +34,38 @@ function InputGroup({
     },
   };
 
-  const inputGroup = currentFormInputGroup.map((input) => (
-    <InputField
-      key={input.name}
-      title={input.title}
-      inputType={input.type}
-      inputValue={groupStateObj[input.name]}
-      updateFunction={(e) =>
-        handleInputChange({
-          ...groupStateObj,
-          [input.name]: e.target.value,
-        })
-      }
-    />
-  ));
+  function onInputChange(input, e) {
+    const newVal = e.target.value;
+    const updatedGroup = {
+      ...groupStateObj,
+      [input.name]: newVal,
+    };
+    handleInputChange(updatedGroup);
+  }
 
-  return replicable ? (
+  return formIsReplicable ? (
     <div className="replicable accordian">
       <div className="accordian-panel">
         <GroupHeading
-          titleData={titleDataMap[formSection]}
+          titleData={titleDataMap[currentFormSection]}
           deleteGroup={handleDeleteGroup}
           toggleAccordian={() =>
-            handleToggleGroup(formSection, groupStateObj.id)
+            handleToggleGroup(currentFormSection, groupStateObj.id)
           }
           hidden={hidden}
         />
         <div className="accordian-content" aria-hidden={hidden}>
-          <div>{inputGroup}</div>
+          <div>
+            {currentFormInputGroup.map((input) => (
+              <InputField
+                key={input.name}
+                title={input.title}
+                inputType={input.type}
+                inputValue={groupStateObj[input.name]}
+                onChange={(e) => onInputChange(input, e)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
