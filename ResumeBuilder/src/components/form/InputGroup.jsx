@@ -9,7 +9,6 @@ function InputGroup({
   currentFormSection,
   handleInputChange,
   handleDeleteGroup,
-  // onChange,
   hidden,
 }) {
   const titleDataMap = {
@@ -43,7 +42,6 @@ function InputGroup({
   ));
 
   function onInputChange(input, e) {
-    console.log(input);
     const newVal = e.target.value;
     const updatedGroup = {
       ...groupStateObj,

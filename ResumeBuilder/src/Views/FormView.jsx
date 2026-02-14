@@ -47,12 +47,6 @@ function FormView({ view, currentFormConfig }) {
     setFormData({ ...formData, [currentFormSection]: section });
   }
 
-  // const onStateChange = (newState, fieldName) =>
-  //   setFormData({
-  //     ...formData,
-  //     [fieldName]: newState,
-  //   });
-
   const handleDeleteGroup = (id) => () => {
     if (!formIsReplicable) return;
     //filter out the input group using the id
@@ -107,7 +101,6 @@ function FormView({ view, currentFormConfig }) {
                   activeGroups[`${currentFormSection}-${groupStateObj.id}`] ||
                   false
                 }
-                // onChange={onStateChange}
                 key={`${currentFormSection}-input-group-${groupStateObj.id}`}
               />
             );
