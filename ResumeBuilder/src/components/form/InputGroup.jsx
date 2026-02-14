@@ -9,6 +9,7 @@ function InputGroup({
   currentFormSection,
   handleInputChange,
   handleDeleteGroup,
+  // onChange,
   hidden,
 }) {
   const titleDataMap = {
@@ -24,17 +25,25 @@ function InputGroup({
       titlePlaceholder: "Degree",
       subTitlePlaceholder: "University",
     },
-    skills: {
-      title: groupStateObj.skill,
-      titlePlaceholder: "Skill",
-    },
     projects: {
       title: groupStateObj.projectTitle,
       titlePlaceholder: "Project",
     },
   };
 
+  // uses config to create the input tags
+  const inputGroup = currentFormInputGroup.map((input) => (
+    <InputField
+      key={input.name}
+      title={input.title}
+      inputType={input.type}
+      inputValue={groupStateObj[input.name]} // uses the input config object name to access the state of the same name
+      onChange={(e) => onInputChange(input, e)}
+    />
+  ));
+
   function onInputChange(input, e) {
+    console.log(input);
     const newVal = e.target.value;
     const updatedGroup = {
       ...groupStateObj,
@@ -55,17 +64,7 @@ function InputGroup({
           hidden={hidden}
         />
         <div className="accordian-content" aria-hidden={hidden}>
-          <div>
-            {currentFormInputGroup.map((input) => (
-              <InputField
-                key={input.name}
-                title={input.title}
-                inputType={input.type}
-                inputValue={groupStateObj[input.name]}
-                onChange={(e) => onInputChange(input, e)}
-              />
-            ))}
-          </div>
+          <div>{inputGroup}</div>
         </div>
       </div>
     </div>

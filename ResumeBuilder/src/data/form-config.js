@@ -28,7 +28,11 @@ export const forms = {
     replicable: true,
     section: "skills",
     displayTitle: "Skills",
-    inputFields: [{ name: "skill", title: "Skill", type: "text" }],
+    inputFields: {
+      category: { name: "category", title: "Category", type: "text" },
+      input: { name: "skill", title: "Skill", type: "text" },
+    },
+    customRender: true,
   },
   3: {
     replicable: true,

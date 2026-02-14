@@ -4,6 +4,7 @@ import { formState } from "../data/form-state.js";
 import Form from "../components/form/Form.jsx";
 import Resume from "../components/resume/Resume.jsx";
 import InputGroup from "../components/form/InputGroup.jsx";
+import SkillGroup from "../components/form/SkillGroup.jsx";
 
 const nextInputIds = Object.fromEntries(
   Object.values(forms).map(({ section }) => [section, 1])
@@ -39,13 +40,18 @@ function FormView({ view, currentFormConfig }) {
   }
 
   function handleInputChange(updatedGroup) {
-    // copy and update the all state data, then call the setter function with updated data
-    const updatedFormData = [...currentFormData].map((group) => {
+    const section = [...currentFormData].map((group) => {
       return group.id === updatedGroup.id ? updatedGroup : group;
     });
 
-    setFormData({ ...formData, [currentFormSection]: updatedFormData });
+    setFormData({ ...formData, [currentFormSection]: section });
   }
+
+  // const onStateChange = (newState, fieldName) =>
+  //   setFormData({
+  //     ...formData,
+  //     [fieldName]: newState,
+  //   });
 
   const handleDeleteGroup = (id) => () => {
     if (!formIsReplicable) return;
@@ -72,27 +78,40 @@ function FormView({ view, currentFormConfig }) {
       formIsReplicable={formIsReplicable}
       addInputGroup={addInputGroup}
     >
-      {
-        // To each n input groups belongs n inputs
-        currentFormData.map((groupStateObj) => {
-          return (
-            <InputGroup
+      {currentFormConfig.customRender
+        ? currentFormData.map((groupStateObj) => (
+            <SkillGroup
               groupStateObj={groupStateObj}
               currentFormInputGroup={currentFormInputGroup}
-              formIsReplicable={formIsReplicable}
+              handleDeleteGroup={handleDeleteGroup}
               handleToggleGroup={handleActiveGroupToggle}
-              currentFormSection={currentFormSection}
               handleInputChange={handleInputChange}
-              handleDeleteGroup={handleDeleteGroup(groupStateObj.id)}
               hidden={
                 activeGroups[`${currentFormSection}-${groupStateObj.id}`] ||
                 false
               }
               key={`${currentFormSection}-input-group-${groupStateObj.id}`}
             />
-          );
-        })
-      }
+          ))
+        : currentFormData.map((groupStateObj) => {
+            return (
+              <InputGroup
+                groupStateObj={groupStateObj}
+                currentFormInputGroup={currentFormInputGroup}
+                formIsReplicable={formIsReplicable}
+                handleToggleGroup={handleActiveGroupToggle}
+                currentFormSection={currentFormSection}
+                handleInputChange={handleInputChange}
+                handleDeleteGroup={handleDeleteGroup(groupStateObj.id)}
+                hidden={
+                  activeGroups[`${currentFormSection}-${groupStateObj.id}`] ||
+                  false
+                }
+                // onChange={onStateChange}
+                key={`${currentFormSection}-input-group-${groupStateObj.id}`}
+              />
+            );
+          })}
     </Form>
   ) : (
     <Resume formData={formData} />
