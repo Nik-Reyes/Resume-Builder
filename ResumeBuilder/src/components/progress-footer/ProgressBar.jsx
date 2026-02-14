@@ -1,5 +1,5 @@
 function ProgressBar({ progPercent }) {
-  const hundredthAdjustedProg = progPercent * 100;
+  const hundredthAdjustedProg = parseInt(progPercent * 100);
   return (
     <div className="progress-bar-wrapper">
       <div className="progress-header">

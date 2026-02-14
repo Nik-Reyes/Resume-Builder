@@ -9,7 +9,7 @@ function App() {
   const [formNumber, setFormNumber] = useState(0);
   const [view, setView] = useState({ form: true, resume: false });
   const currentFormConfig = forms[formNumber];
-  const totalForms = Object.keys(currentFormConfig).length;
+  const totalForms = Object.keys(forms).length - 1;
 
   return (
     <div className="page-wrapper">
