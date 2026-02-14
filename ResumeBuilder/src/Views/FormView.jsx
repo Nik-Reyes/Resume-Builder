@@ -72,39 +72,34 @@ function FormView({ view, currentFormConfig }) {
       formIsReplicable={formIsReplicable}
       addInputGroup={addInputGroup}
     >
-      {currentFormConfig.customRender
-        ? currentFormData.map((groupStateObj) => (
-            <SkillGroup
-              groupStateObj={groupStateObj}
-              currentFormInputGroup={currentFormInputGroup}
-              handleDeleteGroup={handleDeleteGroup}
-              handleToggleGroup={handleActiveGroupToggle}
-              handleInputChange={handleInputChange}
-              hidden={
-                activeGroups[`${currentFormSection}-${groupStateObj.id}`] ||
-                false
-              }
-              key={`${currentFormSection}-input-group-${groupStateObj.id}`}
-            />
-          ))
-        : currentFormData.map((groupStateObj) => {
-            return (
-              <InputGroup
-                groupStateObj={groupStateObj}
-                currentFormInputGroup={currentFormInputGroup}
-                formIsReplicable={formIsReplicable}
-                handleToggleGroup={handleActiveGroupToggle}
-                currentFormSection={currentFormSection}
-                handleInputChange={handleInputChange}
-                handleDeleteGroup={handleDeleteGroup(groupStateObj.id)}
-                hidden={
-                  activeGroups[`${currentFormSection}-${groupStateObj.id}`] ||
-                  false
-                }
-                key={`${currentFormSection}-input-group-${groupStateObj.id}`}
-              />
-            );
-          })}
+      {currentFormData.map((groupStateObj) => {
+        const key = `${currentFormSection}-input-group-${groupStateObj.id}`;
+        const isHidden =
+          activeGroups[`${currentFormSection}-${groupStateObj.id}`] || false;
+        return currentFormConfig.customRender ? (
+          <SkillGroup
+            groupStateObj={groupStateObj}
+            currentFormInputGroup={currentFormInputGroup}
+            handleDeleteGroup={handleDeleteGroup}
+            handleToggleGroup={handleActiveGroupToggle}
+            handleInputChange={handleInputChange}
+            hidden={isHidden}
+            key={key}
+          />
+        ) : (
+          <InputGroup
+            groupStateObj={groupStateObj}
+            currentFormInputGroup={currentFormInputGroup}
+            formIsReplicable={formIsReplicable}
+            handleToggleGroup={handleActiveGroupToggle}
+            currentFormSection={currentFormSection}
+            handleInputChange={handleInputChange}
+            handleDeleteGroup={handleDeleteGroup(groupStateObj.id)}
+            hidden={isHidden}
+            key={key}
+          />
+        );
+      })}
     </Form>
   ) : (
     <Resume formData={formData} />
