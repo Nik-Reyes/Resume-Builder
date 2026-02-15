@@ -16,7 +16,7 @@ function SkillGroup({
   const skillItemsState = groupStateObj.skills;
   const skillCat = groupStateObj.category;
 
-  function onInputChange(e, skillToUpdate) {
+  function onSkillChange(e, skillToUpdate) {
     const newVal = e.target.value;
     const updatedGroup = {
       ...groupStateObj,
@@ -30,7 +30,12 @@ function SkillGroup({
   return (
     <div className="skill-category-wrapper">
       <div className="skill-type">
-        <input placeholder={skillCat || "i.e., Languages"}></input>
+        <input
+          placeholder={skillCat || "i.e., Languages"}
+          onChange={(e) =>
+            handleInputChange({ ...groupStateObj, category: e.target.value })
+          }
+        ></input>
       </div>
 
       <div className="skills-wrapper">
@@ -59,7 +64,7 @@ function SkillGroup({
                       title={skillConfig.title}
                       inputType={skillConfig.type}
                       inputValue={skillObj.skill}
-                      onChange={(e) => onInputChange(e, skillObj)}
+                      onChange={(e) => onSkillChange(e, skillObj)}
                     />
                   </div>
                 </div>
