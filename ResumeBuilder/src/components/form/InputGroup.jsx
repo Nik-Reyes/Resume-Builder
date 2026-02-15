@@ -3,7 +3,7 @@ import GroupHeading from "./GroupHeading.jsx";
 
 function InputGroup({
   groupStateObj,
-  currentFormInputGroup,
+  currentFormInputFields,
   formIsReplicable,
   handleToggleGroup,
   currentFormSection,
@@ -31,13 +31,13 @@ function InputGroup({
   };
 
   // uses config to create the input tags
-  const inputGroup = currentFormInputGroup.map((input) => (
+  const inputGroup = currentFormInputFields.map((field) => (
     <InputField
-      key={input.name}
-      title={input.title}
-      inputType={input.type}
-      inputValue={groupStateObj[input.name]} // uses the input config object name to access the state of the same name
-      onChange={(e) => onInputChange(input, e)}
+      key={field.name}
+      title={field.title}
+      inputType={field.type}
+      inputValue={groupStateObj[field.name]} // uses the input config object name to access the state of the same name
+      onChange={(e) => onInputChange(field, e)}
     />
   ));
 
@@ -57,7 +57,7 @@ function InputGroup({
           titleData={titleDataMap[currentFormSection]}
           deleteGroup={handleDeleteGroup}
           toggleAccordian={() =>
-            handleToggleGroup(currentFormSection, groupStateObj.id)
+            handleToggleGroup(`${currentFormSection}-${groupStateObj.id}`)
           }
           hidden={hidden}
         />
