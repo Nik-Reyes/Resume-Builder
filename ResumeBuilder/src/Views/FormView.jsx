@@ -13,7 +13,7 @@ const nextInputIds = Object.fromEntries(
 function FormView({ view, currentFormConfig }) {
   const [activeGroups, setActiveGroups] = useState({});
   const [formData, setFormData] = useState(formState);
-  const currentFormInputGroup = currentFormConfig.inputFields;
+  const currentFormInputFields = currentFormConfig.inputFields;
   const currentFormSection = currentFormConfig.section;
   const currentFormData = formData[currentFormSection];
   const formIsReplicable = currentFormConfig.replicable;
@@ -23,7 +23,9 @@ function FormView({ view, currentFormConfig }) {
 
     const nextId = nextInputIds[currentFormSection]++;
     const newDataObj = { id: nextId };
-    currentFormInputGroup.forEach((inputObj) => {
+
+    //use the config to generate a new state object
+    currentFormInputFields.forEach((inputObj) => {
       newDataObj[inputObj.name] = "";
     });
 
@@ -31,12 +33,15 @@ function FormView({ view, currentFormConfig }) {
     setFormData({ ...formData, [currentFormSection]: newFormData });
   }
 
-  function handleActiveGroupToggle(section, id) {
-    const key = `${section}-${id}`;
+  function handleActiveGroupToggle(key) {
     setActiveGroups((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
+  }
+
+  function isGroupHidden(key) {
+    return activeGroups[key] || false;
   }
 
   function handleInputChange(updatedGroup) {
@@ -49,21 +54,17 @@ function FormView({ view, currentFormConfig }) {
 
   const handleDeleteGroup = (id) => () => {
     if (!formIsReplicable) return;
-    //filter out the input group using the id
     const filteredGroups = currentFormData.filter(
       (inputGroup) => inputGroup.id !== id
     );
     setFormData({ ...formData, [currentFormSection]: filteredGroups });
 
-    //setActiveGroups is in parent
-    // this function should only delete the inputgroup from data
-    // it should not also contain the logic for how to get rid of the active prop
-    // const key = `${currentFormSection}-${id}`;
-    // if (key in activeGroups) {
-    //   const newActiveGroups = { ...activeGroups };
-    //   delete newActiveGroups[key];
-    //   setActiveGroups(newActiveGroups);
-    // }
+    const key = `${currentFormSection}-${id}`;
+    if (key in activeGroups) {
+      const newActiveGroups = { ...activeGroups };
+      delete newActiveGroups[key];
+      setActiveGroups(newActiveGroups);
+    }
   };
 
   return view.form ? (
@@ -79,17 +80,19 @@ function FormView({ view, currentFormConfig }) {
         return currentFormConfig.customRender ? (
           <SkillGroup
             groupStateObj={groupStateObj}
-            currentFormInputGroup={currentFormInputGroup}
+            currentFormInputFields={currentFormInputFields}
             handleDeleteGroup={handleDeleteGroup}
             handleToggleGroup={handleActiveGroupToggle}
+            isGroupHidden={isGroupHidden}
             handleInputChange={handleInputChange}
-            hidden={isHidden}
+            isCategoryHidden={isHidden}
+            currentFormSection={currentFormSection}
             key={key}
           />
         ) : (
           <InputGroup
             groupStateObj={groupStateObj}
-            currentFormInputGroup={currentFormInputGroup}
+            currentFormInputFields={currentFormInputFields}
             formIsReplicable={formIsReplicable}
             handleToggleGroup={handleActiveGroupToggle}
             currentFormSection={currentFormSection}
