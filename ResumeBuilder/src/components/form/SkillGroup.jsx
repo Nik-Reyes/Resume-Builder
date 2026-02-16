@@ -9,12 +9,12 @@ function SkillGroup({
   handleToggleGroup,
   isGroupHidden,
   handleInputChange,
-  isCategoryHidden,
   currentFormSection,
 }) {
   const [catConfig, skillConfig] = currentFormInputFields;
   const skillItemsState = groupStateObj.skills;
   const skillCat = groupStateObj.category;
+  const isCategoryHidden = `${currentFormSection}-${groupStateObj.id}`;
 
   function onSkillChange(e, skillToUpdate) {
     const newVal = e.target.value;
@@ -30,6 +30,10 @@ function SkillGroup({
   return (
     <div className="skill-category-wrapper">
       <div className="skill-type">
+        {/* implement click to edit component instead input/cat elements */}
+        {/* <span className="category-title" onClick={() => console.log("hello")}>
+          {groupStateObj[catConfig.name]}
+        </span> */}
         <input
           placeholder={skillCat || "i.e., Languages"}
           onChange={(e) =>
@@ -46,7 +50,7 @@ function SkillGroup({
           return (
             <div
               className="replicable accordian"
-              key={`skill-item=${skillObj.id}`}
+              key={`skill-item-${skillObj.id}`}
             >
               <div className="accordian-panel">
                 <GroupHeading

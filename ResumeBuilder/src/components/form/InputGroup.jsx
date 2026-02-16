@@ -9,8 +9,10 @@ function InputGroup({
   currentFormSection,
   handleInputChange,
   handleDeleteGroup,
-  hidden,
+  isGroupHidden,
 }) {
+  const groupKey = `${currentFormSection}-${groupStateObj.id}`;
+  const hidden = isGroupHidden(groupKey);
   const titleDataMap = {
     workExperience: {
       title: groupStateObj.jobTitle,
