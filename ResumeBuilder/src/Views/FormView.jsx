@@ -33,7 +33,7 @@ function FormView({ view, currentFormConfig }) {
     setFormData({ ...formData, [currentFormSection]: newFormData });
   }
 
-  function handleActiveGroupToggle(key) {
+  function handleToggleGroup(key) {
     setActiveGroups((prev) => ({
       ...prev,
       [key]: !prev[key],
@@ -67,6 +67,14 @@ function FormView({ view, currentFormConfig }) {
     }
   };
 
+  const staticSharedProps = {
+    currentFormInputFields,
+    handleToggleGroup,
+    isGroupHidden,
+    handleInputChange,
+    currentFormSection,
+  };
+
   return view.form ? (
     <Form
       title={currentFormConfig.displayTitle}
@@ -74,31 +82,22 @@ function FormView({ view, currentFormConfig }) {
       addInputGroup={addInputGroup}
     >
       {currentFormData.map((groupStateObj) => {
-        const key = `${currentFormSection}-input-group-${groupStateObj.id}`;
-        const isHidden =
-          activeGroups[`${currentFormSection}-${groupStateObj.id}`] || false;
+        const key = `${currentFormSection}-${groupStateObj.id}`;
+        const dynamicSharedProps = {
+          groupStateObj,
+          handleDeleteGroup: handleDeleteGroup(groupStateObj.id),
+        };
         return currentFormConfig.customRender ? (
           <SkillGroup
-            groupStateObj={groupStateObj}
-            currentFormInputFields={currentFormInputFields}
-            handleDeleteGroup={handleDeleteGroup}
-            handleToggleGroup={handleActiveGroupToggle}
-            isGroupHidden={isGroupHidden}
-            handleInputChange={handleInputChange}
-            isCategoryHidden={isHidden}
-            currentFormSection={currentFormSection}
+            {...staticSharedProps}
+            {...dynamicSharedProps}
             key={key}
           />
         ) : (
           <InputGroup
-            groupStateObj={groupStateObj}
-            currentFormInputFields={currentFormInputFields}
+            {...staticSharedProps}
+            {...dynamicSharedProps}
             formIsReplicable={formIsReplicable}
-            handleToggleGroup={handleActiveGroupToggle}
-            currentFormSection={currentFormSection}
-            handleInputChange={handleInputChange}
-            handleDeleteGroup={handleDeleteGroup(groupStateObj.id)}
-            hidden={isHidden}
             key={key}
           />
         );
