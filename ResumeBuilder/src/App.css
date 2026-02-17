@@ -8,7 +8,7 @@
 
 :root {
   --white-1: #ffffff;
-  --slate-1: hsl(223, 26%, 94%);
+  --slate-1: #eceef4;
   --slate-1-half: hsl(223, 26%, 88%);
   --slate-1-unfocus: hsla(223, 26%, 95%, 0.6);
   --slate-2: #36404a;
@@ -32,13 +32,16 @@ label span {
   color: var(--slate-2);
   font-size: 0.875rem;
 }
+progress {
+  height: var(--progress-height);
+}
 
 progress[value] {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
   display: block;
-  height: 12px;
+
   border-radius: 20px;
   border: none;
 }
@@ -89,7 +92,6 @@ button:disabled {
 
 .page-wrapper {
   min-height: 100vh;
-  padding: var(--padding-4) var(--padding-6);
 }
 
 .page-content {
@@ -97,17 +99,17 @@ button:disabled {
   grid-template-rows: min-content auto min-content;
   position: relative;
   min-height: inherit;
+  padding: var(--padding-1);
 }
 
 .page-content > *:not(:last-child),
 .progress-content {
   background-color: var(--white-1);
-  box-shadow: 0 0 5px 2px var(--slate-1-half);
   border-radius: 10px;
 }
 
 .page-content > :nth-child(2) {
-  margin-top: var(--padding-4);
+  margin-top: var(--padding-1);
 }
 
 .view-header {
@@ -120,6 +122,20 @@ button:disabled {
   flex: 1;
 }
 
+.form {
+  position: relative;
+}
+
+.form::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 3px 1px var(--slate-1-half);
+  border-radius: 10px;
+  pointer-events: none;
+  /* #66d5ff */
+}
+
 .form:has(.replicable) {
   display: grid;
   grid-template-rows: min-content min-content 1fr;
@@ -130,7 +146,7 @@ button:disabled {
 }
 
 .input-groups > div {
-  box-shadow: 0 0 3px 1px var(--slate-1-half);
+  box-shadow: inset 0 0 3px 1px var(--slate-1-half);
   border-radius: 10px;
 }
 
@@ -341,7 +357,7 @@ input[type="date"] {
 }
 
 .spacer {
-  height: var(--padding-4);
+  height: var(--padding-1);
   background-color: var(--slate-1);
   position: relative;
   z-index: 1;
@@ -354,26 +370,25 @@ input[type="date"] {
   padding: var(--padding-4);
 }
 
+.progress-bar-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--progress-height) / 2);
+  background-color: var(--white-1);
+}
+
 .progress-bar-wrapper {
   flex: 1;
-  display: grid;
-  row-gap: var(--padding-3);
-  padding: var(--padding-4);
-  padding-bottom: 0;
-}
-
-.progress-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.progress-title,
-.progress-percent {
-  font-size: 0.875rem;
+  --progress-height: 8px;
+  position: relative;
 }
 
 .progressbar {
   transition: all 500ms ease-in;
+  height: var(--progress-height);
 }
 
 /* resume styles */
