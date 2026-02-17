@@ -115,6 +115,7 @@ function FormView({ view, currentFormConfig }) {
     isGroupHidden,
     updateFormGroup,
     handleDeleteFromActiveGroups,
+    handleDeleteGroup,
   };
 
   return view.form ? (
@@ -140,7 +141,6 @@ function FormView({ view, currentFormConfig }) {
             groupStateObj={groupStateObj}
             groupKey={key}
             titleData={titleData}
-            handleDeleteGroup={handleDeleteGroup}
             key={key}
           />
         );
