@@ -6,32 +6,14 @@ function InputGroup({
   currentFormInputFields,
   formIsReplicable,
   handleToggleGroup,
-  currentFormSection,
   updateFormGroup,
   handleDeleteGroup,
   isGroupHidden,
   groupKey,
+  titleData,
   handleDeleteFromActiveGroups,
 }) {
   const hidden = isGroupHidden(groupKey);
-  const titleDataMap = {
-    workExperience: {
-      title: groupStateObj.jobTitle,
-      subTitle: groupStateObj.employer,
-      titlePlaceholder: "Job Title",
-      subTitlePlaceholder: "Employer",
-    },
-    education: {
-      title: groupStateObj.degree,
-      subTitle: groupStateObj.university,
-      titlePlaceholder: "Degree",
-      subTitlePlaceholder: "University",
-    },
-    projects: {
-      title: groupStateObj.projectTitle,
-      titlePlaceholder: "Project",
-    },
-  };
 
   // uses config to create the input tags
   const inputGroup = currentFormInputFields.map((field) => (
@@ -56,7 +38,7 @@ function InputGroup({
     <div className="replicable accordian">
       <div className="accordian-panel">
         <GroupHeading
-          titleData={titleDataMap[currentFormSection]}
+          titleData={titleData}
           deleteGroup={() => handleDeleteGroup(groupStateObj.id)}
           deleteActiveGroup={() => handleDeleteFromActiveGroups(groupKey)}
           toggleAccordian={() => handleToggleGroup(groupKey)}

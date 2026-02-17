@@ -20,6 +20,24 @@ function FormView({ view, currentFormConfig }) {
   const currentFormSection = currentFormConfig.section;
   const currentFormData = formData[currentFormSection];
   const formIsReplicable = currentFormConfig.replicable;
+  const titleDataMap = {
+    workExperience: (group) => ({
+      title: group.jobTitle,
+      subTitle: group.employer,
+      titlePlaceholder: "Job Title",
+      subTitlePlaceholder: "Employer",
+    }),
+    education: (group) => ({
+      title: group.degree,
+      subTitle: group.university,
+      titlePlaceholder: "Degree",
+      subTitlePlaceholder: "University",
+    }),
+    projects: (group) => ({
+      title: group.projectTitle,
+      titlePlaceholder: "Project",
+    }),
+  };
 
   /////////// START GROUP MANIPULATION FUNCTIONS ///////////
   function addFormGroup(newGroup) {
@@ -54,7 +72,7 @@ function FormView({ view, currentFormConfig }) {
   }
 
   function updateFormGroup(updatedGroup) {
-    const updatedGroupData = [...currentFormData].map((group) => {
+    const updatedGroupData = currentFormData.map((group) => {
       return group.id === updatedGroup.id ? updatedGroup : group;
     });
 
@@ -64,7 +82,6 @@ function FormView({ view, currentFormConfig }) {
     });
   }
 
-  //handledelete needs tp take in a key to delete it from
   function handleDeleteGroup(id) {
     const filteredGroups = currentFormData.filter((group) => group.id !== id);
     setFormData({ ...formData, [currentFormSection]: filteredGroups });
@@ -97,7 +114,6 @@ function FormView({ view, currentFormConfig }) {
     handleToggleGroup,
     isGroupHidden,
     updateFormGroup,
-    currentFormSection,
     handleDeleteFromActiveGroups,
   };
 
@@ -109,6 +125,7 @@ function FormView({ view, currentFormConfig }) {
     >
       {currentFormData.map((groupStateObj) => {
         const key = `${currentFormSection}-${groupStateObj.id}`;
+        const titleData = titleDataMap[currentFormSection]?.(groupStateObj);
         return currentFormConfig.customRender ? (
           <SkillGroup
             {...staticSharedProps}
@@ -122,6 +139,7 @@ function FormView({ view, currentFormConfig }) {
             formIsReplicable={formIsReplicable}
             groupStateObj={groupStateObj}
             groupKey={key}
+            titleData={titleData}
             handleDeleteGroup={handleDeleteGroup}
             key={key}
           />

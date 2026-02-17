@@ -8,7 +8,6 @@ function SkillGroup({
   handleToggleGroup,
   isGroupHidden,
   updateFormGroup,
-  currentFormSection,
   groupKey,
   handleDeleteFromActiveGroups,
 }) {
