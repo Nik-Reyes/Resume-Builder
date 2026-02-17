@@ -10,8 +10,9 @@ function InputGroup({
   updateFormGroup,
   handleDeleteGroup,
   isGroupHidden,
+  groupKey,
+  handleDeleteFromActiveGroups,
 }) {
-  const groupKey = `${currentFormSection}-${groupStateObj.id}`;
   const hidden = isGroupHidden(groupKey);
   const titleDataMap = {
     workExperience: {
@@ -39,15 +40,14 @@ function InputGroup({
       title={field.title}
       inputType={field.type}
       inputValue={groupStateObj[field.name]} // uses the input config object name to access the state of the same name
-      onChange={(e) => onInputChange(field, e)}
+      onChange={(e) => onInputChange(e, field)}
     />
   ));
 
-  function onInputChange(input, e) {
-    const newVal = e.target.value;
+  function onInputChange(e, field) {
     const updatedGroup = {
       ...groupStateObj,
-      [input.name]: newVal,
+      [field.name]: e.target.value,
     };
     updateFormGroup(updatedGroup);
   }
@@ -57,10 +57,9 @@ function InputGroup({
       <div className="accordian-panel">
         <GroupHeading
           titleData={titleDataMap[currentFormSection]}
-          deleteGroup={handleDeleteGroup}
-          toggleAccordian={() =>
-            handleToggleGroup(`${currentFormSection}-${groupStateObj.id}`)
-          }
+          deleteGroup={() => handleDeleteGroup(groupStateObj.id)}
+          deleteActiveGroup={() => handleDeleteFromActiveGroups(groupKey)}
+          toggleAccordian={() => handleToggleGroup(groupKey)}
           hidden={hidden}
         />
         <div className="accordian-content" aria-hidden={hidden}>

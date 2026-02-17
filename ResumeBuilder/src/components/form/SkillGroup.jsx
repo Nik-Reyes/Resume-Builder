@@ -5,16 +5,17 @@ import GroupHeading from "./GroupHeading.jsx";
 function SkillGroup({
   groupStateObj,
   currentFormInputFields,
-  handleDeleteGroup,
   handleToggleGroup,
   isGroupHidden,
   updateFormGroup,
   currentFormSection,
+  groupKey,
+  handleDeleteFromActiveGroups,
 }) {
   const [catConfig, skillConfig] = currentFormInputFields;
   const skillItemsState = groupStateObj.skills;
   const skillCat = groupStateObj.category;
-  const isCategoryHidden = `${currentFormSection}-${groupStateObj.id}`;
+  const isCategoryHidden = isGroupHidden(groupKey);
 
   function onInputChange(e, skillToUpdate) {
     const newVal = e.target.value;
@@ -46,7 +47,14 @@ function SkillGroup({
     updateFormGroup(updatedCategory);
   }
 
-  function addCategory() {}
+  function deleteSkill(id) {
+    const updatedCategory = {
+      ...groupStateObj,
+      skills: skillItemsState.filter((skill) => skill.id !== id),
+    };
+
+    updateFormGroup(updatedCategory);
+  }
 
   return (
     <div className="skill-category-wrapper">
@@ -65,7 +73,7 @@ function SkillGroup({
 
       <div className="skills-wrapper">
         {skillItemsState.map((skillObj) => {
-          const skillKey = `${currentFormSection}-${groupStateObj.id}-${skillObj.id}`;
+          const skillKey = `${groupKey}-${skillObj.id}`;
           const isSkillHidden = isGroupHidden(skillKey);
 
           return (
@@ -79,8 +87,11 @@ function SkillGroup({
                     title: skillObj.skill,
                     titlePlaceholder: "Skill",
                   }}
-                  deleteGroup={handleDeleteGroup}
+                  deleteGroup={() => deleteSkill(skillObj.id, skillKey)}
                   toggleAccordian={() => handleToggleGroup(skillKey)}
+                  deleteActiveGroup={() =>
+                    handleDeleteFromActiveGroups(skillKey)
+                  }
                   hidden={isSkillHidden}
                 />
                 <div className="accordian-content" aria-hidden={isSkillHidden}>

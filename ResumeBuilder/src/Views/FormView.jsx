@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { forms } from "../data/form-config.js";
 import { formState } from "../data/form-state.js";
 import Form from "../components/form/Form.jsx";
 import Resume from "../components/resume/Resume.jsx";
@@ -55,8 +54,6 @@ function FormView({ view, currentFormConfig }) {
   }
 
   function updateFormGroup(updatedGroup) {
-    // injects the updated group from a child group into updatedGroupData
-    // and then updates the currentFormSection with this new data
     const updatedGroupData = [...currentFormData].map((group) => {
       return group.id === updatedGroup.id ? updatedGroup : group;
     });
@@ -67,20 +64,11 @@ function FormView({ view, currentFormConfig }) {
     });
   }
 
-  const handleDeleteGroup = (id) => () => {
-    if (!formIsReplicable) return;
-    const filteredGroups = currentFormData.filter(
-      (inputGroup) => inputGroup.id !== id
-    );
+  //handledelete needs tp take in a key to delete it from
+  function handleDeleteGroup(id) {
+    const filteredGroups = currentFormData.filter((group) => group.id !== id);
     setFormData({ ...formData, [currentFormSection]: filteredGroups });
-
-    const key = `${currentFormSection}-${id}`;
-    if (key in activeGroups) {
-      const newActiveGroups = { ...activeGroups };
-      delete newActiveGroups[key];
-      setActiveGroups(newActiveGroups);
-    }
-  };
+  }
   /////////// END GROUP MANIPULATION FUNCTIONS ///////////
 
   /////////// START ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
@@ -94,6 +82,14 @@ function FormView({ view, currentFormConfig }) {
       [key]: !prev[key],
     }));
   }
+
+  function handleDeleteFromActiveGroups(key) {
+    if (key in activeGroups) {
+      const newActiveGroups = { ...activeGroups };
+      delete newActiveGroups[key];
+      setActiveGroups(newActiveGroups);
+    }
+  }
   /////////// END ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
 
   const staticSharedProps = {
@@ -102,6 +98,7 @@ function FormView({ view, currentFormConfig }) {
     isGroupHidden,
     updateFormGroup,
     currentFormSection,
+    handleDeleteFromActiveGroups,
   };
 
   return view.form ? (
@@ -112,21 +109,20 @@ function FormView({ view, currentFormConfig }) {
     >
       {currentFormData.map((groupStateObj) => {
         const key = `${currentFormSection}-${groupStateObj.id}`;
-        const dynamicSharedProps = {
-          groupStateObj,
-          handleDeleteGroup: handleDeleteGroup(groupStateObj.id),
-        };
         return currentFormConfig.customRender ? (
           <SkillGroup
             {...staticSharedProps}
-            {...dynamicSharedProps}
+            groupStateObj={groupStateObj}
+            groupKey={key}
             key={key}
           />
         ) : (
           <InputGroup
             {...staticSharedProps}
-            {...dynamicSharedProps}
             formIsReplicable={formIsReplicable}
+            groupStateObj={groupStateObj}
+            groupKey={key}
+            handleDeleteGroup={handleDeleteGroup}
             key={key}
           />
         );

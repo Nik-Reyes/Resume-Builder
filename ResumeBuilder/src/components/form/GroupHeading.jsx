@@ -5,9 +5,14 @@ import { useState } from "react";
 // a subtitle. Therefore any titleData that only has a title always has the length of 2
 const MIN_TITLE_DATA_LENGTH = 2;
 
-function GroupHeading({ titleData, deleteGroup, toggleAccordian, hidden }) {
+function GroupHeading({
+  titleData,
+  deleteGroup,
+  deleteActiveGroup,
+  toggleAccordian,
+  hidden,
+}) {
   const [menuClass, setMenuClass] = useState("");
-
   // start with no class, no styles applied
   // only when the button is clicked should a class be set
   // This means that on first render, animation classes arent shown
@@ -34,7 +39,10 @@ function GroupHeading({ titleData, deleteGroup, toggleAccordian, hidden }) {
       <div className="edit-group-btn-wrapper">
         <div className="header-buttons-wrapper">
           <button
-            onClick={deleteGroup}
+            onClick={() => {
+              deleteGroup();
+              deleteActiveGroup();
+            }}
             data-button-type="delete-group"
             className={menuClass}
             disabled={menuClass ? false : true}
