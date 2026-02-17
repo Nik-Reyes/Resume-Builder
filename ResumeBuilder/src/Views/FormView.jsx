@@ -6,9 +6,13 @@ import Resume from "../components/resume/Resume.jsx";
 import InputGroup from "../components/form/InputGroup.jsx";
 import SkillGroup from "../components/form/SkillGroup.jsx";
 
-const nextInputIds = Object.fromEntries(
-  Object.values(forms).map(({ section }) => [section, 1])
-);
+const CUSTOM_GROUP_STATES = {
+  skills: (id, fields) => ({
+    id,
+    category: "",
+    skills: [{ id: 0, [fields[1].name]: "" }],
+  }),
+};
 
 function FormView({ view, currentFormConfig }) {
   const [activeGroups, setActiveGroups] = useState({});
@@ -18,38 +22,49 @@ function FormView({ view, currentFormConfig }) {
   const currentFormData = formData[currentFormSection];
   const formIsReplicable = currentFormConfig.replicable;
 
-  function addInputGroup() {
+  /////////// START GROUP MANIPULATION FUNCTIONS ///////////
+  function addFormGroup(newGroup) {
     if (!formIsReplicable) return;
 
-    const nextId = nextInputIds[currentFormSection]++;
-    const newDataObj = { id: nextId };
+    const newGroupData = [...currentFormData, newGroup];
+    setFormData({ ...formData, [currentFormSection]: newGroupData });
+  }
 
-    //use the config to generate a new state object
-    currentFormInputFields.forEach((inputObj) => {
-      newDataObj[inputObj.name] = "";
+  function createGroup() {
+    const nextId =
+      currentFormData.length > 0
+        ? Math.max(...currentFormData.map((group) => group.id)) + 1
+        : 0;
+
+    const factory = CUSTOM_GROUP_STATES[currentFormSection];
+    if (factory) {
+      return factory(nextId, currentFormInputFields);
+    }
+
+    const newGroup = { id: nextId };
+    currentFormInputFields.forEach((field) => {
+      newGroup[field.name] = "";
     });
 
-    const newFormData = [...currentFormData, newDataObj];
-    setFormData({ ...formData, [currentFormSection]: newFormData });
+    return newGroup;
   }
 
-  function handleToggleGroup(key) {
-    setActiveGroups((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
+  function handleAddGroup() {
+    const newGroup = createGroup();
+    addFormGroup(newGroup);
   }
 
-  function isGroupHidden(key) {
-    return activeGroups[key] || false;
-  }
-
-  function handleInputChange(updatedGroup) {
-    const section = [...currentFormData].map((group) => {
+  function updateFormGroup(updatedGroup) {
+    // injects the updated group from a child group into updatedGroupData
+    // and then updates the currentFormSection with this new data
+    const updatedGroupData = [...currentFormData].map((group) => {
       return group.id === updatedGroup.id ? updatedGroup : group;
     });
 
-    setFormData({ ...formData, [currentFormSection]: section });
+    setFormData({
+      ...formData,
+      [currentFormSection]: updatedGroupData,
+    });
   }
 
   const handleDeleteGroup = (id) => () => {
@@ -66,12 +81,26 @@ function FormView({ view, currentFormConfig }) {
       setActiveGroups(newActiveGroups);
     }
   };
+  /////////// END GROUP MANIPULATION FUNCTIONS ///////////
+
+  /////////// START ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
+  function isGroupHidden(key) {
+    return activeGroups[key] || false;
+  }
+
+  function handleToggleGroup(key) {
+    setActiveGroups((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  }
+  /////////// END ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
 
   const staticSharedProps = {
     currentFormInputFields,
     handleToggleGroup,
     isGroupHidden,
-    handleInputChange,
+    updateFormGroup,
     currentFormSection,
   };
 
@@ -79,7 +108,7 @@ function FormView({ view, currentFormConfig }) {
     <Form
       title={currentFormConfig.displayTitle}
       formIsReplicable={formIsReplicable}
-      addInputGroup={addInputGroup}
+      addFormGroup={handleAddGroup}
     >
       {currentFormData.map((groupStateObj) => {
         const key = `${currentFormSection}-${groupStateObj.id}`;

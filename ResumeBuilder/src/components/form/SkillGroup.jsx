@@ -8,7 +8,7 @@ function SkillGroup({
   handleDeleteGroup,
   handleToggleGroup,
   isGroupHidden,
-  handleInputChange,
+  updateFormGroup,
   currentFormSection,
 }) {
   const [catConfig, skillConfig] = currentFormInputFields;
@@ -16,7 +16,7 @@ function SkillGroup({
   const skillCat = groupStateObj.category;
   const isCategoryHidden = `${currentFormSection}-${groupStateObj.id}`;
 
-  function onSkillChange(e, skillToUpdate) {
+  function onInputChange(e, skillToUpdate) {
     const newVal = e.target.value;
     const updatedGroup = {
       ...groupStateObj,
@@ -24,8 +24,29 @@ function SkillGroup({
         skill.id === skillToUpdate.id ? { ...skill, skill: newVal } : skill
       ),
     };
-    handleInputChange(updatedGroup);
+    updateFormGroup(updatedGroup);
   }
+
+  function addSkill() {
+    // determines the nest highest skill id. If no skill exists, start at 0
+    const nextSkillId =
+      skillItemsState.length > 0
+        ? Math.max(...skillItemsState.map((skill) => skill.id)) + 1
+        : 0;
+
+    // generate the new skill
+    const newSkill = { id: nextSkillId, [skillConfig.name]: "" };
+
+    // add the new skill to the category
+    const updatedCategory = {
+      ...groupStateObj,
+      skills: [...skillItemsState, newSkill],
+    };
+
+    updateFormGroup(updatedCategory);
+  }
+
+  function addCategory() {}
 
   return (
     <div className="skill-category-wrapper">
@@ -37,7 +58,7 @@ function SkillGroup({
         <input
           placeholder={skillCat || "i.e., Languages"}
           onChange={(e) =>
-            handleInputChange({ ...groupStateObj, category: e.target.value })
+            updateFormGroup({ ...groupStateObj, category: e.target.value })
           }
         ></input>
       </div>
@@ -68,7 +89,7 @@ function SkillGroup({
                       title={skillConfig.title}
                       inputType={skillConfig.type}
                       inputValue={skillObj.skill}
-                      onChange={(e) => onSkillChange(e, skillObj)}
+                      onChange={(e) => onInputChange(e, skillObj)}
                     />
                   </div>
                 </div>
@@ -79,7 +100,7 @@ function SkillGroup({
       </div>
       {/* ========Skill accordian group jsx======== */}
 
-      <button data-button-type="add-skill">
+      <button data-button-type="add-skill" onClick={addSkill}>
         <span>+ add skill</span>
       </button>
     </div>

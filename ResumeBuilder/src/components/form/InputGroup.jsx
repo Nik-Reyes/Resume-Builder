@@ -7,7 +7,7 @@ function InputGroup({
   formIsReplicable,
   handleToggleGroup,
   currentFormSection,
-  handleInputChange,
+  updateFormGroup,
   handleDeleteGroup,
   isGroupHidden,
 }) {
@@ -49,7 +49,7 @@ function InputGroup({
       ...groupStateObj,
       [input.name]: newVal,
     };
-    handleInputChange(updatedGroup);
+    updateFormGroup(updatedGroup);
   }
 
   return formIsReplicable ? (
