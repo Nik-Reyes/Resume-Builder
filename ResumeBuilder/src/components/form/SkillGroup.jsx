@@ -1,6 +1,7 @@
 // development in progess, not the final product
 import InputField from "./InputField.jsx";
 import GroupHeading from "./GroupHeading.jsx";
+import Category from "./Category.jsx";
 
 function SkillGroup({
   groupStateObj,
@@ -14,10 +15,10 @@ function SkillGroup({
 }) {
   const [catConfig, skillConfig] = currentFormInputFields;
   const skillItemsState = groupStateObj.skills;
-  const skillCat = groupStateObj.category;
+  const skillCat = groupStateObj[catConfig.name];
   const isCategoryHidden = isGroupHidden(groupKey);
 
-  function onInputChange(e, skillToUpdate) {
+  function onSkillInputChange(e, skillToUpdate) {
     const newVal = e.target.value;
     const updatedGroup = {
       ...groupStateObj,
@@ -68,26 +69,21 @@ function SkillGroup({
           toggleAccordian={() => handleToggleGroup(groupKey)}
           deleteActiveGroup={() => handleDeleteFromActiveGroups(groupKey)}
           hidden={isCategoryHidden}
-        />
+        >
+          <Category
+            placeholder={"i.e., Languages"}
+            onChange={(e) =>
+              updateFormGroup({
+                ...groupStateObj,
+                [catConfig.name]: e.target.value,
+              })
+            }
+            value={skillCat}
+          />
+        </GroupHeading>
         <div className="accordian-content" aria-hidden={isCategoryHidden}>
           <div>
             <div className="skill-category-wrapper">
-              <div className="skill-type">
-                {/* implement click to edit component instead input/cat elements */}
-                {/* <span className="category-title" onClick={() => console.log("hello")}>
-          {groupStateObj[catConfig.name]}
-        </span> */}
-                <input
-                  placeholder={skillCat || "i.e., Languages"}
-                  onChange={(e) =>
-                    updateFormGroup({
-                      ...groupStateObj,
-                      category: e.target.value,
-                    })
-                  }
-                ></input>
-              </div>
-
               <div className="skills-wrapper">
                 {skillItemsState.map((skillObj) => {
                   const skillKey = `${groupKey}-${skillObj.id}`;
@@ -120,7 +116,7 @@ function SkillGroup({
                               title={skillConfig.title}
                               inputType={skillConfig.type}
                               inputValue={skillObj.skill}
-                              onChange={(e) => onInputChange(e, skillObj)}
+                              onChange={(e) => onSkillInputChange(e, skillObj)}
                             />
                           </div>
                         </div>
