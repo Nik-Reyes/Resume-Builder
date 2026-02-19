@@ -4,7 +4,6 @@ import Save from "../../assets/svg/check-square-svgrepo-com.svg?react";
 
 function Category({ placeholder, onChange, value }) {
   const [isEditing, setIsEditing] = useState(false);
-  console.log(value);
 
   let category = null;
   isEditing
@@ -15,6 +14,11 @@ function Category({ placeholder, onChange, value }) {
               className="catInput"
               placeholder={placeholder}
               onChange={onChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setIsEditing(false);
+                }
+              }}
               value={value}
             />
           </div>
