@@ -4,7 +4,7 @@ import Save from "../../assets/svg/check-square-svgrepo-com.svg?react";
 
 function Category({ placeholder, onChange, value }) {
   const [isEditing, setIsEditing] = useState(false);
-  console.log("render");
+  console.log(value);
 
   let category = null;
   isEditing
@@ -13,7 +13,7 @@ function Category({ placeholder, onChange, value }) {
           <div className="catInput-wrapper">
             <input
               className="catInput"
-              placeholder={placeholder} //plcaeholder
+              placeholder={placeholder}
               onChange={onChange}
               value={value}
             />
@@ -22,20 +22,28 @@ function Category({ placeholder, onChange, value }) {
             onClick={() => setIsEditing(false)}
             data-button-type="edit-category"
           >
-            <Save width={24} height={24} />
+            <Save width={24} height={24} className="category-save-icon frost" />
           </button>
         </>
       ))
     : (category = (
         <>
           <div className="catVal-wrapper">
-            <span>{value || "Category"}</span>
+            <span
+              className={`${
+                value === ""
+                  ? "category-display-title untitled-category"
+                  : "category-display-title"
+              }`}
+            >
+              {value || "Unititled"}
+            </span>
           </div>
           <button
             onClick={() => setIsEditing(true)}
             data-button-type="edit-category"
           >
-            <Edit width={24} height={24} />
+            <Edit width={20} height={20} className="category-edit-icon frost" />
           </button>
         </>
       ));

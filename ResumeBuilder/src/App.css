@@ -12,7 +12,7 @@
   --slate-1-half: hsl(223, 26%, 88%);
   --slate-1-unfocus: hsla(223, 26%, 95%, 0.6);
   --slate-2: #36404a;
-  --slate-3: #4275ab;
+  --slate-3: #0099cc;
   --no-padding: 0px;
   --padding-1: 5px;
   --padding-2: 10px;
@@ -28,12 +28,34 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 label span {
   color: var(--slate-2);
   font-size: 0.875rem;
 }
 progress {
   height: var(--progress-height);
+  background: none;
+  appearance: none;
+  color: var(--slate-3);
+  -webkit-appearance: none;
+}
+
+progress::-moz-progress-bar {
+  background: var(--slate-3);
+}
+
+progress::-webkit-progress-value {
+  background: var(--slate-3);
+}
+
+progress::-webkit-progress-bar {
+  background: none;
 }
 
 progress[value] {
@@ -78,7 +100,7 @@ input:focus,
 }
 
 button {
-  border-radius: 10px;
+  border-radius: 7px;
   border: none;
   padding: 0.5em 2em;
   cursor: pointer;
@@ -105,7 +127,7 @@ button:disabled {
 .page-content > *:not(:last-child),
 .progress-content {
   background-color: var(--white-1);
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .page-content > :nth-child(2) {
@@ -131,7 +153,7 @@ button:disabled {
   position: absolute;
   inset: 0;
   box-shadow: inset 0 0 3px 1px var(--slate-1-half);
-  border-radius: 10px;
+  border-radius: 7px;
   pointer-events: none;
   /* #66d5ff */
 }
@@ -147,7 +169,7 @@ button:disabled {
 
 .input-groups > div {
   box-shadow: inset 0 0 3px 1px var(--slate-1-half);
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .irreplicable {
@@ -175,11 +197,48 @@ button:disabled {
 }
 
 .group-header {
-  --title-size: 1rem;
+  --title-size: 0.875rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--padding-4);
+}
+
+.category-display-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.untitled-category {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  column-gap: var(--padding-2);
+}
+
+/* .catInput-wrapper {
+  width: ;
+} */
+
+.catInput {
+  background: none;
+  border-bottom: 2px solid var(--slate-3);
+  border-radius: 0;
+  padding: 0;
+  caret-color: var(--slate-3);
+  min-width: 0px;
+  display: flex;
+  width: min-content;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.catInput:focus {
+  outline: none;
 }
 
 .accordian-content > div {
@@ -223,6 +282,22 @@ button[data-button-type="accordian-control"] svg {
 
 button[data-button-type="accordian-control"] > svg.visible {
   transform: rotate(180deg);
+}
+
+button[data-button-type="edit-category"] {
+  padding: 0;
+  border-radius: 0px;
+  background: none;
+}
+
+.category-edit-icon,
+.category-save-icon {
+  transition: fill 200ms ease-in-out, filter 200ms ease-in-out;
+}
+
+button:hover > svg.frost {
+  fill: var(--fill-color);
+  filter: var(--drshdw-color);
 }
 
 .group-title {
@@ -303,6 +378,16 @@ button[data-button-type="edit-group"] {
   margin-top: 1px;
 }
 
+.skills-wrapper {
+  border-radius: 5px;
+  box-shadow: inset 0 0 3px 1px var(--slate-1-half);
+}
+
+.skills-wrapper .group-header {
+  padding-top: var(--padding-1);
+  padding-bottom: var(--padding-1);
+}
+
 .form-input {
   margin-top: var(--padding-1);
 }
@@ -317,7 +402,7 @@ button[data-button-type="edit-group"] {
   min-height: 8lh;
   border: none;
   background-color: var(--slate-1);
-  border-radius: 10px;
+  border-radius: 7px;
   padding: var(--padding-2);
 }
 
@@ -470,4 +555,10 @@ input[type="date"] {
 
 .bullet-points li {
   display: list-item;
+}
+
+/* svg hover profiles */
+.frost {
+  --fill-color: var(--slate-3);
+  --drshdw-color: drop-shadow(0 0 1px #66d5ff);
 }
