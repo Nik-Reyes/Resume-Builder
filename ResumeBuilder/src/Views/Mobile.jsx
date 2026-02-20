@@ -13,7 +13,7 @@ const CUSTOM_GROUP_STATES = {
   }),
 };
 
-function FormView({ view, currentFormConfig }) {
+function Mobile({ view, currentFormConfig }) {
   const [activeGroups, setActiveGroups] = useState({});
   const [formData, setFormData] = useState(formState);
   const currentFormInputFields = currentFormConfig.inputFields;
@@ -151,4 +151,4 @@ function FormView({ view, currentFormConfig }) {
   );
 }
 
-export default FormView;
+export default Mobile;

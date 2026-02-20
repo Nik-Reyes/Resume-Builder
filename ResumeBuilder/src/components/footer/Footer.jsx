@@ -1,6 +1,6 @@
 import ProgressBar from "./ProgressBar.jsx";
 
-function ProgressFooter({ formNumber, totalForms, setFormNumber }) {
+function Footer({ formNumber, totalForms, setFormNumber }) {
   const prog =
     formNumber === 0
       ? 1 / (totalForms + 1)
@@ -44,4 +44,4 @@ function ProgressFooter({ formNumber, totalForms, setFormNumber }) {
   );
 }
 
-export default ProgressFooter;
+export default Footer;

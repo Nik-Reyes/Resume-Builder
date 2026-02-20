@@ -1,4 +1,4 @@
-function ViewHeader({ view, setView }) {
+function Header({ view, setView }) {
   function manageView(newView) {
     const updateView = { ...view };
     Object.keys(updateView).forEach((key) => (updateView[key] = false));
@@ -18,4 +18,4 @@ function ViewHeader({ view, setView }) {
   );
 }
 
-export default ViewHeader;
+export default Header;

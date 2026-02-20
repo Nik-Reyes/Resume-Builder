@@ -1,9 +1,9 @@
 import "./App.css";
 import { useState } from "react";
 import { forms } from "./data/form-config.js";
-import ViewHeader from "./components/view-header/Viewheader.jsx";
-import ProgressFooter from "./components/progress-footer/ProgressFooter.jsx";
-import FormView from "./Views/FormView.jsx";
+import Mobile from "./Views/Mobile.jsx";
+import Footer from "./components/footer/Footer.jsx";
+import Header from "./components/Header/Header.jsx";
 
 function App() {
   const [formNumber, setFormNumber] = useState(0);
@@ -14,10 +14,10 @@ function App() {
   return (
     <div className="page-wrapper">
       <div className="page-content">
-        <ViewHeader view={view} setView={setView} />
-        <FormView view={view} currentFormConfig={currentFormConfig} />
+        <Header view={view} setView={setView} />
+        <Mobile view={view} currentFormConfig={currentFormConfig} />
         {view.form && (
-          <ProgressFooter
+          <Footer
             formNumber={formNumber}
             totalForms={totalForms}
             setFormNumber={setFormNumber}
