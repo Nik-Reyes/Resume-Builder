@@ -1,7 +1,7 @@
 import InputField from "./InputField.jsx";
 import GroupHeading from "./GroupHeading.jsx";
 
-function InputGroup({
+function DefaultInputGroup({
   groupStateObj,
   currentFormInputFields,
   formIsReplicable,
@@ -14,17 +14,6 @@ function InputGroup({
   handleDeleteFromActiveGroups,
 }) {
   const hidden = isGroupHidden(groupKey);
-
-  // uses config to create the input tags
-  const inputGroup = currentFormInputFields.map((field) => (
-    <InputField
-      key={field.name}
-      title={field.title}
-      inputType={field.type}
-      inputValue={groupStateObj[field.name]} // uses the input config object name to access the state of the same name
-      onChange={(e) => onInputChange(e, field)}
-    />
-  ));
 
   function onInputChange(e, field) {
     const updatedGroup = {
@@ -45,7 +34,17 @@ function InputGroup({
           hidden={hidden}
         />
         <div className="accordian-content" aria-hidden={hidden}>
-          <div>{inputGroup}</div>
+          <div>
+            {currentFormInputFields.map((field) => (
+              <InputField
+                key={field.name}
+                title={field.title}
+                inputType={field.type}
+                inputValue={groupStateObj[field.name]} // uses the input config object name to access the state of the same name
+                onChange={(e) => onInputChange(e, field)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -54,4 +53,4 @@ function InputGroup({
   );
 }
 
-export default InputGroup;
+export default DefaultInputGroup;

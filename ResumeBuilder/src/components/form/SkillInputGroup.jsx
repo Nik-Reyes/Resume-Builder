@@ -3,7 +3,7 @@ import InputField from "./InputField.jsx";
 import GroupHeading from "./GroupHeading.jsx";
 import Category from "./Category.jsx";
 
-function SkillGroup({
+function SkillInputGroup({
   groupStateObj,
   currentFormInputFields,
   handleToggleGroup,
@@ -138,4 +138,4 @@ function SkillGroup({
   );
 }
 
-export default SkillGroup;
+export default SkillInputGroup;
