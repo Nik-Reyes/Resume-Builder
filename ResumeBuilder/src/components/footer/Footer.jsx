@@ -18,7 +18,7 @@ function Footer({ formNumber, totalForms, setFormNumber }) {
   }
 
   return (
-    <div className="progress-footer">
+    <div className="progress-footer container">
       <div className="spacer"></div>
 
       <div className="progress-content">

@@ -58,40 +58,42 @@ function SkillInputGroup({
   }
 
   return (
-    <div className="accordian">
-      <div className="accordin-panel">
-        <GroupHeading
-          titleData={{
-            title: skillCat,
-            titlePlaceholder: "Category",
-          }}
-          deleteGroup={() => handleDeleteGroup(groupStateObj.id)}
-          toggleAccordian={() => handleToggleGroup(groupKey)}
-          deleteActiveGroup={() => handleDeleteFromActiveGroups(groupKey)}
-          hidden={isCategoryHidden}
-        >
-          <Category
-            placeholder={"i.e., Languages"}
-            onChange={(e) =>
-              updateFormGroup({
-                ...groupStateObj,
-                [catConfig.name]: e.target.value,
-              })
-            }
-            value={skillCat}
-          />
-        </GroupHeading>
-        <div className="accordian-content" aria-hidden={isCategoryHidden}>
-          <div>
-            <div className="skill-category-wrapper">
+    <div className="skill-category-wrapper container">
+      <div className="accordian">
+        <div className="accordian-panel">
+          <GroupHeading
+            titleData={{
+              title: skillCat,
+              titlePlaceholder: "Category",
+            }}
+            deleteGroup={() => handleDeleteGroup(groupStateObj.id)}
+            toggleAccordian={() => handleToggleGroup(groupKey)}
+            deleteActiveGroup={() => handleDeleteFromActiveGroups(groupKey)}
+            hidden={isCategoryHidden}
+          >
+            <Category
+              placeholder={"i.e., Languages"}
+              onChange={(e) =>
+                updateFormGroup({
+                  ...groupStateObj,
+                  [catConfig.name]: e.target.value,
+                })
+              }
+              value={skillCat}
+            />
+          </GroupHeading>
+          <div
+            className="accordian-content-wrapper"
+            aria-hidden={isCategoryHidden}
+          >
+            <div className="accordian-content">
               <div className="skills-wrapper">
                 {skillItemsState.map((skillObj) => {
                   const skillKey = `${groupKey}-${skillObj.id}`;
                   const isSkillHidden = isGroupHidden(skillKey);
-
                   return (
                     <div
-                      className="replicable accordian"
+                      className="replicable accordian container"
                       key={`skill-item-${skillObj.id}`}
                     >
                       <div className="accordian-panel">
@@ -108,10 +110,10 @@ function SkillInputGroup({
                           hidden={isSkillHidden}
                         />
                         <div
-                          className="accordian-content"
+                          className="accordian-content-wrapper"
                           aria-hidden={isSkillHidden}
                         >
-                          <div>
+                          <div className="accordian-content">
                             <InputField
                               title={skillConfig.title}
                               inputType={skillConfig.type}
@@ -126,7 +128,6 @@ function SkillInputGroup({
                 })}
               </div>
               {/* ========Skill accordian group jsx======== */}
-
               <button data-button-type="add-skill" onClick={addSkill}>
                 <span>+ add skill</span>
               </button>

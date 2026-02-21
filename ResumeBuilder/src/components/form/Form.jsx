@@ -1,6 +1,6 @@
 function Form({ title, formIsReplicable, addFormGroup, children }) {
   return (
-    <div className="form">
+    <div className="form container">
       <div className="form-title-wrapper">
         <span className="form-title">{title}</span>
         {formIsReplicable && (

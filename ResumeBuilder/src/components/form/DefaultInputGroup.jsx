@@ -24,7 +24,7 @@ function DefaultInputGroup({
   }
 
   return formIsReplicable ? (
-    <div className="replicable accordian">
+    <div className="replicable accordian container">
       <div className="accordian-panel">
         <GroupHeading
           titleData={titleData}
@@ -33,8 +33,8 @@ function DefaultInputGroup({
           toggleAccordian={() => handleToggleGroup(groupKey)}
           hidden={hidden}
         />
-        <div className="accordian-content" aria-hidden={hidden}>
-          <div>
+        <div className="accordian-content-wrapper" aria-hidden={hidden}>
+          <div className="accordian-content">
             {currentFormInputFields.map((field) => (
               <InputField
                 key={field.name}
@@ -49,7 +49,17 @@ function DefaultInputGroup({
       </div>
     </div>
   ) : (
-    <div className="irreplicable">{inputGroup}</div>
+    <div className="irreplicable">
+      {currentFormInputFields.map((field) => (
+        <InputField
+          key={field.name}
+          title={field.title}
+          inputType={field.type}
+          inputValue={groupStateObj[field.name]} // uses the input config object name to access the state of the same name
+          onChange={(e) => onInputChange(e, field)}
+        />
+      ))}
+    </div>
   );
 }
 

@@ -7,7 +7,7 @@ function Header({ view, setView }) {
   }
 
   return (
-    <div className="view-header">
+    <div className="view-header container">
       <button className="form-view" onClick={() => manageView("form")}>
         Edit Form
       </button>
