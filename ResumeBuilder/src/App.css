@@ -12,6 +12,7 @@
   --slate-1-half: hsl(223, 26%, 88%);
   --slate-1-unfocus: hsla(223, 26%, 95%, 0.6);
   --slate-2: #36404a;
+  --slate-2-faded: hsla(210, 16%, 25%, 0.6);
   --slate-3: #0099cc;
   --slate-3-faded: #0099cc30;
   --slate-3-Dfaded: #0099cc13;
@@ -162,25 +163,25 @@ button:disabled {
   padding: var(--padding-4);
 }
 
-.accordian-panel {
+.accordion-panel {
   display: grid;
 }
 
-.accordian-content-wrapper {
+.accordion-content-wrapper {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 500ms;
 }
 
-.accordian-content {
+.accordion-content {
   margin-top: 20px;
 }
 
-.skills-wrapper .accordian-content-wrapper .accordian-content {
+.skills-wrapper .accordion-content-wrapper .accordion-content {
   margin-top: 0;
 }
 
-.accordian-content-wrapper[aria-hidden="false"] {
+.accordion-content-wrapper[aria-hidden="false"] {
   grid-template-rows: 1fr;
 }
 
@@ -213,7 +214,7 @@ button:disabled {
   font-size: 1.1rem;
 }
 
-.untitled-category {
+.untitled {
   font-style: italic;
   opacity: 0.6;
 }
@@ -260,7 +261,7 @@ button:disabled {
   outline: none;
 }
 
-.accordian-content {
+.accordion-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: var(--padding-4);
@@ -268,7 +269,7 @@ button:disabled {
   overflow: hidden;
 }
 
-.accordian-content > div {
+.accordion-content > div {
   grid-column: 1/-1;
   padding: 0 var(--padding-4);
 }
@@ -277,7 +278,7 @@ button:disabled {
   padding: 0;
 }
 
-.accordian-content-wrapper > div > div:last-child {
+.accordion-content-wrapper > div > div:last-child {
   padding-bottom: var(--padding-4);
 }
 
@@ -291,18 +292,18 @@ button:disabled {
   padding-left: 0px;
 }
 
-button[data-button-type="accordian-control"] {
+button[data-button-type="accordion-control"] {
   padding: var(--no-padding);
   margin: var(--no-padding);
   background: none;
 }
 
-button[data-button-type="accordian-control"] svg {
+button[data-button-type="accordion-control"] svg {
   transition: transform 500ms;
   transform: rotate(0);
 }
 
-button[data-button-type="accordian-control"] > svg.visible {
+button[data-button-type="accordion-control"] > svg.visible {
   transform: rotate(180deg);
 }
 
