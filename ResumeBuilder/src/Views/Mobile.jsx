@@ -8,7 +8,7 @@ function Mobile({ view, currentFormConfig, mobileProps }) {
   const totalForms = Object.keys(forms).length - 1;
   const staticSharedProps = {
     currentFormInputFields: mobileProps.currentFormInputFields,
-    handleToggleGroup: mobileProps.handleToggleGroup,
+    toggleAccordion: mobileProps.toggleAccordion,
     isGroupHidden: mobileProps.isGroupHidden,
     updateFormGroup: mobileProps.updateFormGroup,
     handleDeleteFromActiveGroups: mobileProps.handleDeleteFromActiveGroups,
@@ -38,11 +38,13 @@ function Mobile({ view, currentFormConfig, mobileProps }) {
           <Resume formData={mobileProps.formData} />
         )}
       </div>
-      <Footer
-        formNumber={mobileProps.formNumber}
-        totalForms={totalForms}
-        setFormNumber={mobileProps.setFormNumber}
-      />
+      {view.form && (
+        <Footer
+          formNumber={mobileProps.formNumber}
+          totalForms={totalForms}
+          setFormNumber={mobileProps.setFormNumber}
+        />
+      )}
     </div>
   );
 }

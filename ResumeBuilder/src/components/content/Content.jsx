@@ -94,7 +94,7 @@ function Content({ view }) {
     return activeGroups[key] || false;
   }
 
-  function handleToggleGroup(key) {
+  function toggleAccordion(key) {
     setActiveGroups((prev) => ({
       ...prev,
       [key]: !prev[key],
@@ -123,7 +123,7 @@ function Content({ view }) {
     isGroupHidden,
     handleAddGroup,
     updateFormGroup,
-    handleToggleGroup,
+    toggleAccordion,
     handleDeleteGroup,
     handleDeleteFromActiveGroups,
   };

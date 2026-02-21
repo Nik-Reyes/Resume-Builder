@@ -6,7 +6,7 @@ function GroupHeading({
   titleData,
   deleteGroup,
   deleteActiveGroup,
-  toggleAccordian,
+  toggleAccordion,
   hidden,
   children,
 }) {
@@ -23,7 +23,13 @@ function GroupHeading({
       <header className="group-title-wrapper">
         {children || (
           <>
-            <h1 className="group-title">
+            <h1
+              className={
+                titleData.titlePlaceholder === "Skill" && titleData.title === ""
+                  ? "group-title untitled"
+                  : "group-title"
+              }
+            >
               {titleData.title === ""
                 ? titleData.titlePlaceholder
                 : titleData.title}
@@ -55,8 +61,8 @@ function GroupHeading({
             <Meatball />
           </button>
           <button
-            data-button-type="accordian-control"
-            onClick={toggleAccordian}
+            data-button-type="accordion-control"
+            onClick={toggleAccordion}
           >
             <VChevron className={hidden ? "hidden" : "visible"} />
           </button>

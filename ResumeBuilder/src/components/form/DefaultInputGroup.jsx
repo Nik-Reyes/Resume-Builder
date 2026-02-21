@@ -5,7 +5,7 @@ function DefaultInputGroup({
   groupStateObj,
   currentFormInputFields,
   formIsReplicable,
-  handleToggleGroup,
+  toggleAccordion,
   updateFormGroup,
   handleDeleteGroup,
   isGroupHidden,
@@ -24,17 +24,17 @@ function DefaultInputGroup({
   }
 
   return formIsReplicable ? (
-    <div className="replicable accordian container">
-      <div className="accordian-panel">
+    <div className="replicable accordion container">
+      <div className="accordion-panel">
         <GroupHeading
           titleData={titleData}
           deleteGroup={() => handleDeleteGroup(groupStateObj.id)}
           deleteActiveGroup={() => handleDeleteFromActiveGroups(groupKey)}
-          toggleAccordian={() => handleToggleGroup(groupKey)}
+          toggleAccordion={() => toggleAccordion(groupKey)}
           hidden={hidden}
         />
-        <div className="accordian-content-wrapper" aria-hidden={hidden}>
-          <div className="accordian-content">
+        <div className="accordion-content-wrapper" aria-hidden={hidden}>
+          <div className="accordion-content">
             {currentFormInputFields.map((field) => (
               <InputField
                 key={field.name}

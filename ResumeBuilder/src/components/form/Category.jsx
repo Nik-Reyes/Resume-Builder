@@ -36,7 +36,7 @@ function Category({ placeholder, onChange, value }) {
             <span
               className={`${
                 value === ""
-                  ? "category-display-title untitled-category"
+                  ? "category-display-title untitled"
                   : "category-display-title"
               }`}
             >

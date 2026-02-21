@@ -6,7 +6,7 @@ import Category from "./Category.jsx";
 function SkillInputGroup({
   groupStateObj,
   currentFormInputFields,
-  handleToggleGroup,
+  toggleAccordion,
   isGroupHidden,
   updateFormGroup,
   groupKey,
@@ -59,15 +59,15 @@ function SkillInputGroup({
 
   return (
     <div className="skill-category-wrapper container">
-      <div className="accordian">
-        <div className="accordian-panel">
+      <div className="accordion">
+        <div className="accordion-panel">
           <GroupHeading
             titleData={{
               title: skillCat,
               titlePlaceholder: "Category",
             }}
             deleteGroup={() => handleDeleteGroup(groupStateObj.id)}
-            toggleAccordian={() => handleToggleGroup(groupKey)}
+            toggleAccordion={() => toggleAccordion(groupKey)}
             deleteActiveGroup={() => handleDeleteFromActiveGroups(groupKey)}
             hidden={isCategoryHidden}
           >
@@ -83,37 +83,37 @@ function SkillInputGroup({
             />
           </GroupHeading>
           <div
-            className="accordian-content-wrapper"
+            className="accordion-content-wrapper"
             aria-hidden={isCategoryHidden}
           >
-            <div className="accordian-content">
+            <div className="accordion-content">
               <div className="skills-wrapper">
                 {skillItemsState.map((skillObj) => {
                   const skillKey = `${groupKey}-${skillObj.id}`;
                   const isSkillHidden = isGroupHidden(skillKey);
                   return (
                     <div
-                      className="replicable accordian container"
+                      className="replicable accordion container"
                       key={`skill-item-${skillObj.id}`}
                     >
-                      <div className="accordian-panel">
+                      <div className="accordion-panel">
                         <GroupHeading
                           titleData={{
                             title: skillObj.skill,
                             titlePlaceholder: "Skill",
                           }}
                           deleteGroup={() => deleteSkill(skillObj.id, skillKey)}
-                          toggleAccordian={() => handleToggleGroup(skillKey)}
+                          toggleAccordion={() => toggleAccordion(skillKey)}
                           deleteActiveGroup={() =>
                             handleDeleteFromActiveGroups(skillKey)
                           }
                           hidden={isSkillHidden}
                         />
                         <div
-                          className="accordian-content-wrapper"
+                          className="accordion-content-wrapper"
                           aria-hidden={isSkillHidden}
                         >
-                          <div className="accordian-content">
+                          <div className="accordion-content">
                             <InputField
                               title={skillConfig.title}
                               inputType={skillConfig.type}
@@ -127,7 +127,7 @@ function SkillInputGroup({
                   );
                 })}
               </div>
-              {/* ========Skill accordian group jsx======== */}
+              {/* ========Skill accordion group jsx======== */}
               <button data-button-type="add-skill" onClick={addSkill}>
                 <span>+ add skill</span>
               </button>
