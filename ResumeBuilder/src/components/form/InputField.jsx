@@ -16,33 +16,30 @@ function InputField({ title, inputType, inputValue, onChange }) {
       inputClass = "input-control";
   }
 
-  const input =
-    inputType === "textarea" ? (
-      <textarea
-        id="form-input"
-        className="form-input"
-        placeholder=""
-        value={inputValue}
-        onChange={onChange}
-      ></textarea>
-    ) : (
-      <input
-        id="form-input"
-        className="form-input"
-        type={inputType}
-        placeholder=""
-        value={inputValue}
-        onChange={onChange}
-      />
-    );
-
   return (
     <div className={inputClass}>
       <label htmlFor="form-input">
         {!title.includes(skill) && (
           <span className="form-input-title">{title}</span>
         )}
-        {input}
+        {inputType === "textarea" ? (
+          <textarea
+            id="form-input"
+            className="form-input"
+            placeholder=""
+            value={inputValue}
+            onChange={onChange}
+          ></textarea>
+        ) : (
+          <input
+            id="form-input"
+            className="form-input"
+            type={inputType}
+            placeholder=""
+            value={inputValue}
+            onChange={onChange}
+          />
+        )}
       </label>
     </div>
   );
