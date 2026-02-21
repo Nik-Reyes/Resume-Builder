@@ -1,11 +1,17 @@
-function Form({ title, formIsReplicable, addFormGroup, children }) {
+function Form({
+  formName,
+  formIsReplicable,
+  formButtonName,
+  onClick,
+  children,
+}) {
   return (
     <div className="form container">
       <div className="form-title-wrapper">
-        <span className="form-title">{title}</span>
+        <span className="form-title">{formName}</span>
         {formIsReplicable && (
-          <button data-button-type="add-inputGroup" onClick={addFormGroup}>
-            + add {title.toLowerCase()}
+          <button data-button-type="add-inputGroup" onClick={onClick}>
+            + add {formButtonName}
           </button>
         )}
       </div>

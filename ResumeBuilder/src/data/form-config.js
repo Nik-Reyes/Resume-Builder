@@ -2,7 +2,8 @@ export const forms = {
   0: {
     replicable: false,
     section: "personalInformation",
-    displayTitle: "Personal Information",
+    formName: "Personal Information",
+    formButtonName: "personal information",
     customRender: false,
     inputFields: [
       { name: "firstName", title: "First Name", type: "text" },
@@ -17,7 +18,8 @@ export const forms = {
   1: {
     replicable: true,
     section: "education",
-    displayTitle: "Education",
+    formName: "Education",
+    formButtonName: "education",
     customRender: false,
     inputFields: [
       { name: "degree", title: "Degree", type: "text" },
@@ -29,7 +31,8 @@ export const forms = {
   2: {
     replicable: true,
     section: "skills",
-    displayTitle: "Skills",
+    formName: "Skills",
+    formButtonName: "category",
     customRender: true,
     inputFields: [
       { name: "category", title: "Category", type: "text" },
@@ -39,7 +42,8 @@ export const forms = {
   3: {
     replicable: true,
     section: "workExperience",
-    displayTitle: "Work Experience",
+    formName: "Work Experience",
+    formButtonName: "work experience",
     customRender: false,
     inputFields: [
       { name: "jobTitle", title: "Job Title", type: "text" },
@@ -53,7 +57,8 @@ export const forms = {
   4: {
     replicable: true,
     section: "projects",
-    displayTitle: "Projects",
+    formName: "Projects",
+    formButtonName: "projects",
     customRender: false,
     inputFields: [
       { name: "projectTitle", title: "Project Name", type: "text" },
