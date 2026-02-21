@@ -16,12 +16,17 @@ function Mobile({ view, currentFormConfig, mobileProps }) {
     formIsReplicable: mobileProps.formIsReplicable,
     handleAddGroup: mobileProps.handleAddGroup,
   };
+  const formTitles = {};
   return (
     <div className="content">
       <div className="main">
         {view.form ? (
           <Form
-            title={currentFormConfig.displayTitle}
+            title={
+              currentFormConfig.section === "skills"
+                ? "category"
+                : currentFormConfig.displayTitle
+            }
             formIsReplicable={mobileProps.formIsReplicable}
             addFormGroup={mobileProps.handleAddGroup}
           >
