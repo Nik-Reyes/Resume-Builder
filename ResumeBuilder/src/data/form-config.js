@@ -63,7 +63,7 @@ export const forms = {
     inputFields: [
       { name: "projectTitle", title: "Project Name", type: "text" },
       { name: "github", title: "GitHub URL", type: "url" },
-      { name: "description", title: "Work Duties", type: "textarea" },
+      { name: "description", title: "Project Description", type: "textarea" },
     ],
   },
 };
