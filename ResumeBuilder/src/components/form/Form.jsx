@@ -10,7 +10,11 @@ function Form({
       <div className="form-title-wrapper">
         <span className="form-title">{formName}</span>
         {formIsReplicable && (
-          <button data-button-type="add-inputGroup" onClick={onClick}>
+          <button
+            className="sharp-white"
+            data-button-type="add-inputGroup"
+            onClick={onClick}
+          >
             + add {formButtonName}
           </button>
         )}
