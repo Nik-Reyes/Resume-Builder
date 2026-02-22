@@ -1,18 +1,23 @@
-function Header({ view, setView }) {
-  function manageView(newView) {
-    const updateView = { ...view };
-    Object.keys(updateView).forEach((key) => (updateView[key] = false));
-    updateView[newView] = true;
-    setView(updateView);
-  }
-
+function Header({ view, manageView }) {
   return (
     <div className="view-header container">
-      <button className="form-view" onClick={() => manageView("form")}>
-        Edit Form
+      <button
+        className={
+          view.form ? "form-view sharp-white" : "form-view sharp-white inactive"
+        }
+        onClick={() => manageView("form")}
+      >
+        <span>Edit Form</span>
       </button>
-      <button className="resume-view" onClick={() => manageView("resume")}>
-        Preview Resume
+      <button
+        className={
+          view.form
+            ? "resume-view sharp-white inactive"
+            : "resume-view sharp-white"
+        }
+        onClick={() => manageView("resume")}
+      >
+        <span>Preview Resume</span>
       </button>
     </div>
   );
