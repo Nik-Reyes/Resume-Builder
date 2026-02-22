@@ -11,7 +11,7 @@ const CUSTOM_GROUP_STATES = {
   }),
 };
 
-function Content({ view }) {
+function Content({ view, manageView }) {
   const [formNumber, setFormNumber] = useState(0);
   const [activeGroups, setActiveGroups] = useState({});
   const [formData, setFormData] = useState(formState);
@@ -133,6 +133,7 @@ function Content({ view }) {
     <div className="page-content">
       <Mobile
         view={view}
+        manageView={manageView}
         currentFormConfig={currentFormConfig}
         mobileProps={mobileProps}
       />

@@ -4,7 +4,7 @@ import Resume from "../components/resume/Resume.jsx";
 import FormEntries from "../components/form/FormEntry.jsx";
 import Footer from "../components/footer/Footer.jsx";
 
-function Mobile({ view, currentFormConfig, mobileProps }) {
+function Mobile({ view, manageView, currentFormConfig, mobileProps }) {
   const totalForms = Object.keys(forms).length - 1;
   const staticSharedProps = {
     currentFormInputFields: mobileProps.currentFormInputFields,
@@ -43,6 +43,7 @@ function Mobile({ view, currentFormConfig, mobileProps }) {
           formNumber={mobileProps.formNumber}
           totalForms={totalForms}
           setFormNumber={mobileProps.setFormNumber}
+          manageView={manageView}
         />
       )}
     </div>

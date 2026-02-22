@@ -1,6 +1,7 @@
 import ProgressBar from "./ProgressBar.jsx";
 
-function Footer({ formNumber, totalForms, setFormNumber }) {
+function Footer({ formNumber, totalForms, setFormNumber, manageView }) {
+  const isLastForm = formNumber === totalForms;
   const prog =
     formNumber === 0
       ? 1 / (totalForms + 1)
@@ -20,23 +21,30 @@ function Footer({ formNumber, totalForms, setFormNumber }) {
   return (
     <div className="progress-footer container">
       <div className="spacer"></div>
-
       <div className="progress-content">
         <ProgressBar progPercent={prog} />
         <div className="progress-buttons-wrapper">
           <button
-            className="progress-button"
+            className="progress-button sharp-white"
             onClick={() => decrementFormNumber()}
             disabled={formNumber >= 1 ? false : true}
           >
-            Previous
+            <span>Previous</span>
           </button>
           <button
-            className="progress-button"
-            onClick={() => incrementFormNumber()}
-            disabled={formNumber >= totalForms ? true : false}
+            className={
+              isLastForm
+                ? "progress-button disabled"
+                : "progress-button sharp-white"
+            }
+            onClick={() => {
+              if (isLastForm) {
+                manageView("resume");
+              }
+              incrementFormNumber();
+            }}
           >
-            Next
+            <span>{isLastForm ? "Finish" : "Next"}</span>
           </button>
         </div>
       </div>
