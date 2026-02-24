@@ -5,13 +5,15 @@ function Resume({ formData }) {
     <div className="resume-wrapper">
       <div className="resume-page">
         {Object.keys(formData).map((sectionName) => {
+          if (sectionName.includes("skill")) console.log(formData[sectionName]);
           const sectionValues = formData[sectionName]
             .flatMap((obj) => Object.values(obj))
-            .filter((item) => typeof item !== "number");
+            .filter((item) => {
+              return typeof item === "string"; // filters out id and any other nested props (arr or obj) because if any section doesnt have a string to display, then dont render
+            });
           const isEmptySection = sectionValues.every((val) => val === "");
           const SectionComponent = sectionDirectory[sectionName];
           if (!SectionComponent || isEmptySection) return null;
-
           const isPersonal = sectionName === "personalInformation";
 
           return (
@@ -19,7 +21,7 @@ function Resume({ formData }) {
               {isPersonal ? (
                 <SectionComponent
                   sectionName={sectionName}
-                  content={formData}
+                  content={formData[sectionName]}
                 />
               ) : (
                 <>
@@ -28,7 +30,7 @@ function Resume({ formData }) {
                   <div className="section-content">
                     <SectionComponent
                       sectionName={sectionName}
-                      content={formData}
+                      content={formData[sectionName]}
                     />
                   </div>
                 </>

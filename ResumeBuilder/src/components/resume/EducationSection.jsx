@@ -1,5 +1,5 @@
 function Education({ sectionName, content }) {
-  return content[sectionName].map((group, i) => {
+  return content.map((group, i) => {
     return (
       <div className={`${sectionName}-wrapper`} key={`${sectionName}-${i}`}>
         <div className="content-header">

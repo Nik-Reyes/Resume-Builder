@@ -1,5 +1,5 @@
 function Personal({ sectionName, content }) {
-  return content[sectionName].map((personal, i) => {
+  return content.map((personal, i) => {
     const sectionTitle = personal.firstName + " " + personal.lastName;
     const linkedinHyperlink = personal.linkedin;
     const githubHyperlink = personal.github;
