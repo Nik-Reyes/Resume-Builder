@@ -58,7 +58,7 @@ export const forms = {
     replicable: true,
     section: "projects",
     formName: "Projects",
-    formButtonName: "projects",
+    formButtonName: "project",
     customRender: false,
     inputFields: [
       { name: "projectTitle", title: "Project Name", type: "text" },
