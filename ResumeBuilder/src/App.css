@@ -27,8 +27,7 @@
 
 body {
   background-color: var(--slate-1);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: sans-serif;
 }
 
 svg {
@@ -369,6 +368,10 @@ button[data-button-type="delete-group"].closed {
   animation: slide-right 300ms ease-in-out forwards;
 }
 
+[data-button-type="delete-group"].open {
+  animation: slide-left 300ms ease-in-out forwards;
+}
+
 button[data-button-type="edit-group"] {
   position: relative;
   z-index: 1;
@@ -377,10 +380,6 @@ button[data-button-type="edit-group"] {
 .header-buttons-wrapper {
   display: flex;
   align-items: center;
-}
-
-[data-button-type="delete-group"].open {
-  animation: slide-left 300ms ease-in-out forwards;
 }
 
 .input-control.skill .form-input {
@@ -483,20 +482,28 @@ input[type="date"] {
 }
 
 /* resume styles */
-.resume {
-  max-width: 800px;
+.resume-wrapper {
+  min-height: 100vh;
+  height: 100%;
 }
+
 .resume-page {
+  container-type: inline-size;
+
   box-shadow: 0 0 5px 2px var(--slate-1-half);
-  --large-text: 24pt;
-  --med-text: 14pt;
-  --small-text: 11pt;
-  --x-small-text: 10pt;
-  width: 8.5in;
-  height: 11in;
-  transform-origin: top center;
-  /* transform: scale(0.8); */
-  padding: 0.5in;
+  --page-width: 8.5in;
+  --page-height: 11in;
+  --page-padding: 0.5in 0.5in 0.5in 0.5in;
+
+  /* (pt × 96) / (72 × 816) × 100 */
+  --large-text: 3.92cqw; /* 24pt */
+  --med-text: 2.124cqw; /* 14pt */
+  --small-text: 1.8cqw; /* 11pt */
+  --x-small-text: 1.63cqw; /* 10pt */
+  aspect-ratio: 8.5 / 11;
+  max-width: var(--page-width);
+  max-height: var(--page-height);
+  padding: var(--page-padding);
   margin: var(--padding-4) auto;
 }
 
@@ -505,6 +512,7 @@ input[type="date"] {
   display: grid;
   grid-template-columns: 1fr auto;
 }
+
 .section-title {
   text-transform: capitalize;
   font-weight: 700;
@@ -563,6 +571,27 @@ input[type="date"] {
   display: list-item;
 }
 
+.category-list {
+  list-style-position: inside;
+}
+
+.section.skills {
+  font-size: var(--small-text);
+}
+
+.skill-list {
+  list-style: none;
+}
+
+.skill-list-item {
+  display: inline;
+}
+
+.category {
+  display: inline-flex;
+  column-gap: var(--padding-1);
+}
+
 /* color profiles */
 .frost {
   --fill-color: var(--slate-3);
@@ -607,6 +636,10 @@ input[type="date"] {
 }
 
 @media (pointer: fine) {
+  [data-button-type="delete-group"].open:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+
   .inactive:hover {
     opacity: 1;
   }
