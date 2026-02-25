@@ -11,7 +11,7 @@ function Category({ placeholder, onChange, value }) {
         <>
           <div className="catInput-wrapper">
             <input
-              className="catInput"
+              className="catInput br-tlr"
               placeholder={placeholder}
               onChange={onChange}
               onKeyDown={(e) => {
