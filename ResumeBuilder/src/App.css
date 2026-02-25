@@ -8,6 +8,7 @@
 :root {
   --white-1: #ffffff;
   --slate-1: #eef0f5;
+  --slate-half: #6e768d;
   --slate-1-half: hsl(223, 26%, 88%);
   --slate-1-unfocus: hsla(223, 26%, 95%, 0.6);
   --slate-2: #36404a;
@@ -22,6 +23,7 @@
   --padding-4: 20px;
   --padding-5: 25px;
   --padding-6: 30px;
+  --dark: #2d3142;
   --font-fallback: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -43,10 +45,6 @@ svg {
   display: block;
 }
 
-label span {
-  color: var(--slate-2);
-  font-size: 0.875rem;
-}
 progress {
   height: var(--progress-height);
   background: none;
@@ -76,23 +74,15 @@ progress[value] {
   border: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  color: var(--slate-2);
-}
-
 input {
   width: 100%;
-  min-width: 0px;
+  min-width: 0;
   padding: 0.75em 0.55em;
 }
 
 input,
 textarea {
-  color: var(--slate-2);
+  color: var(--dark);
   border-radius: var(--padding-2);
   border: none;
   appearance: none;
@@ -154,6 +144,14 @@ button:disabled {
   justify-content: center;
 }
 
+:is(.view-header, .progress-button-wrapper) button {
+  font-weight: 500;
+}
+
+.form-view {
+  color: var(--dark);
+}
+
 .view-header > button {
   flex: 1;
 }
@@ -202,6 +200,7 @@ button:disabled {
   align-items: center;
   justify-content: space-between;
   padding: var(--padding-4);
+  min-width: 0;
 }
 
 .skill-category-wrapper .group-header:not(.skills-wrapper .group-header),
@@ -217,8 +216,13 @@ button:disabled {
 }
 
 .category-display-title {
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+.category-display-title,
+.group-title {
   font-weight: 600;
-  font-size: 1.1rem;
 }
 
 .untitled {
@@ -343,13 +347,34 @@ button[data-button-type="add-skill"] {
 }
 
 .group-title {
-  font-size: var(--title-size);
+  font-size: 1rem;
+  color: var(--dark);
+}
+
+.skill-category-wrapper .group-title {
+  font-size: 0.875rem;
+}
+
+.group-title-wrapper {
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 .group-subtitle {
-  font-weight: 200;
+  font-weight: 300;
   font-style: italic;
-  font-size: calc(0.85 * var(--title-size));
+  font-size: 0.75rem;
+  color: var(--dark);
+}
+
+.group-title,
+.group-subtitle,
+input {
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  position: static;
+  text-overflow: ellipsis;
 }
 
 button[data-button-type="edit-group"] {
@@ -357,8 +382,12 @@ button[data-button-type="edit-group"] {
   padding-right: 0.5em;
 }
 
-.input-groups > div {
+.input-groups > div:not(.irreplicable) {
   outline: 1px solid rgba(112, 128, 144, 0.237);
+}
+
+.edit-group-btn-wrapper {
+  flex-shrink: 0;
 }
 
 .form:has(.replicable) .input-groups {
@@ -432,12 +461,21 @@ input[type="date"] {
   text-transform: uppercase;
 }
 
+input[type="date"][value=""] {
+  color: var(--slate-half);
+  text-transform: lowercase;
+  font-style: italic;
+  font-size: 1rem;
+}
+
 .form-title {
   font-weight: 600;
   font-size: 1.25rem;
+  color: var(--dark);
 }
 
 .form-input-title {
+  font-size: 0.875rem;
   color: var(--slate-half);
 }
 
@@ -451,7 +489,8 @@ input[type="date"] {
   padding: var(--padding-4);
 }
 
-.progress-footer {
+.progress-footer,
+.resume-footer {
   display: grid;
   position: sticky;
   left: 0;
@@ -466,11 +505,14 @@ input[type="date"] {
   z-index: 1;
 }
 
-.progress-buttons-wrapper {
-  display: grid;
+.progress-button-wrapper {
   column-gap: 10px;
   grid-template-columns: 1fr 1fr;
+}
+
+[class*="button-wrapper"] {
   padding: var(--padding-4);
+  display: grid;
 }
 
 .progress-button.disabled {
@@ -503,11 +545,12 @@ input[type="date"] {
 .resume-wrapper {
   min-height: 100vh;
   height: 100%;
+  padding: var(--padding-2);
 }
 
 .resume-page {
   container-type: inline-size;
-
+  background-color: var(--white-1);
   box-shadow: 0 0 5px 2px var(--slate-1-half);
   --page-width: 8.5in;
   --page-height: 11in;
