@@ -20,10 +20,10 @@ function GroupHeading({
 
   return (
     <div className="group-header">
-      <header className="group-title-wrapper">
+      <div className="group-title-wrapper">
         {children || (
           <>
-            <h1
+            <span
               className={
                 titleData.titlePlaceholder === "Skill" && titleData.title === ""
                   ? "group-title untitled"
@@ -33,7 +33,7 @@ function GroupHeading({
               {titleData.title === ""
                 ? titleData.titlePlaceholder
                 : titleData.title}
-            </h1>
+            </span>
             {"subTitle" in titleData && (
               <p className="group-subtitle">
                 {titleData.subTitle === ""
@@ -43,7 +43,7 @@ function GroupHeading({
             )}
           </>
         )}
-      </header>
+      </div>
       <div className="edit-group-btn-wrapper">
         <div className="header-buttons-wrapper">
           <button
