@@ -19,8 +19,13 @@ function Content({ view, manageView }) {
   const currentFormInputFields = currentFormConfig.inputFields;
   const currentFormSection = currentFormConfig.section;
   const currentFormData = formData[currentFormSection];
-
   const formIsReplicable = currentFormConfig.replicable;
+  const totalForms = Object.keys(forms).length - 1;
+  const isLastForm = formNumber === totalForms;
+  const prog =
+    formNumber === 0
+      ? 1 / (totalForms + 1)
+      : (formNumber + 1) / (totalForms + 1);
   const titleDataMap = {
     workExperience: (group) => ({
       title: group.jobTitle,
@@ -110,6 +115,19 @@ function Content({ view, manageView }) {
   }
   /////////// END ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
 
+  /////////// START PROGRESS MANIPULATION FUNCTIONS ///////////
+  function incrementFormNumber() {
+    if (formNumber >= totalForms) return;
+    setFormNumber(formNumber + 1);
+  }
+
+  function decrementFormNumber() {
+    if (formNumber <= 0) return;
+    setFormNumber(formNumber - 1);
+  }
+
+  /////////// END PROGRESS MANIPULATION FUNCTIONS ///////////
+
   const mobileProps = {
     formData,
     formNumber,
@@ -119,7 +137,11 @@ function Content({ view, manageView }) {
     currentFormConfig,
     currentFormSection,
     currentFormInputFields,
+    isLastForm,
+    prog,
     setFormNumber,
+    incrementFormNumber,
+    decrementFormNumber,
     isGroupHidden,
     handleAddGroup,
     updateFormGroup,
