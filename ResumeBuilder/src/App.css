@@ -1,9 +1,8 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@font-face {
+  font-family: "IBM-Plex-Sans";
+  src: url("./fonts/IBM-Plex-Sans.woff2") format("woff2 supports variations"),
+    url("./fonts/IBM-Plex-Sans.woff2") format("woff2-variations");
+  font-weight: 100 700;
 }
 
 :root {
@@ -23,11 +22,21 @@
   --padding-4: 20px;
   --padding-5: 25px;
   --padding-6: 30px;
+  --font-fallback: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "IBM-Plex-Sans", var(--font-fallback);
 }
 
 body {
   background-color: var(--slate-1);
-  font-family: sans-serif;
 }
 
 svg {
@@ -83,8 +92,6 @@ input {
 
 input,
 textarea {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: var(--slate-2);
   border-radius: var(--padding-2);
   border: none;
