@@ -128,9 +128,15 @@ function SkillInputGroup({
                 })}
               </div>
               {/* ========Skill accordion group jsx======== */}
-              <button data-button-type="add-skill" onClick={addSkill}>
-                <span>+ add skill</span>
-              </button>
+              <div className="skill-button-wrapper">
+                <button
+                  className="add-skill br-tlr"
+                  data-button-type="add-skill"
+                  onClick={addSkill}
+                >
+                  <span>+ add skill</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
