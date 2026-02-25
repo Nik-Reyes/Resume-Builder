@@ -69,7 +69,12 @@ function Mobile({ view, manageView, currentFormConfig, mobileProps }) {
             <Resume formData={mobileProps.formData} />
             <Footer className="resume-footer container">
               <ButtonWrapper className="button-wrapper container">
-                <Button className="download-resume-button">Download</Button>
+                <Button
+                  className="download-resume-button"
+                  onClick={() => window.print()}
+                >
+                  Download
+                </Button>
               </ButtonWrapper>
             </Footer>
           </>

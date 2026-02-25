@@ -721,3 +721,35 @@ input[type="date"][value=""] {
     background-color: var(--slate-3-Dfaded);
   }
 }
+
+@media print {
+  @page {
+    margin: 0;
+    height: 11in;
+    width: 8.5in;
+  }
+
+  .view-header,
+  .resume-footer {
+    display: none !important;
+  }
+
+  .page-wrapper,
+  .resume-wrapper {
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: min-content;
+  }
+
+  .resume-page {
+    margin: 0.25in 0.5in !important;
+    box-shadow: none !important;
+    height: min-content !important;
+    padding: 0 !important;
+  }
+
+  .bar {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
