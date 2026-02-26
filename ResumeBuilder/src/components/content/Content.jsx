@@ -15,6 +15,7 @@ function Content({ view, manageView }) {
   const [formNumber, setFormNumber] = useState(0);
   const [activeGroups, setActiveGroups] = useState({});
   const [formData, setFormData] = useState(formState);
+  // console.log(formData);
   const currentFormConfig = forms[formNumber];
   const currentFormInputFields = currentFormConfig.inputFields;
   const currentFormSection = currentFormConfig.section;
