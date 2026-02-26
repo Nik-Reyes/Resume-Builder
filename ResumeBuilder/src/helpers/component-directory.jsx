@@ -5,9 +5,9 @@ import Projects from "../components/resume/ProjectSection.jsx";
 import Skills from "../components/resume/SkillsSection.jsx";
 
 export const sectionDirectory = {
-  education: Education,
   personalInformation: Personal,
+  education: Education,
+  skills: Skills,
   workExperience: WorkHistory,
   projects: Projects,
-  skills: Skills,
 };
