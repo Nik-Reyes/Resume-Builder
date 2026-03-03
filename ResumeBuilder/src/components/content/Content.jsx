@@ -112,7 +112,6 @@ function Content({ view, manageView }) {
     if (formNumber <= 0) return;
     setFormNumber(formNumber - 1);
   }
-
   /////////// END PROGRESS MANIPULATION FUNCTIONS ///////////
 
   const mobileProps = {
@@ -138,12 +137,16 @@ function Content({ view, manageView }) {
   // content will load or the desktop version will
   return (
     <div className="page-content">
-      <View
-        view={view}
-        manageView={manageView}
-        currentFormConfig={currentFormConfig}
-        mobileProps={mobileProps}
-      />
+      <div className="content">
+        <div className="main">
+          <View
+            view={view}
+            manageView={manageView}
+            currentFormConfig={currentFormConfig}
+            mobileProps={mobileProps}
+          />
+        </div>
+      </div>
     </div>
   );
 }
