@@ -1,17 +1,18 @@
 import { sectionDirectory } from "../../helpers/component-directory.jsx";
 
 function Resume({ formData }) {
-  console.log(Object.keys(formData));
   return (
     <div className="resume-wrapper">
       <div className="intermediate-wrapper">
         <div className="resume-page">
           {Object.keys(formData).map((sectionName) => {
-            const sectionValues = formData[sectionName]
-              .flatMap((obj) => Object.values(obj))
-              .filter((item) => {
-                return typeof item === "string"; // filters out id and any other nested props (arr or obj) because if any section doesnt have a string to display, then dont render
-              });
+            const sectionValues = formData[sectionName].flatMap((obj) =>
+              Object.entries(obj)
+                .filter(([key, value]) => {
+                  return key !== "id" && typeof value === "string"; // filters out id and any other nested props (arr or obj) because if any section doesnt have a string to display, then dont render
+                })
+                .map(([, value]) => value)
+            );
             const isEmptySection = sectionValues.every((val) => val === "");
             const SectionComponent = sectionDirectory[sectionName];
             if (!SectionComponent || isEmptySection) return null;
