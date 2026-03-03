@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Edit from "../../assets/svg/edit-button-svgrepo-com.svg?react";
 import Save from "../../assets/svg/check-square-svgrepo-com.svg?react";
 
 function Category({ placeholder, onChange, value }) {
   const [isEditing, setIsEditing] = useState(false);
+  const input = useRef(null);
+
+  console.log(input);
+
+  useEffect(() => {
+    if (isEditing) {
+      input.current.focus();
+    }
+  }, [isEditing]);
 
   let category = null;
   isEditing
@@ -11,6 +20,7 @@ function Category({ placeholder, onChange, value }) {
         <>
           <div className="catInput-wrapper">
             <input
+              ref={input}
               className="catInput br-tlr"
               placeholder={placeholder}
               onChange={onChange}
@@ -20,6 +30,7 @@ function Category({ placeholder, onChange, value }) {
                 }
               }}
               value={value}
+              tabIndex={1}
             />
           </div>
           <button
@@ -44,7 +55,9 @@ function Category({ placeholder, onChange, value }) {
             </span>
           </div>
           <button
-            onClick={() => setIsEditing(true)}
+            onClick={() => {
+              setIsEditing(true);
+            }}
             data-button-type="edit-category"
           >
             <Edit width={20} height={20} className="category-edit-icon frost" />
