@@ -619,6 +619,7 @@ input[type="date"][value=""] {
 
 .content-subtitle .date {
   display: flex;
+  column-gap: 2px;
 }
 
 .start,
