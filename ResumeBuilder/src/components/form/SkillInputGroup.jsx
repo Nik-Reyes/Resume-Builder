@@ -12,6 +12,7 @@ function SkillInputGroup({
   groupKey,
   handleDeleteGroup,
   handleDeleteFromActiveGroups,
+  handleOnBlur,
 }) {
   const [catConfig, skillConfig] = currentFormInputFields;
   const skillItemsState = groupStateObj.skills;
@@ -19,25 +20,35 @@ function SkillInputGroup({
   const isCategoryHidden = isGroupHidden(groupKey);
 
   function onSkillInputChange(e, skillToUpdate) {
-    const newVal = e.target.value;
+    const currentInputVal = e.target.value;
     const updatedGroup = {
       ...groupStateObj,
       skills: skillItemsState.map((skill) =>
-        skill.id === skillToUpdate.id ? { ...skill, skill: newVal } : skill
+        skill.id === skillToUpdate.id
+          ? { ...skill, skill: currentInputVal }
+          : skill
       ),
     };
     updateFormGroup(updatedGroup);
   }
 
-  function addSkill() {
-    // determines the nest highest skill id. If no skill exists, start at 0
-    const nextSkillId =
-      skillItemsState.length > 0
-        ? Math.max(...skillItemsState.map((skill) => skill.id)) + 1
-        : 0;
+  function onBlur(e, skillToUpdate) {
+    const currentInputVal = e.target.value.trim();
 
+    const updatedGroup = {
+      ...groupStateObj,
+      skills: skillItemsState.map((skill) =>
+        skill.id === skillToUpdate.id
+          ? { ...skill, skill: currentInputVal }
+          : skill
+      ),
+    };
+    handleOnBlur(updatedGroup);
+  }
+
+  function addSkill() {
     // generate the new skill
-    const newSkill = { id: nextSkillId, [skillConfig.name]: "" };
+    const newSkill = { id: crypto.randomUUID(), [skillConfig.name]: "" };
 
     // add the new skill to the category
     const updatedCategory = {
@@ -89,12 +100,12 @@ function SkillInputGroup({
             <div className="accordion-content">
               <div className="skills-wrapper">
                 {skillItemsState.map((skillObj) => {
-                  const skillKey = `${groupKey}-${skillObj.id}`;
+                  const skillKey = skillObj.id;
                   const isSkillHidden = isGroupHidden(skillKey);
                   return (
                     <div
                       className="replicable accordion container"
-                      key={`skill-item-${skillObj.id}`}
+                      key={skillObj.id}
                     >
                       <div className="accordion-panel">
                         <GroupHeading
@@ -115,10 +126,12 @@ function SkillInputGroup({
                         >
                           <div className="accordion-content">
                             <InputField
+                              id={skillObj.id}
                               title={skillConfig.title}
                               inputType={skillConfig.type}
                               inputValue={skillObj.skill}
                               onChange={(e) => onSkillInputChange(e, skillObj)}
+                              onBlur={(e) => onBlur(e, skillObj)}
                             />
                           </div>
                         </div>

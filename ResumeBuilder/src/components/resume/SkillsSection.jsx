@@ -5,14 +5,17 @@ function Skills({ content }) {
         return (
           <li key={`cat-${category.id}`}>
             <div className="category">
-              <div className="category-label">{category.category + ":"}</div>
+              <div className="category-label">
+                {category.category === ""
+                  ? "Uncategorized: "
+                  : category.category + ":"}
+              </div>
               <div className="category-skills">
                 <ul className="skill-list">
                   {category.skills.map((skill, i) => {
-                    const skl = skill.skill.trim();
                     return (
                       <li className="skill-list-item" key={`skill-${skill.id}`}>
-                        {`${i === 0 ? skl : " " + skl}${
+                        {`${i === 0 ? skill.skill : " " + skill.skill}${
                           i < Object.keys(category.skills).length - 1 ? "," : ""
                         }`}
                       </li>

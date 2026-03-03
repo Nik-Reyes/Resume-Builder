@@ -28,18 +28,18 @@ const BULLET_CHARS = {
 
 function BulletPoints({ description }) {
   const newline = "\n";
-  let desc = description.trim();
+  if (description.length === 0) return null;
   let points = null;
 
   const bulletType = Object.values(BULLET_CHARS).find((val) =>
-    desc.includes(val)
+    description.includes(val)
   );
 
   if (bulletType) {
-    if (desc[0] === bulletType) desc = desc.slice(1);
-    points = desc.split(bulletType);
+    if (description[0] === bulletType) description = description.slice(1);
+    points = description.split(bulletType);
   } else {
-    points = desc.split(newline);
+    points = description.split(newline);
   }
 
   return (

@@ -1,21 +1,19 @@
 import { useState } from "react";
 import { forms } from "../../data/form-config.js";
 import { formState } from "../../data/form-state.js";
-import Mobile from "../../Views/Mobile.jsx";
+import View from "../../Views/View.jsx";
 
 const CUSTOM_GROUP_STATES = {
   skills: (id, fields) => ({
     id,
     category: "",
-    skills: [{ id: 0, [fields[1].name]: "" }],
+    skills: [{ id: crypto.randomUUID(), [fields[1].name]: "" }],
   }),
 };
 
 function Content({ view, manageView }) {
   const [formNumber, setFormNumber] = useState(0);
-  const [activeGroups, setActiveGroups] = useState({});
   const [formData, setFormData] = useState(formState);
-  // console.log(formData);
   const currentFormConfig = forms[formNumber];
   const currentFormInputFields = currentFormConfig.inputFields;
   const currentFormSection = currentFormConfig.section;
@@ -51,21 +49,17 @@ function Content({ view, manageView }) {
     if (!formIsReplicable) return;
 
     const newGroupData = [...currentFormData, newGroup];
-    setFormData({ ...formData, [currentFormSection]: newGroupData });
+    const newFormData = { ...formData, [currentFormSection]: newGroupData };
+    setFormData(newFormData);
   }
 
   function createGroup() {
-    const nextId =
-      currentFormData.length > 0
-        ? Math.max(...currentFormData.map((group) => group.id)) + 1
-        : 0;
-
     const factory = CUSTOM_GROUP_STATES[currentFormSection];
     if (factory) {
-      return factory(nextId, currentFormInputFields);
+      return factory(crypto.randomUUID(), currentFormInputFields);
     }
 
-    const newGroup = { id: nextId };
+    const newGroup = { id: crypto.randomUUID() };
     currentFormInputFields.forEach((field) => {
       newGroup[field.name] = "";
     });
@@ -82,39 +76,31 @@ function Content({ view, manageView }) {
     const updatedGroupData = currentFormData.map((group) => {
       return group.id === updatedGroup.id ? updatedGroup : group;
     });
-
-    setFormData({
+    const newFormData = {
       ...formData,
       [currentFormSection]: updatedGroupData,
+    };
+    setFormData(newFormData);
+  }
+
+  function handleOnBlur(updatedGroup) {
+    const updatedGroupData = currentFormData.map((group) => {
+      return group.id === updatedGroup.id ? updatedGroup : group;
     });
+    const newFormData = {
+      ...formData,
+      [currentFormSection]: updatedGroupData,
+    };
+
+    setFormData(newFormData);
   }
 
   function handleDeleteGroup(id) {
     const filteredGroups = currentFormData.filter((group) => group.id !== id);
-    setFormData({ ...formData, [currentFormSection]: filteredGroups });
+    const newFormData = { ...formData, [currentFormSection]: filteredGroups };
+    setFormData(newFormData);
   }
   /////////// END GROUP MANIPULATION FUNCTIONS ///////////
-
-  /////////// START ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
-  function isGroupHidden(key) {
-    return activeGroups[key] || false;
-  }
-
-  function toggleAccordion(key) {
-    setActiveGroups((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  }
-
-  function handleDeleteFromActiveGroups(key) {
-    if (key in activeGroups) {
-      const newActiveGroups = { ...activeGroups };
-      delete newActiveGroups[key];
-      setActiveGroups(newActiveGroups);
-    }
-  }
-  /////////// END ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
 
   /////////// START PROGRESS MANIPULATION FUNCTIONS ///////////
   function incrementFormNumber() {
@@ -143,18 +129,16 @@ function Content({ view, manageView }) {
     setFormNumber,
     incrementFormNumber,
     decrementFormNumber,
-    isGroupHidden,
     handleAddGroup,
     updateFormGroup,
-    toggleAccordion,
+    handleOnBlur,
     handleDeleteGroup,
-    handleDeleteFromActiveGroups,
   };
   // depending on screen width, either the mobile version of the page
   // content will load or the desktop version will
   return (
     <div className="page-content">
-      <Mobile
+      <View
         view={view}
         manageView={manageView}
         currentFormConfig={currentFormConfig}

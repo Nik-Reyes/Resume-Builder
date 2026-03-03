@@ -9,23 +9,22 @@ function FormEntries({
   currentFormSection,
 }) {
   return currentFormData.map((groupStateObj) => {
-    const key = `${currentFormSection}-${groupStateObj.id}`;
     const titleData = titleDataMap[currentFormSection]?.(groupStateObj);
     return customRender ? (
       <SkillInputGroup
         {...staticSharedProps}
         groupStateObj={groupStateObj}
-        groupKey={key}
-        key={key}
+        groupKey={groupStateObj.id}
+        key={groupStateObj.id}
       />
     ) : (
       <DefaultInputGroup
         {...staticSharedProps}
         formIsReplicable={staticSharedProps.formIsReplicable}
         groupStateObj={groupStateObj}
-        groupKey={key}
+        groupKey={groupStateObj.id}
         titleData={titleData}
-        key={key}
+        key={groupStateObj.id}
       />
     );
   });

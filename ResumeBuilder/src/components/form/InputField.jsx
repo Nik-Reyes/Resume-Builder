@@ -1,4 +1,4 @@
-function InputField({ title, inputType, inputValue, onChange }) {
+function InputField({ id, title, inputType, inputValue, onChange, onBlur }) {
   let inputClass = null;
   const skill = "Skill";
 
@@ -18,26 +18,28 @@ function InputField({ title, inputType, inputValue, onChange }) {
 
   return (
     <div className={inputClass}>
-      <label htmlFor="form-input">
+      <label htmlFor={id}>
         {!title.includes(skill) && (
           <span className="form-input-title">{title}</span>
         )}
         {inputType === "textarea" ? (
           <textarea
-            id="form-input"
+            id={id}
             className="form-input"
             placeholder=""
             value={inputValue}
             onChange={onChange}
+            onBlur={onBlur}
           ></textarea>
         ) : (
           <input
-            id="form-input"
+            id={id}
             className="form-input"
             type={inputType}
             placeholder=""
             value={inputValue}
             onChange={onChange}
+            onBlur={onBlur}
           />
         )}
       </label>

@@ -16,6 +16,7 @@ function Mobile({ view, manageView, currentFormConfig, mobileProps }) {
     handleDeleteGroup: mobileProps.handleDeleteGroup,
     formIsReplicable: mobileProps.formIsReplicable,
     handleAddGroup: mobileProps.handleAddGroup,
+    handleOnBlur: mobileProps.handleOnBlur,
   };
   return (
     <div className="content">

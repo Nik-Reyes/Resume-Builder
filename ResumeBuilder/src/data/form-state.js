@@ -1,24 +1,32 @@
 import { forms } from "./form-config.js";
 
-export const formState = {
-  ...Object.fromEntries(
-    Object.values(forms)
-      .filter(({ customRender }) => !customRender)
-      .map(({ section, inputFields }) => [
-        section,
-        [
-          {
-            id: 0,
-            ...Object.fromEntries(inputFields.map(({ name }) => [name, ""])),
-          },
-        ],
-      ])
-  ),
+const CUSTOM_STATES = {
   skills: [
     {
-      id: 0,
-      category: "Category",
-      skillItems: [{ id: 0, skill: "" }],
+      id: crypto.randomUUID(),
+      category: "",
+      skills: [{ id: crypto.randomUUID(), skill: "" }],
     },
   ],
 };
+const formState = {
+  ...Object.fromEntries(
+    Object.values(forms).map(({ section, inputFields, customRender }) => {
+      return customRender
+        ? [section, CUSTOM_STATES[section]]
+        : [
+            section,
+            [
+              {
+                id: crypto.randomUUID(),
+                ...Object.fromEntries(
+                  inputFields.map(({ name }) => [name, ""])
+                ),
+              },
+            ],
+          ];
+    })
+  ),
+};
+
+export { formState };
