@@ -1,3 +1,5 @@
+import { format, parseISO } from "date-fns";
+
 function Education({ sectionName, content }) {
   return content.map((group, i) => {
     return (
@@ -7,7 +9,10 @@ function Education({ sectionName, content }) {
           <div className="content-subtitle">{group.university}</div>
         </div>
         <div className="date">
-          <div className="end">{group.endDate}</div>
+          <div className="end">
+            {group.endDate &&
+              format(new Date(parseISO(group.endDate)), "MMMM yyyy")}
+          </div>
         </div>
       </div>
     );
