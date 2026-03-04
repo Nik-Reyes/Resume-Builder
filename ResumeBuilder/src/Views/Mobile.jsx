@@ -6,65 +6,60 @@ import ProgressBar from "../components/footer/ProgressBar.jsx";
 import ButtonWrapper from "../components/button/ButtonWrapper.jsx";
 import Button from "../components/button/button.jsx";
 
-function Mobile({ view, manageView, currentFormConfig, mobileProps }) {
-  const staticSharedProps = {
-    currentFormInputFields: mobileProps.currentFormInputFields,
-    toggleAccordion: mobileProps.toggleAccordion,
-    isGroupHidden: mobileProps.isGroupHidden,
-    updateFormGroup: mobileProps.updateFormGroup,
-    handleDeleteFromActiveGroups: mobileProps.handleDeleteFromActiveGroups,
-    handleDeleteGroup: mobileProps.handleDeleteGroup,
-    formIsReplicable: mobileProps.formIsReplicable,
-    handleAddGroup: mobileProps.handleAddGroup,
-    handleOnBlur: mobileProps.handleOnBlur,
-  };
+function Mobile({
+  view,
+  manageView,
+  currentFormConfig,
+  viewProps,
+  sharedEntryProps,
+}) {
   return view.form ? (
     <>
       <Form
         formName={currentFormConfig.formName}
-        formIsReplicable={mobileProps.formIsReplicable}
+        formIsReplicable={viewProps.formIsReplicable}
         formButtonName={currentFormConfig.formButtonName}
-        onClick={mobileProps.handleAddGroup}
+        onClick={viewProps.handleAddGroup}
       >
         <FormEntries
-          currentFormData={mobileProps.currentFormData}
-          staticSharedProps={staticSharedProps}
-          titleDataMap={mobileProps.titleDataMap}
-          customRender={mobileProps.currentFormConfig.customRender}
-          currentFormSection={mobileProps.currentFormSection}
+          currentFormData={viewProps.currentFormData}
+          sharedEntryProps={sharedEntryProps}
+          titleDataMap={viewProps.titleDataMap}
+          customRender={viewProps.currentFormConfig.customRender}
+          currentFormSection={viewProps.currentFormSection}
         />
       </Form>
       <Footer className="progress-footer container">
-        <ProgressBar progPercent={mobileProps.prog} />
+        <ProgressBar progPercent={viewProps.prog} />
         <ButtonWrapper className="progress-button-wrapper">
           <Button
             className="progress-button sharp-white"
-            onClick={mobileProps.decrementFormNumber}
-            disabled={mobileProps.formNumber <= 0}
+            onClick={viewProps.decrementFormNumber}
+            disabled={viewProps.formNumber <= 0}
           >
             <span>Previous</span>
           </Button>
           <Button
             className={
-              mobileProps.isLastForm
+              viewProps.isLastForm
                 ? "progress-button disabled"
                 : "progress-button sharp-white"
             }
             onClick={() => {
-              if (mobileProps.isLastForm) {
+              if (viewProps.isLastForm) {
                 manageView("resume");
               }
-              mobileProps.incrementFormNumber();
+              viewProps.incrementFormNumber();
             }}
           >
-            <span>{mobileProps.isLastForm ? "Finish" : "Next"}</span>
+            <span>{viewProps.isLastForm ? "Finish" : "Next"}</span>
           </Button>
         </ButtonWrapper>
       </Footer>
     </>
   ) : (
     <>
-      <Resume formData={mobileProps.formData} />
+      <Resume formData={viewProps.formData} />
       <Footer className="resume-footer container">
         <ButtonWrapper className="button-wrapper container">
           <Button

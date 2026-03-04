@@ -137,16 +137,12 @@ function Content({ view, manageView }) {
   // content will load or the desktop version will
   return (
     <div className="page-content">
-      <div className="content">
-        <div className="main">
-          <View
-            view={view}
-            manageView={manageView}
-            currentFormConfig={currentFormConfig}
-            mobileProps={mobileProps}
-          />
-        </div>
-      </div>
+      <View
+        view={view}
+        manageView={manageView}
+        currentFormConfig={currentFormConfig}
+        mobileProps={mobileProps}
+      />
     </div>
   );
 }

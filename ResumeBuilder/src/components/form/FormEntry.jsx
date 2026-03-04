@@ -3,7 +3,7 @@ import SkillInputGroup from "./SkillInputGroup.jsx";
 
 function FormEntries({
   currentFormData,
-  staticSharedProps,
+  sharedEntryProps,
   titleDataMap,
   customRender,
   currentFormSection,
@@ -12,15 +12,15 @@ function FormEntries({
     const titleData = titleDataMap[currentFormSection]?.(groupStateObj);
     return customRender ? (
       <SkillInputGroup
-        {...staticSharedProps}
+        {...sharedEntryProps}
         groupStateObj={groupStateObj}
         groupKey={groupStateObj.id}
         key={groupStateObj.id}
       />
     ) : (
       <DefaultInputGroup
-        {...staticSharedProps}
-        formIsReplicable={staticSharedProps.formIsReplicable}
+        {...sharedEntryProps}
+        formIsReplicable={sharedEntryProps.formIsReplicable}
         groupStateObj={groupStateObj}
         groupKey={groupStateObj.id}
         titleData={titleData}
