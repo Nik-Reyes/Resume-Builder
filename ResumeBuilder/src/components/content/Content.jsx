@@ -114,7 +114,7 @@ function Content({ view, manageView }) {
   }
   /////////// END PROGRESS MANIPULATION FUNCTIONS ///////////
 
-  const mobileProps = {
+  const contentProps = {
     formData,
     formNumber,
     titleDataMap,
@@ -141,7 +141,7 @@ function Content({ view, manageView }) {
         view={view}
         manageView={manageView}
         currentFormConfig={currentFormConfig}
-        mobileProps={mobileProps}
+        contentProps={contentProps}
       />
     </div>
   );

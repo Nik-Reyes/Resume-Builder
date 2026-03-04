@@ -3,7 +3,7 @@ import Mobile from "./Mobile.jsx";
 import Desktop from "./Desktop.jsx";
 import { useState } from "react";
 
-function View({ view, manageView, currentFormConfig, mobileProps }) {
+function View({ view, manageView, currentFormConfig, contentProps }) {
   const [activeGroups, setActiveGroups] = useState({});
   const isMobile = useMediaQuery({ maxWidth: 900 });
   /////////// START ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
@@ -28,22 +28,22 @@ function View({ view, manageView, currentFormConfig, mobileProps }) {
   /////////// END ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
 
   const sharedEntryProps = {
-    currentFormInputFields: mobileProps.currentFormInputFields,
-    toggleAccordion: mobileProps.toggleAccordion,
-    isGroupHidden: mobileProps.isGroupHidden,
-    updateFormGroup: mobileProps.updateFormGroup,
-    handleDeleteFromActiveGroups: mobileProps.handleDeleteFromActiveGroups,
-    handleDeleteGroup: mobileProps.handleDeleteGroup,
-    formIsReplicable: mobileProps.formIsReplicable,
-    handleAddGroup: mobileProps.handleAddGroup,
-    handleOnBlur: mobileProps.handleOnBlur,
+    currentFormInputFields: contentProps.currentFormInputFields,
+    toggleAccordion: contentProps.toggleAccordion,
+    isGroupHidden: contentProps.isGroupHidden,
+    updateFormGroup: contentProps.updateFormGroup,
+    handleDeleteFromActiveGroups: contentProps.handleDeleteFromActiveGroups,
+    handleDeleteGroup: contentProps.handleDeleteGroup,
+    formIsReplicable: contentProps.formIsReplicable,
+    handleAddGroup: contentProps.handleAddGroup,
+    handleOnBlur: contentProps.handleOnBlur,
     handleDeleteFromActiveGroups: handleDeleteFromActiveGroups,
     toggleAccordion: toggleAccordion,
     isGroupHidden: isGroupHidden,
   };
 
   const viewProps = {
-    ...mobileProps,
+    ...contentProps,
     handleDeleteFromActiveGroups: handleDeleteFromActiveGroups,
     toggleAccordion: toggleAccordion,
     isGroupHidden: isGroupHidden,
