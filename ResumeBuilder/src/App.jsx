@@ -20,18 +20,20 @@ function App() {
     setView(updateView);
   }
 
-  useEffect(() => {
-    if (!isMobile && view.resume) {
-      manageView("customize");
-    }
-  }, [isMobile]);
+  const currentView = {
+    ...view,
+    // mobile: previews only the resume
+    resume: isMobile && view.resume,
+    // desktop: renders the customize whether the user clicks 'customize' while on 'edit form' or if user was already in 'preview resume' when on mobile
+    customize: !isMobile && (view.customize || view.resume),
+  };
 
   return (
     <div className="page-wrapper">
       <Header>
         <Button
           className={
-            view.form
+            currentView.form
               ? "form-view sharp-white"
               : "form-view sharp-white inactive"
           }
@@ -39,31 +41,20 @@ function App() {
         >
           <span>Edit Form</span>
         </Button>
-        {isMobile ? (
-          <Button
-            className={
-              view.form
-                ? "resume-view sharp-white inactive"
-                : "resume-view sharp-white"
-            }
-            onClick={() => manageView("resume")}
-          >
-            <span>Preview Resume</span>
-          </Button>
-        ) : (
-          <Button
-            className={
-              view.form
-                ? "resume-view sharp-white inactive"
-                : "resume-view sharp-white"
-            }
-            onClick={() => manageView("customize")}
-          >
-            <span>Customize</span>
-          </Button>
-        )}
+        <Button
+          className={
+            currentView.form
+              ? "resume-view sharp-white inactive"
+              : "resume-view sharp-white"
+          }
+          onClick={() =>
+            isMobile ? manageView("resume") : manageView("customize")
+          }
+        >
+          <span>{isMobile ? " Preview Resume" : "Customize"}</span>
+        </Button>
       </Header>
-      <Content view={view} manageView={manageView} isMobile={isMobile} />
+      <Content view={currentView} manageView={manageView} isMobile={isMobile} />
     </div>
   );
 }

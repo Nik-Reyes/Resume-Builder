@@ -126,6 +126,7 @@ function Content({ view, manageView, isMobile }) {
     isLastForm,
     prog,
     isMobile,
+    view,
     setFormNumber,
     incrementFormNumber,
     decrementFormNumber,
@@ -138,8 +139,7 @@ function Content({ view, manageView, isMobile }) {
   return (
     <div className="page-content">
       <View
-        view={view}
-        manageView={manageView}
+        manageView={manageView} // progress footer needs this
         currentFormConfig={currentFormConfig}
         contentProps={contentProps}
       />

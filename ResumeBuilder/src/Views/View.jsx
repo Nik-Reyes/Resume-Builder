@@ -1,8 +1,12 @@
+// View exists as an intermdediary component to house the activeGroups state
+// it houses the activeGroup states to reduce the amount of components that are re-rendered and the number of variables/functions are recreated
+// if activeGroups exists on content then all of Content's variables and functions will be recreated
+
 import Mobile from "./Mobile.jsx";
 import Desktop from "./Desktop.jsx";
 import { useState } from "react";
 
-function View({ view, manageView, currentFormConfig, contentProps }) {
+function View({ manageView, currentFormConfig, contentProps }) {
   const [activeGroups, setActiveGroups] = useState({});
   /////////// START ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
   function isGroupHidden(key) {
@@ -47,15 +51,13 @@ function View({ view, manageView, currentFormConfig, contentProps }) {
     isGroupHidden: isGroupHidden,
   };
 
-  console.log(view);
-
   return (
     <div
       className={contentProps.isMobile ? "content mobile" : "content desktop"}
     >
       {contentProps.isMobile ? (
         <Mobile
-          view={view}
+          view={contentProps.view}
           manageView={manageView}
           currentFormConfig={currentFormConfig}
           viewProps={viewProps}
@@ -66,7 +68,7 @@ function View({ view, manageView, currentFormConfig, contentProps }) {
           currentFormConfig={currentFormConfig}
           viewProps={viewProps}
           sharedEntryProps={sharedEntryProps}
-          view={view}
+          view={contentProps.view}
         />
       )}
     </div>
