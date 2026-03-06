@@ -6,8 +6,6 @@ function Category({ placeholder, onChange, value }) {
   const [isEditing, setIsEditing] = useState(false);
   const input = useRef(null);
 
-  console.log(input);
-
   useEffect(() => {
     if (isEditing) {
       input.current.focus();

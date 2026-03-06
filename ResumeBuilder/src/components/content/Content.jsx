@@ -11,7 +11,7 @@ const CUSTOM_GROUP_STATES = {
   }),
 };
 
-function Content({ view, manageView }) {
+function Content({ view, manageView, isMobile }) {
   const [formNumber, setFormNumber] = useState(0);
   const [formData, setFormData] = useState(formState);
   const currentFormConfig = forms[formNumber];
@@ -125,6 +125,7 @@ function Content({ view, manageView }) {
     currentFormInputFields,
     isLastForm,
     prog,
+    isMobile,
     setFormNumber,
     incrementFormNumber,
     decrementFormNumber,
@@ -133,8 +134,7 @@ function Content({ view, manageView }) {
     handleOnBlur,
     handleDeleteGroup,
   };
-  // depending on screen width, either the mobile version of the page
-  // content will load or the desktop version will
+
   return (
     <div className="page-content">
       <View

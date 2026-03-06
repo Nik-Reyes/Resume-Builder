@@ -1,11 +1,9 @@
-import { useMediaQuery } from "react-responsive";
 import Mobile from "./Mobile.jsx";
 import Desktop from "./Desktop.jsx";
 import { useState } from "react";
 
 function View({ view, manageView, currentFormConfig, contentProps }) {
   const [activeGroups, setActiveGroups] = useState({});
-  const isMobile = useMediaQuery({ maxWidth: 900 });
   /////////// START ACTIVE GROUP MANIPULATION FUNCTIONS ///////////
   function isGroupHidden(key) {
     return activeGroups[key] || false;
@@ -49,9 +47,13 @@ function View({ view, manageView, currentFormConfig, contentProps }) {
     isGroupHidden: isGroupHidden,
   };
 
+  console.log(view);
+
   return (
-    <div className={isMobile ? "content mobile" : "content desktop"}>
-      {isMobile ? (
+    <div
+      className={contentProps.isMobile ? "content mobile" : "content desktop"}
+    >
+      {contentProps.isMobile ? (
         <Mobile
           view={view}
           manageView={manageView}
@@ -64,6 +66,7 @@ function View({ view, manageView, currentFormConfig, contentProps }) {
           currentFormConfig={currentFormConfig}
           viewProps={viewProps}
           sharedEntryProps={sharedEntryProps}
+          view={view}
         />
       )}
     </div>
