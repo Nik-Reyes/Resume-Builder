@@ -9,7 +9,7 @@ function WorkHistory({ sectionName, content }) {
           <div className="content-title">
             <span>{group.jobTitle}</span>
             <span> {group.jobTitle && "-"} </span>
-            <span>{group.employer}</span>
+            <span className="employer">{group.employer}</span>
           </div>
           <div className="content-subtitle">
             <div className="date">
