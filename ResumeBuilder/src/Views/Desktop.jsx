@@ -1,16 +1,23 @@
 import Form from "../components/form/Form.jsx";
 import Resume from "../components/resume/Resume.jsx";
-import FormEntries from "../components/form/FormEntry.jsx";
 import Footer from "../components/footer/Footer.jsx";
+import Button from "../components/button/Button.jsx";
+import Message from "../components/message/Message.jsx";
+import FormEntries from "../components/form/FormEntry.jsx";
 import ProgressBar from "../components/footer/ProgressBar.jsx";
 import ButtonWrapper from "../components/button/ButtonWrapper.jsx";
-import Button from "../components/button/Button.jsx";
 
 function Desktop({ currentFormConfig, viewProps, sharedEntryProps, view }) {
   return (
     <>
       {view.customize ? (
-        "coming soon"
+        <div className="resume-customization-wrapper">
+          <Message className="coming-soon">
+            <div className="message-headline">
+              <h1>Coming Soon</h1>
+            </div>
+          </Message>
+        </div>
       ) : (
         <div className="form-col">
           <Form
