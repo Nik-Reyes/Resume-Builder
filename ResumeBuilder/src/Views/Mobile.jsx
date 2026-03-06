@@ -4,7 +4,7 @@ import FormEntries from "../components/form/FormEntry.jsx";
 import Footer from "../components/footer/Footer.jsx";
 import ProgressBar from "../components/footer/ProgressBar.jsx";
 import ButtonWrapper from "../components/button/ButtonWrapper.jsx";
-import Button from "../components/button/button.jsx";
+import Button from "../components/button/Button.jsx";
 
 function Mobile({
   view,
@@ -34,7 +34,10 @@ function Mobile({
         <ButtonWrapper className="progress-button-wrapper">
           <Button
             className="progress-button sharp-white"
-            onClick={viewProps.decrementFormNumber}
+            onClick={() => {
+              if (viewProps.formNumber <= 0) return;
+              viewProps.decrementFormNumber();
+            }}
             disabled={viewProps.formNumber <= 0}
           >
             <span>Previous</span>
@@ -42,7 +45,7 @@ function Mobile({
           <Button
             className={
               viewProps.isLastForm
-                ? "progress-button disabled"
+                ? "progress-button ocean"
                 : "progress-button sharp-white"
             }
             onClick={() => {
@@ -63,7 +66,7 @@ function Mobile({
       <Footer className="resume-footer container">
         <ButtonWrapper className="button-wrapper container">
           <Button
-            className="download-resume-button"
+            className="download-resume-button frost"
             onClick={() => window.print()}
           >
             Download
