@@ -41,7 +41,7 @@ function Desktop({ currentFormConfig, viewProps, sharedEntryProps, view }) {
                 className="progress-button sharp-white"
                 onClick={() => {
                   if (viewProps.formNumber <= 0) return;
-                  viewProps.decrementFormNumber;
+                  viewProps.decrementFormNumber();
                 }}
                 disabled={viewProps.formNumber <= 0}
               >
