@@ -66,7 +66,7 @@ function Mobile({
       <Footer className="resume-footer container">
         <ButtonWrapper className="button-wrapper container">
           <Button
-            className="download-resume-button frost"
+            className="download-resume-button ocean"
             onClick={() => window.print()}
           >
             Download

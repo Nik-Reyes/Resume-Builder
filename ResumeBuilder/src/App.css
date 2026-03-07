@@ -594,6 +594,10 @@ input[type="date"][value=""] {
   padding: 0;
 }
 
+.download-resume-button {
+  font-weight: 500;
+}
+
 .intermediate-wrapper {
   --v-padding: round(down, 2.94cqw, 1px); /* (pt / 8.5in) * 100 */
   --h-padding: round(down, 5.882cqw, 1px);
