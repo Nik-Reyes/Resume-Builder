@@ -26,7 +26,11 @@ function Resume({ formData }) {
                   />
                 ) : (
                   <>
-                    <div className="section-title">{sectionName}</div>
+                    <div className="section-title">
+                      {sectionName === "workExperience"
+                        ? "Work History"
+                        : sectionName}
+                    </div>
                     <div className="bar"></div>
                     <div className="section-content">
                       <SectionComponent
