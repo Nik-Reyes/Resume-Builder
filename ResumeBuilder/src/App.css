@@ -595,37 +595,41 @@ input[type="date"][value=""] {
 }
 
 .intermediate-wrapper {
-  max-width: 8.5in;
+  --v-padding: round(down, 2.94cqw, 1px); /* (pt / 8.5in) * 100 */
+  --h-padding: round(down, 5.882cqw, 1px);
+  --page-width: 8.5in;
+  --page-height: 11in;
   container-type: inline-size;
+  max-width: calc(var(--page-width) + calc(var(--h-padding) * 2));
+  max-height: 11in;
+  padding: var(--v-padding);
   margin: 0 auto;
+  overflow: hidden;
+  background-color: var(--white-1);
+  box-shadow: 0 0 5px 2px var(--slate-1-half);
 }
 
 .resume-page {
   container-type: inline-size;
-  background-color: var(--white-1);
-  box-shadow: 0 0 5px 2px var(--slate-1-half);
-  --page-width: 8.5in;
-  --page-height: 11in;
 
-  /* (px / 8.5in) * 100 */
-  --page-padding: round(down, 2.94cqw, 1px) round(down, 5.882cqw, 1px);
-
+  /* equation to caluclate cqw size @ 8.5in width/816px */
   /* (pt × 96) / (72 × 816) × 100 */
-  --large-text: round(down, 4.5cqw, 1px); /* 24pt */
-  --med-text: 2.685cqw; /* 14pt */
-  --small-text: 2.132cqw; /* 11pt */
-  --x-small-text: 1.947cqw; /* 10pt */
-  aspect-ratio: 8.5 / 11;
+  --large-text: round(down, 4.5cqw, 1px); /* 27.54pt / 36.72px */
+  --med-text: 2.635cqw; /* 15.82pt / 21.09px */
+  --small-text: 2.082cqw; /* 14.67pt / 16.58px */
+  --x-small-text: 1.897cqw; /* 11.3pt / 15.07px */
   max-width: var(--page-width);
   max-height: var(--page-height);
-  padding: var(--page-padding);
+  aspect-ratio: 8.5 / 11;
+
+  overflow: hidden;
 }
 
 .desktop .resume-page {
   box-shadow: none;
 }
 
-.resume-page > .section:not(:last-child) {
+.resume-page > .section:not(:last-child, :first-child) {
   padding-bottom: calc(var(--x-small-text) * 0.76);
 }
 
@@ -863,9 +867,9 @@ input[type="date"][value=""] {
 
 @media print {
   @page {
-    margin: 0.25in 0.5in;
     height: 11in;
     width: 8.5in;
+    margin: 0.25in;
   }
 
   .view-header,
@@ -876,9 +880,9 @@ input[type="date"][value=""] {
   }
 
   .intermediate-wrapper {
-    margin: 0 !important;
+    margin: 0in !important;
     padding: 0 !important;
-    overflow: unset;
+    box-shadow: none !important;
   }
 
   .page-wrapper,
@@ -887,7 +891,6 @@ input[type="date"][value=""] {
     margin: 0 !important;
     min-height: 0 !important;
     overflow: unset;
-    display: unset;
   }
 
   .content {
@@ -896,8 +899,6 @@ input[type="date"][value=""] {
 
   .resume-page {
     padding: 0 !important;
-    box-shadow: none !important;
-    height: min-content !important;
     padding: 0 !important;
   }
 
