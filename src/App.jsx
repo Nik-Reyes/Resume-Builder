@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import Header from "./components/Header/Header.jsx";
 import Content from "./components/content/Content.jsx";

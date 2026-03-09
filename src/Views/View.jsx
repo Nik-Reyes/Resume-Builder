@@ -31,21 +31,11 @@ function View({ manageView, currentFormConfig, contentProps }) {
 
   const sharedEntryProps = {
     currentFormInputFields: contentProps.currentFormInputFields,
-    toggleAccordion: contentProps.toggleAccordion,
-    isGroupHidden: contentProps.isGroupHidden,
     updateFormGroup: contentProps.updateFormGroup,
-    handleDeleteFromActiveGroups: contentProps.handleDeleteFromActiveGroups,
     handleDeleteGroup: contentProps.handleDeleteGroup,
     formIsReplicable: contentProps.formIsReplicable,
     handleAddGroup: contentProps.handleAddGroup,
     handleOnBlur: contentProps.handleOnBlur,
-    handleDeleteFromActiveGroups: handleDeleteFromActiveGroups,
-    toggleAccordion: toggleAccordion,
-    isGroupHidden: isGroupHidden,
-  };
-
-  const viewProps = {
-    ...contentProps,
     handleDeleteFromActiveGroups: handleDeleteFromActiveGroups,
     toggleAccordion: toggleAccordion,
     isGroupHidden: isGroupHidden,
@@ -60,13 +50,13 @@ function View({ manageView, currentFormConfig, contentProps }) {
           view={contentProps.view}
           manageView={manageView}
           currentFormConfig={currentFormConfig}
-          viewProps={viewProps}
+          viewProps={{ ...contentProps }}
           sharedEntryProps={sharedEntryProps}
         />
       ) : (
         <Desktop
           currentFormConfig={currentFormConfig}
-          viewProps={viewProps}
+          viewProps={{ ...contentProps }}
           sharedEntryProps={sharedEntryProps}
           view={contentProps.view}
         />

@@ -66,7 +66,7 @@ function DefaultInputGroup({
     </div>
   ) : (
     <div className="irreplicable">
-      {currentFormInputFields.map((field, i) => (
+      {currentFormInputFields.map((field) => (
         <InputField
           id={field.name + "-" + groupStateObj.id}
           key={field.name}
