@@ -20,8 +20,10 @@ function Skills({ content }) {
                           className="skill-list-item"
                           key={`skill-${skill.id}`}
                         >
-                          {(i ? ", " : "") + skill.skill} // 0 is falsey, skips
-                          first skill
+                          {
+                            // 0 is falsey, skips first skill
+                            (i ? ", " : "") + skill.skill
+                          }
                         </li>
                       );
                     })}
