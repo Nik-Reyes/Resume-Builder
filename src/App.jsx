@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import Header from "./components/Header/Header.jsx";
+import Header from "./components/header/Header.jsx";
 import Content from "./components/content/Content.jsx";
 import Button from "./components/button/Button.jsx";
 
