@@ -12,15 +12,19 @@ function Skills({ content }) {
               </div>
               <div className="category-skills">
                 <ul className="skill-list">
-                  {category.skills.map((skill, i) => {
-                    return (
-                      <li className="skill-list-item" key={`skill-${skill.id}`}>
-                        {`${i === 0 ? skill.skill : " " + skill.skill}${
-                          i < Object.keys(category.skills).length - 1 ? "," : ""
-                        }`}
-                      </li>
-                    );
-                  })}
+                  {category.skills
+                    .filter((skill) => skill.skill !== "")
+                    .map((skill, i) => {
+                      return (
+                        <li
+                          className="skill-list-item"
+                          key={`skill-${skill.id}`}
+                        >
+                          {(i ? ", " : "") + skill.skill} // 0 is falsey, skips
+                          first skill
+                        </li>
+                      );
+                    })}
                 </ul>
               </div>
             </div>
